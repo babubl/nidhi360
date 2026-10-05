@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { ChevronRight, MessageCircle } from "lucide-react";
 import { Container, Cites } from "./ui";
 import { ruleById } from "../data/rules";
-import { config } from "../config";
 
 export function useTitle(title: string, description?: string) {
   useEffect(() => {
@@ -80,13 +79,15 @@ export function RulesUsed({ ids }: { ids: string[] }) {
 }
 
 export function ExpertHelp({ context }: { context: string }) {
-  if (!config.whatsapp) return null;
-  const msg = encodeURIComponent(`Hi Nidhi360, I need help with: ${context}`);
   return (
-    <a href={`https://wa.me/${config.whatsapp}?text=${msg}`} target="_blank" rel="noopener noreferrer"
-      className="mt-4 flex items-center gap-3 rounded-xl border border-line p-4 no-underline hover:border-brand-200 hover:bg-brand-50">
-      <MessageCircle className="size-5 text-brand-600" aria-hidden />
-      <span className="text-[15px]"><span className="font-semibold text-ink">Still stuck? Talk to a PF expert.</span><span className="block text-sm text-muted">Chat on WhatsApp. Never share your password or OTP.</span></span>
-    </a>
+    <Link to={`/help?topic=${encodeURIComponent(context)}`}
+      className="no-print mt-4 flex items-center gap-3 rounded-xl border border-line p-4 no-underline hover:border-brand-200 hover:bg-brand-50">
+      <MessageCircle className="size-5 shrink-0 text-brand-600" aria-hidden />
+      <span className="text-[15px]"><span className="font-semibold text-ink">Still stuck? Get an expert on your case.</span><span className="block text-sm text-muted">Pay only after we confirm we can help. We never ask for your password or OTP.</span></span>
+    </Link>
   );
+}
+
+export function SavedNote() {
+  return <p className="text-[13px] text-muted">Your entries are saved only on this device and prefill the other tools. <Link to="/legal#privacy" className="text-muted underline">Clear them</Link></p>;
 }

@@ -19,7 +19,7 @@ The EPF Scheme 2026, the ₹25,000 wage ceiling (about 51 lakh newly covered wor
 
 ## Product (live today)
 
-- **Problem search and an answers library:** 31 questions, each with a direct answer, steps, the rule behind it and the right tool.
+- **Problem search and an answers library:** 34 questions, each with a direct answer, steps, the rule behind it and the right tool.
 - **Resolution tools:**
   - PF account check
   - rejection decoder
@@ -30,8 +30,12 @@ The EPF Scheme 2026, the ₹25,000 wage ceiling (about 51 lakh newly covered wor
   - deadline reminders as a calendar file
   - NPS tax and NPS exit planners
 - **The rules register:** 28 rules, each with its status, effective date and official source. Every tool and every AI answer reads from it.
+- **Expert help for hard cases** (₹499 case review, ₹999 full support; you pay only after we confirm we can help). Every "stuck" path in the product leads here.
+- **Trust layer:** a named founder with credentials, a "checked on" date and "report an error" link on every answer, and plain-language terms, privacy and disclaimer.
+- **Remembers you without an account:** details entered once prefill the other tools, stored only on the device.
+- **Partner-ready:** any page embeds in payroll or HRMS apps with `?embed=1`.
 - **Privacy:** no login, and nothing the user types leaves the browser. We never touch credentials or money.
-- **Quality:** 66 automated tests, including a benchmark of 30 real user questions that must find the right answer. CI deploys on every push.
+- **Quality:** 69 automated tests, including a benchmark of 30 real user questions that must find the right answer. CI deploys on every push.
 
 ## Moat
 
@@ -81,6 +85,18 @@ We deliberately exclude ads, annuity or insurance lead-selling, and anything tha
 - *"Your users live on WhatsApp and UPI apps, not on websites."* → **Share on WhatsApp** on every answer and the PF check score. On the roadmap: a UPI-app mini-app (PhonePe Switch-style) and a WhatsApp bot built on the same answers library and search.
 - *"Most of India won't use an English-only finance site."* → Acknowledged. The founder chose English for this phase. Content is already data-driven, so **Hindi first, then Tamil and other languages** is a content change, not a rebuild. It's the top roadmap item once English product-market fit is shown.
 - *"Never touch credentials. One leaked OTP and you're done."* → Already true: we block Aadhaar, PAN and OTP numbers in AI and complaint inputs, and say so on every page.
+
+## Founder self-review (investor and user lens), and what changed
+
+| Feedback | Change |
+|---|---|
+| "Help stops at the portal door; no human when I'm stuck" | Expert help with clear prices, linked from every tool and answer; answers for OTP not received, portal down and agent safety |
+| "It doesn't know me; I retype everything" | Tools share the person's details on their device (age, balance, service, dates) |
+| "Who's behind this?" | Named founder with credentials on Home, About and every answer |
+| "One wrong answer and I'm gone" | A checked date and a public "report an error" link on every answer and rule |
+| "No revenue yet" | Paid case review and full support tiers; employer pilot; payroll embed |
+| "Compliance edges" | Terms, privacy (DPDP-aligned) and disclaimer, including "not a SEBI-registered investment adviser"; clear-my-data control |
+| "English only" | Kept by founder decision for now; Hindi and then Tamil next, once there is early traction |
 
 ## Metrics we will report
 

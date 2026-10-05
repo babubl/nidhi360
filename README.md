@@ -8,8 +8,10 @@ PF and NPS, sorted, for salaried India. Nidhi360 tells people what they can with
 
 | Area | Route | What it does |
 |---|---|---|
-| Answers | `/answers`, `/answers/:slug` | 31 common questions with a direct answer, steps, the rules behind it and the right tool; site-wide problem search |
+| Answers | `/answers`, `/answers/:slug` | 34 common questions with a direct answer, steps, the rules behind it and the right tool; site-wide problem search |
 | Complaint drafter | `/pf/grievance` | Paste-ready EPFiGMS grievance for delayed, rejected or unpaid claims, stuck transfers and employer defaults, with the 20-day deadline check |
+| Expert help | `/help` | Paid help for hard cases (₹499 case review, ₹999 full support; prices in `src/pages/Help.tsx`), sent by WhatsApp or email |
+| About, Terms & privacy | `/about`, `/legal` | Founder profile (`src/data/team.ts`), methodology, DPDP-aligned privacy, disclaimer, clear-my-data |
 | Deadline reminders | `/reminders` | Personal PF/NPS dates (exit date, 12-month settlement, EPS at 58, NPS before 60, life certificate) as a calendar file |
 | Life stages | `/start/:stage` | 20s / 30s / 40s / 50s: the three things to do now, and mistakes to avoid |
 | PF account check | `/pf/health-check` | 11-point readiness score with a prioritised fix list |
@@ -44,6 +46,14 @@ worker/          Cloudflare Worker AI proxy: holds the Gemini key, grounds answe
 ## Investor memo
 
 See [docs/PITCH.md](docs/PITCH.md) for the problem, market, competition, business model, metrics and the investor-panel feedback behind recent changes.
+
+## Embedding (payroll / HRMS partners)
+
+Add `?embed=1` to any page URL to hide the site header and footer, e.g. `https://babubl.github.io/nidhi360/pf/withdraw?embed=1`, and place it in an iframe.
+
+## Content corrections
+
+Every answer and rule has a **Report an error** link that opens a prefilled GitHub issue (label `content-error`). Fix the data file, bump `reviewed` on the answer (or `RULES_CHECKED_ON`), and close the issue with the commit.
 
 ## Resolution benchmark
 

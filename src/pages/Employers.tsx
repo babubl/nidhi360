@@ -44,6 +44,13 @@ export default function Employers() {
             </div>
           ))}
         </div>
+        <div className="mt-16 rounded-2xl border border-line p-6 sm:p-8">
+          <h2 className="text-2xl font-bold">For payroll and HRMS platforms</h2>
+          <p className="mt-2 max-w-2xl text-body">Put PF and NPS help where employees already see their payslips. Every Nidhi360 page can be embedded without our header and footer, and the rules engine and calculators are built as standalone modules ready for an API.</p>
+          <pre className="mt-4 overflow-x-auto rounded-lg bg-canvas p-4 text-[13px] text-ink"><code>{`<iframe src="https://babubl.github.io/nidhi360/pf/withdraw?embed=1"
+        width="100%" height="900" style="border:0"></iframe>`}</code></pre>
+          <p className="mt-3 text-sm text-muted">Works with any page: answers, PF check, withdrawal, pension, NPS planners, complaint drafter.</p>
+        </div>
         <div className="mt-16 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <h2 className="text-2xl font-bold">Start with a 60-day pilot</h2>

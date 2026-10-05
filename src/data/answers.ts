@@ -21,6 +21,8 @@ export interface Answer {
   /** Extra words people use for this problem; used by search. */
   keywords: string[];
   related?: string[];
+  /** ISO date this answer was last checked against official sources (defaults to the register date). */
+  reviewed?: string;
 }
 
 export const ANSWERS: Answer[] = [
@@ -190,6 +192,48 @@ export const ANSWERS: Answer[] = [
     rules: ["R8", "R6"],
     keywords: ["transfer", "move pf", "new job", "job change", "switch job", "changed job", "form 13", "old employer", "one member one epf"],
     related: ["two-uans", "employer-not-approving"],
+  },
+  {
+    slug: "otp-not-received", category: "account",
+    question: "I'm not getting the OTP on the EPFO portal.",
+    short: "EPFO sends claim and transfer OTPs to the mobile linked to your Aadhaar, not necessarily the one on your EPFO profile. If that number is old or inactive, update it at an Aadhaar centre first. If the number is right, wait a few minutes and retry, ideally outside peak hours.",
+    steps: [
+      "Check which mobile is linked to your Aadhaar (the myAadhaar website shows the last digits).",
+      "If it's an old number, update it at an Aadhaar Seva Kendra; the change takes a few days to reflect.",
+      "If it's the right number, check DND or SMS-blocking settings, and retry after 10–15 minutes. Late night and early morning are usually less congested.",
+      "Try the UMANG app as an alternative route for the same service.",
+    ],
+    rules: [],
+    keywords: ["otp", "not received", "not receiving", "no otp", "otp not coming", "aadhaar mobile", "verification code", "sms not coming"],
+    related: ["portal-not-working", "forgot-uan"],
+  },
+  {
+    slug: "portal-not-working", category: "account",
+    question: "The EPFO portal isn't working. What can I do?",
+    short: "The member portal often slows down at month-end and on salary days. Try early morning or late night, use the UMANG app as an alternative, and clear your browser cache. Your claim deadlines don't depend on one bad day, so don't pay an agent to 'get it done'.",
+    steps: [
+      "Try again early morning or after 10 pm, avoiding the first and last few days of the month.",
+      "Use the UMANG app (EPFO section) for passbook, claims and claim status.",
+      "Use a desktop browser in a private window, or clear the cache, if pages fail to load.",
+      "If a specific service has been failing for days, raise it on EPFiGMS with a screenshot of the error.",
+    ],
+    tool: { to: "/pf/grievance", label: "Draft a complaint" },
+    rules: [],
+    keywords: ["portal", "website", "not working", "down", "server", "error", "site not opening", "unified portal", "slow", "loading"],
+    related: ["otp-not-received", "check-balance"],
+  },
+  {
+    slug: "pf-agent-safe", category: "account",
+    question: "Is it safe to give my UAN password or OTP to a PF agent?",
+    short: "No. Anyone with your UAN password and an OTP can change your bank account and withdraw your PF. EPFO's online services are free, and almost everything can be done yourself. If you've already shared them, change your password now and check your claim history.",
+    steps: [
+      "Change your UAN password on the member portal immediately.",
+      "Check Track Claim Status and your passbook for claims you didn't make, and confirm your bank details under Manage › KYC.",
+      "If anything looks wrong, raise it on EPFiGMS right away and inform your bank.",
+    ],
+    rules: [],
+    keywords: ["agent", "safe", "share password", "share otp", "fraud", "scam", "consultant", "middleman", "someone asked otp"],
+    related: ["forgot-uan", "check-balance"],
   },
   {
     slug: "two-uans", category: "account",

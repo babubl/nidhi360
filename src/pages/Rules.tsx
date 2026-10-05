@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Flag } from "lucide-react";
+import { reportErrorUrl } from "../data/team";
 import { rulesByRecency, RULES_CHECKED_ON } from "../data/rules";
 import type { Area } from "../data/types";
 import { fmtDate } from "../lib/format";
@@ -31,6 +32,9 @@ export default function Rules() {
               <p className="mt-1.5 text-body">{r.summary}</p>
               <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 no-underline hover:underline">
                 Source: {r.source}<ExternalLink className="size-3.5" />
+              </a>
+              <a href={reportErrorUrl(`/rules#${r.id}`, `${r.id} ${r.title}`)} target="_blank" rel="noopener noreferrer" className="ml-4 inline-flex items-center gap-1 text-sm text-muted no-underline hover:text-ink">
+                <Flag className="size-3.5" aria-hidden />Report an error
               </a>
             </li>
           ))}

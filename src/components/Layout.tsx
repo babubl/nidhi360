@@ -67,7 +67,7 @@ function Header() {
         <div className="ml-auto flex items-center gap-2">
           {!isHome && <div className="hidden w-64 xl:block"><SearchBox size="sm" placeholder="Search your problem" /></div>}
           <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink xl:hidden"><Search className="size-5" /></Link>
-          {aiEnabled && <Link to="/ask" className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Ask a question</Link>}
+          <Link to="/help" className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Expert help</Link>
           <button className="rounded-md p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -81,7 +81,7 @@ function Header() {
             <p className="mt-3 px-1 pb-1 text-xs font-semibold text-muted">NPS tools</p>
             {NPS_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{i.label}</Link>)}
             <div className="mt-3 border-t border-line pt-3">
-              {[["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/employers", "For employers"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
+              {[["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/employers", "For employers"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
                 <Link key={to} to={to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{l}</Link>
               ))}
             </div>
@@ -111,7 +111,9 @@ function Footer() {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link className="text-muted no-underline hover:text-ink" to="/answers">Answers</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/glossary">Glossary</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/about">How we work</Link></li>
+            <li><Link className="text-muted no-underline hover:text-ink" to="/help">Expert help</Link></li>
+            <li><Link className="text-muted no-underline hover:text-ink" to="/about">About us</Link></li>
+            <li><Link className="text-muted no-underline hover:text-ink" to="/legal">Terms & privacy</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/employers">For employers</Link></li>
           </ul>
         </div>
@@ -133,8 +135,17 @@ function Footer() {
   );
 }
 
+/** ?embed=1 hides site chrome so payroll/HRMS partners can embed any page in an iframe. Persists for the session. */
+function useEmbedMode() {
+  const { search } = useLocation();
+  const inUrl = new URLSearchParams(search).get("embed") === "1";
+  try { if (inUrl) sessionStorage.setItem("n360:embed", "1"); return inUrl || sessionStorage.getItem("n360:embed") === "1"; }
+  catch { return inUrl; }
+}
+
 export default function Layout() {
   const { pathname, hash } = useLocation();
+  const embed = useEmbedMode();
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(hash.slice(1));
@@ -145,9 +156,11 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">Skip to content</a>
-      <Header />
+      {!embed && <Header />}
       <main id="main" className="flex-1"><Outlet /></main>
-      <Footer />
+      {embed
+        ? <p className="border-t border-line py-4 text-center text-[13px] text-muted">Powered by <a href={import.meta.env.BASE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700">Nidhi360</a> · Independent information, not affiliated with EPFO or PFRDA</p>
+        : <Footer />}
     </div>
   );
 }

@@ -38,6 +38,9 @@ const CHALLENGE: [string, string][] = [
   ["employer is not paying pf", "/answers/employer-not-depositing"],
   ["my wife died what about her epf insurance", "/answers/family-member-died"],
   ["edli claim amount", "/answers/family-member-died"],
+  ["otp not coming epfo", "/answers/otp-not-received"],
+  ["epfo website not working", "/answers/portal-not-working"],
+  ["pf agent asking my otp is it safe", "/answers/pf-agent-safe"],
 ];
 
 describe("Resolution challenge: real queries find the right answer", () => {

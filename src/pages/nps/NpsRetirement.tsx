@@ -2,16 +2,17 @@ import { useState } from "react";
 import { monthlyAnnuity, projectCorpus, type Sector } from "../../lib/calc/nps";
 import { inr, inrShort } from "../../lib/format";
 import { Callout, Card, Cites, Field, NumberInput, Row, Segmented, Stat } from "../../components/ui";
-import { PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../../components/ToolPage";
+import { useMe } from "../../lib/storage";
 
 const COLORS = { taxFree: "#0B5D4B", taxable: "#D9A441", annuity: "#5E7CE2", systematic: "#8FB9AA" };
 
 export default function NpsRetirement() {
   useTitle("NPS retirement and exit planner", "Project your NPS corpus and see what you can take as lump sum, what must buy an annuity, and the tax, under PFRDA's December 2025 exit rules.");
   const [sector, setSector] = useState<Sector>("private");
-  const [age, setAge] = useState(35);
-  const [yearsIn, setYearsIn] = useState(5);
-  const [corpus, setCorpus] = useState(600000);
+  const [age, setAge] = useMe("age", 35);
+  const [yearsIn, setYearsIn] = useMe("npsYears", 5);
+  const [corpus, setCorpus] = useMe("npsCorpus", 600000);
   const [monthly, setMonthly] = useState(10000);
   const [stepUp, setStepUp] = useState(5);
   const [ret, setRet] = useState(9);
@@ -49,6 +50,7 @@ export default function NpsRetirement() {
               <Field label="Annuity rate" htmlFor="ann" hint="Life annuity quotes are typically 6–7%"><NumberInput id="ann" value={annRate} onChange={setAnnRate} min={0} max={10} step={0.25} suffix="% a year" /></Field>
             </div>
             <p className="text-[13px] text-muted">Projections assume a steady return. Real returns vary with markets and your scheme choice.</p>
+            <SavedNote />
           </Card>
         }
         result={

@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, ExternalLink, FileText, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowRight, ExternalLink, FileText, Flag, Headset, ShieldCheck, Sparkles } from "lucide-react";
 import { answerBySlug, CATEGORY_LABELS } from "../data/answers";
-import { ruleById } from "../data/rules";
-import { config, aiEnabled } from "../config";
+import { ruleById, RULES_CHECKED_ON } from "../data/rules";
+import { FOUNDER, reportErrorUrl } from "../data/team";
+import { aiEnabled } from "../config";
 import { AreaBadge, ButtonLink, Container, StatusBadge } from "../components/ui";
 import { useTitle } from "../components/ToolPage";
 import { fmtDate } from "../lib/format";
@@ -11,6 +12,7 @@ import { ResolvedPrompt, ShareWhatsApp } from "../components/Feedback";
 
 export function StillStuck({ topic }: { topic: string }) {
   const options = [
+    { to: `/help?topic=${encodeURIComponent(topic)}`, icon: Headset, title: "Get an expert to handle it", body: "For hard cases: death claims, employer defaults, pensions, old accounts." },
     { to: "/pf/grievance", icon: FileText, title: "File a complaint with EPFO", body: "We'll draft your EPFiGMS grievance in a minute." },
     ...(aiEnabled ? [{ to: "/ask", icon: Sparkles, title: "Ask your exact question", body: "Answered from the same official rules." }] : []),
   ];
@@ -19,18 +21,22 @@ export function StillStuck({ topic }: { topic: string }) {
       <p className="font-semibold text-ink">Didn't solve it?</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         {options.map((o) => (
-          <Link key={o.to} to={o.to} className="flex gap-3 rounded-lg border border-line bg-white p-4 no-underline hover:border-brand-200">
+          <Link key={o.title} to={o.to} className="flex gap-3 rounded-lg border border-line bg-white p-4 no-underline hover:border-brand-200">
             <o.icon className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
             <span><span className="block font-semibold text-ink">{o.title}</span><span className="block text-sm text-muted">{o.body}</span></span>
           </Link>
         ))}
-        {config.whatsapp && (
-          <a href={`https://wa.me/${config.whatsapp}?text=${encodeURIComponent("Hi Nidhi360, I need help with: " + topic)}`} target="_blank" rel="noopener noreferrer" className="flex gap-3 rounded-lg border border-line bg-white p-4 no-underline hover:border-brand-200">
-            <MessageCircle className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden />
-            <span><span className="block font-semibold text-ink">Talk to a PF expert</span><span className="block text-sm text-muted">On WhatsApp. Never share your password or OTP.</span></span>
-          </a>
-        )}
       </div>
+    </div>
+  );
+}
+
+export function ReviewedLine({ date, where, title }: { date: string; where: string; title: string }) {
+  return (
+    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
+      <span className="inline-flex items-center gap-1.5"><ShieldCheck className="size-4 text-brand-600" aria-hidden />Checked against official rules on {fmtDate(date)}</span>
+      <Link to="/about" className="text-muted no-underline hover:text-ink">Reviewed by {FOUNDER.name}, {FOUNDER.credentials[0]}</Link>
+      <a href={reportErrorUrl(where, title)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-muted no-underline hover:text-ink"><Flag className="size-3.5" aria-hidden />Report an error</a>
     </div>
   );
 }
@@ -50,6 +56,7 @@ export default function AnswerPage() {
             <Link to="/answers" className="text-muted no-underline hover:text-ink">Answers</Link> <span aria-hidden>›</span> {CATEGORY_LABELS[a.category]}
           </nav>
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-[36px] sm:leading-tight">{a.question}</h1>
+          <ReviewedLine date={a.reviewed ?? RULES_CHECKED_ON} where={`/answers/${a.slug}`} title={a.question} />
         </Container>
       </section>
       <Container className="max-w-3xl space-y-8 py-10">
@@ -74,7 +81,7 @@ export default function AnswerPage() {
 
         {a.tool && (
           <div className="flex flex-col items-start justify-between gap-4 rounded-xl border border-line p-5 sm:flex-row sm:items-center">
-            <p className="font-semibold text-ink">Work it out for your own numbers</p>
+            <p className="font-semibold text-ink">Work it out for your own situation</p>
             <ButtonLink to={a.tool.to}>{a.tool.label} <ArrowRight className="size-4" /></ButtonLink>
           </div>
         )}

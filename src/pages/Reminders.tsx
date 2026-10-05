@@ -5,15 +5,16 @@ import { buildReminders, toIcs } from "../lib/calc/reminders";
 import { track } from "../lib/track";
 import { fmtDate } from "../lib/format";
 import { Button, Card, Field, Segmented } from "../components/ui";
-import { PageHero, RulesUsed, ToolGrid, useTitle } from "../components/ToolPage";
+import { PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../components/ToolPage";
+import { useMe } from "../lib/storage";
 
 const inputCls = "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-[15px] text-ink outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100";
 
 export default function Reminders() {
   useTitle("PF and NPS reminder calendar", "Never miss a PF or NPS deadline: exit date, 12-month settlement, EPS at 58, NPS decision before 60, yearly life certificate. Add them to your calendar.");
   const [left, setLeft] = useState<"yes" | "no">("no");
-  const [lwd, setLwd] = useState("");
-  const [dob, setDob] = useState("");
+  const [lwd, setLwd] = useMe("lastWorkingDay", "");
+  const [dob, setDob] = useMe("dob", "");
   const [nps, setNps] = useState<"yes" | "no">("no");
   const [pensioner, setPensioner] = useState<"yes" | "no">("no");
   const list = buildReminders({ lastWorkingDay: left === "yes" && lwd ? lwd : undefined, dob: dob || undefined, hasNps: nps === "yes", pensioner: pensioner === "yes" });
@@ -33,7 +34,7 @@ export default function Reminders() {
   return (
     <>
       <PageHero crumb={{ to: "/#tools", label: "PF tools" }} title="Never miss a PF or NPS deadline"
-        intro="Most PF and NPS problems come from missing a date: an exit date never marked, a pension life certificate that lapsed, an NPS decision taken in a hurry. Add yours to your calendar in one tap. Nothing you enter leaves this page." />
+        intro="Most PF and NPS problems come from missing a date: an exit date never marked, a pension life certificate that lapsed, an NPS decision taken in a hurry. Add yours to your calendar in one tap. Nothing you enter leaves your device." />
       <ToolGrid
         form={
           <Card className="space-y-5">
@@ -54,6 +55,7 @@ export default function Reminders() {
             <Field label="Are you already receiving an EPS pension?">
               <Segmented label="Pensioner" value={pensioner} onChange={setPensioner} options={[{ value: "no", label: "No" }, { value: "yes", label: "Yes" }]} />
             </Field>
+            <SavedNote />
           </Card>
         }
         result={

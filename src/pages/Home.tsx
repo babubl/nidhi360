@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, BookOpenCheck, CalendarPlus, CalendarClock, FileText, FileWarning, HeartPulse, Landmark, LockKeyhole, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
 import { AreaBadge, ButtonLink, Container, SectionTitle, StatusBadge } from "../components/ui";
 import SearchBox from "../components/SearchBox";
+import { FOUNDER } from "../data/team";
 import { useTitle } from "../components/ToolPage";
 import { LIFE_STAGES } from "../data/lifestages";
 import { rulesByRecency, RULES_CHECKED_ON } from "../data/rules";
@@ -40,7 +41,7 @@ const FAQ = [
   { q: "How current is the information?", a: `Every rule is tied to its circular or notification and the date it applies from. The full register was last verified on ${fmtDate(RULES_CHECKED_ON)}, and Rule updates shows what changed.` },
   { q: "Can I withdraw my full PF after resigning?", a: "Not immediately. Under the EPF Scheme 2026 a full settlement needs 12 months without a job. Until then you can take up to about 75% as a partial withdrawal." },
   { q: "Is NPS still worth it in the new tax regime?", a: "Your own contribution gets no deduction in the new regime, but your employer's contribution (up to 14% of basic + DA) does. The NPS tax tool shows your numbers." },
-  { q: "Is it free?", a: "Yes. The tools are free for individuals. We offer a paid version for employers who want to give their staff PF and NPS support." },
+  { q: "Is it free?", a: "Yes. All answers and tools are free. If your case needs a person, such as a death claim or an employer that won't cooperate, expert help costs ₹499–999 per case, and you pay only after we confirm we can help." },
 ];
 
 function HeroPreview() {
@@ -176,6 +177,18 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-canvas py-14">
+        <Container className="flex flex-col items-start gap-6 md:flex-row md:items-center">
+          <div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xl font-bold text-white" aria-hidden>{FOUNDER.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}</div>
+          <div className="max-w-3xl">
+            <p className="text-lg font-bold text-ink">Built and reviewed by {FOUNDER.name}</p>
+            <p className="mt-1 text-sm font-semibold text-brand-700">{FOUNDER.credentials.join(" · ")}</p>
+            <p className="mt-2 text-body">{FOUNDER.bio} Every answer shows when it was last checked, and anyone can report an error.</p>
+          </div>
+          <Link to="/about" className="shrink-0 text-sm font-semibold text-brand-600 no-underline hover:underline md:ml-auto">About us →</Link>
         </Container>
       </section>
 
