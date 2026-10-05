@@ -139,3 +139,23 @@ describe("Health check and rejection decoder", () => {
     expect(containsSensitive("Can I withdraw after 5 years?")).toBe(false);
   });
 });
+
+import { draftGrievance } from "./grievance";
+describe("Grievance drafter", () => {
+  const today = new Date("2026-10-06T00:00:00");
+  it("flags claims past the 20-day deadline", () => {
+    const g = draftGrievance({ issue: "delayed", claimId: "ABC1", filedOn: "2026-09-01", today });
+    expect(g.daysPending).toBe(35);
+    expect(g.overDeadline).toBe(true);
+    expect(g.body).toContain("ABC1");
+    expect(g.body).toContain("20 days");
+  });
+  it("is within the deadline before day 21", () => {
+    expect(draftGrievance({ issue: "transferStuck", filedOn: "2026-09-20", today }).overDeadline).toBe(false);
+  });
+  it("uses placeholders instead of asking for IDs", () => {
+    const g = draftGrievance({ issue: "notDeposited", today });
+    expect(g.body).toContain("[establishment name]");
+    expect(g.body).not.toMatch(/\d{12}/);
+  });
+});

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ExternalLink, ImagePlus, Search, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, ExternalLink, ImagePlus, Search, Sparkles } from "lucide-react";
 import { ESCALATION, REJECTIONS } from "../../data/rejections";
 import { containsSensitive, matchRejection, type RejectionMatch } from "../../lib/calc/rejection";
 import { explainRejection } from "../../lib/ask";
@@ -115,6 +116,7 @@ export default function ClaimRejected() {
                 ))}
               </ol>
               <p className="mt-3 text-sm text-muted">EPFO must settle a complete claim within 20 days <Cites ids={["R6"]} /></p>
+              <Link to="/pf/grievance" className="mt-3 inline-flex items-center gap-1 text-[15px] font-semibold text-brand-600 no-underline hover:underline">Draft my EPFiGMS grievance <ArrowRight className="size-4" /></Link>
             </Card>
             <ExpertHelp context="a rejected PF claim" />
           </div>

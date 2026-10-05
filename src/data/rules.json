@@ -238,5 +238,35 @@
     "summary": "You can start a reduced EPS pension from age 50: it is cut by 4% for every year you are short of 58. You can also defer it to 60 and get 4% more for each year deferred. Members with 20 or more years of service get 2 extra years of weightage at 58. The minimum EPS pension is ₹1,000 a month. Pensioners must submit a life certificate (Jeevan Pramaan, digital) once a year to keep the pension running.",
     "source": "Employees’ Pension Scheme provisions (EPS 2026)",
     "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R25",
+    "area": "tax",
+    "status": "live",
+    "effective": "2021-04-01",
+    "title": "Interest on large PF contributions is taxable",
+    "summary": "Interest on your own PF contributions (including VPF) above ₹2.5 lakh a year is taxable as income. The limit is ₹5 lakh where the employer does not contribute. Your balance up to 31 March 2021 and its interest stay tax-free. The rule continues under the Income-tax Act, 2025.",
+    "source": "Income-tax Act provisos to s.10(11), 10(12), carried into the 2025 Act",
+    "sourceUrl": "https://www.incometax.gov.in"
+  },
+  {
+    "id": "R26",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-06-30",
+    "title": "EDLI: up to ₹7 lakh life cover for your family",
+    "summary": "If a PF member dies while in service, the family gets EDLI insurance of 35 times the average monthly PF wage plus half the average PF balance (that part capped at ₹1.75 lakh), with a minimum of ₹2.5 lakh and a maximum of ₹7 lakh. The higher ₹25,000 wage ceiling makes the maximum reachable for more people. Nominees claim it with Form 5IF, along with PF (Form 20) and family pension (Form 10D).",
+    "source": "EDLI Scheme, 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R27",
+    "area": "pf",
+    "status": "live",
+    "effective": "2024-08-02",
+    "title": "PF keeps earning interest until 58, even after you stop working",
+    "summary": "Interest is credited to your PF account up to age 58, even if no contributions come in. After 58 the account becomes inoperative and stops earning interest, so claim it. Accounts with no transactions for 3 years face extra verification before withdrawal.",
+    "source": "EPFO circular, 2 Aug 2024",
+    "sourceUrl": "https://www.epfindia.gov.in"
   }
 ]

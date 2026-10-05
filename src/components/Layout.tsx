@@ -1,22 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container, cx } from "./ui";
 import { RULES_CHECKED_ON } from "../data/rules";
 import { fmtDate } from "../lib/format";
 import { aiEnabled } from "../config";
-
-export const PF_TOOLS = [
-  { to: "/pf/health-check", label: "PF account check", desc: "Find what will block your next claim" },
-  { to: "/pf/claim-rejected", label: "Claim rejected", desc: "Understand the reason and fix it" },
-  { to: "/pf/job-change", label: "Job change & transfer", desc: "Move old PF, merge UANs" },
-  { to: "/pf/withdraw", label: "Withdrawal estimate", desc: "How much you can take, and the tax" },
-  { to: "/pf/pension", label: "EPS pension estimate", desc: "Your monthly pension and when to start" },
-];
-export const NPS_TOOLS = [
-  { to: "/nps/tax", label: "NPS tax savings", desc: "Old vs new regime, employer contribution" },
-  { to: "/nps/retirement", label: "NPS retirement & exit", desc: "Corpus, lump sum, annuity, tax" },
-];
+import { NPS_TOOLS, PF_TOOLS } from "../data/tools";
+import SearchBox from "./SearchBox";
 
 export function Logo() {
   return (
@@ -27,7 +17,7 @@ export function Logo() {
   );
 }
 
-function Dropdown({ label, items, active }: { label: string; items: typeof PF_TOOLS; active: boolean }) {
+function Dropdown({ label, items, active }: { label: string; items: { to: string; label: string; desc: string }[]; active: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const loc = useLocation();
@@ -61,6 +51,7 @@ function Header() {
   const [open, setOpen] = useState(false);
   const loc = useLocation();
   useEffect(() => setOpen(false), [loc.pathname]);
+  const isHome = loc.pathname === "/";
   const navCls = ({ isActive }: { isActive: boolean }) => cx("rounded-md px-3 py-2 text-[15px] font-semibold no-underline", isActive ? "text-ink" : "text-body hover:text-ink");
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
@@ -69,11 +60,13 @@ function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           <Dropdown label="PF" items={PF_TOOLS} active={loc.pathname.startsWith("/pf")} />
           <Dropdown label="NPS" items={NPS_TOOLS} active={loc.pathname.startsWith("/nps")} />
+          <NavLink to="/answers" className={navCls}>Answers</NavLink>
           <NavLink to="/rules" className={navCls}>Rule updates</NavLink>
-          <NavLink to="/glossary" className={navCls}>Glossary</NavLink>
           <NavLink to="/employers" className={navCls}>For employers</NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          {!isHome && <div className="hidden w-64 xl:block"><SearchBox size="sm" placeholder="Search your problem" /></div>}
+          <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink xl:hidden"><Search className="size-5" /></Link>
           {aiEnabled && <Link to="/ask" className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Ask a question</Link>}
           <button className="rounded-md p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -88,7 +81,7 @@ function Header() {
             <p className="mt-3 px-1 pb-1 text-xs font-semibold text-muted">NPS tools</p>
             {NPS_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{i.label}</Link>)}
             <div className="mt-3 border-t border-line pt-3">
-              {[["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/employers", "For employers"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
+              {[["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/employers", "For employers"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
                 <Link key={to} to={to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{l}</Link>
               ))}
             </div>
@@ -116,6 +109,8 @@ function Footer() {
           <ul className="mt-3 space-y-2 text-sm">{NPS_TOOLS.map((i) => <li key={i.to}><Link className="text-muted no-underline hover:text-ink" to={i.to}>{i.label}</Link></li>)}</ul>
           <p className="mt-6 text-sm font-semibold text-ink">Company</p>
           <ul className="mt-3 space-y-2 text-sm">
+            <li><Link className="text-muted no-underline hover:text-ink" to="/answers">Answers</Link></li>
+            <li><Link className="text-muted no-underline hover:text-ink" to="/glossary">Glossary</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/about">How we work</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/employers">For employers</Link></li>
           </ul>

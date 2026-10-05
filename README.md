@@ -8,6 +8,8 @@ PF and NPS, sorted, for salaried India. Nidhi360 tells people what they can with
 
 | Area | Route | What it does |
 |---|---|---|
+| Answers | `/answers`, `/answers/:slug` | 31 common questions with a direct answer, steps, the rules behind it and the right tool; site-wide problem search |
+| Complaint drafter | `/pf/grievance` | Paste-ready EPFiGMS grievance for delayed, rejected or unpaid claims, stuck transfers and employer defaults, with the 20-day deadline check |
 | Life stages | `/start/:stage` | 20s / 30s / 40s / 50s: the three things to do now, and mistakes to avoid |
 | PF account check | `/pf/health-check` | 11-point readiness score with a prioritised fix list |
 | Claim rejected | `/pf/claim-rejected` | Matches the rejection reason against 12 common causes, gives fix steps and the escalation path. Optional AI reading of a screenshot |
@@ -37,6 +39,10 @@ worker/          Cloudflare Worker AI proxy: holds the Gemini key, grounds answe
 - **The rules register is the moat.** Every calculator and AI answer reads from `src/data/rules.json`. When a rule changes, edit it there, update the affected calculator and its tests, and bump `RULES_CHECKED_ON` in `src/data/rules.ts`.
 - **Privacy by design.** There are no accounts, and no personal data leaves the browser except AI questions, which are filtered for ID numbers before sending.
 - **Ready to grow.** Content is separate from code, so it can move to a CMS. Calculators are framework-free and can be reused in a mobile app or an employer API.
+
+## Resolution benchmark
+
+`src/lib/search.test.ts` holds 30 real questions typed the way people type them ("i resigned last month can i take my full pf", "father passed away how to claim his pf and insurance"). Each must surface the right answer in the top 3 search results. The suite runs in CI on every push, so new content can't quietly break the way people find help. Add a test case whenever users ask something new.
 
 ## Run locally
 

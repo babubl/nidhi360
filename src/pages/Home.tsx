@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, BookOpen, BookOpenCheck, CalendarClock, FileWarning, HeartPulse, History, Landmark, LockKeyhole, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpen, BookOpenCheck, CalendarClock, FileText, FileWarning, HeartPulse, Landmark, LockKeyhole, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
 import { AreaBadge, ButtonLink, Container, SectionTitle, StatusBadge } from "../components/ui";
+import SearchBox from "../components/SearchBox";
 import { useTitle } from "../components/ToolPage";
 import { LIFE_STAGES } from "../data/lifestages";
 import { rulesByRecency, RULES_CHECKED_ON } from "../data/rules";
@@ -12,11 +13,19 @@ const TOOLS = [
   { to: "/pf/claim-rejected", icon: FileWarning, title: "Claim rejected?", body: "Paste the rejection reason. Get what it means and exactly how to fix it." },
   { to: "/pf/job-change", icon: Repeat, title: "Job change & transfer", body: "Move PF from old employers, merge a second UAN, handle a closed company." },
   { to: "/pf/withdraw", icon: Wallet, title: "Withdrawal estimate", body: "What you can take for each purpose under the 2026 rules, with TDS." },
+  { to: "/answers", icon: BookOpen, title: "Answers library", body: "Straight answers to the 30 questions people ask most, with the rule behind each." },
   { to: "/pf/pension", icon: Landmark, title: "EPS pension estimate", body: "Your monthly pension at 58, or earlier or later, and what affects it." },
   { to: "/nps/tax", icon: Scale, title: "NPS tax savings", body: "What NPS saves you in the old and new regimes, and what HR can change." },
   { to: "/nps/retirement", icon: PiggyBank, title: "NPS retirement & exit", body: "Your corpus, the lump sum you can take, the annuity, and the tax on each." },
-  { to: "/rules", icon: History, title: "Rule updates", body: "Every EPFO, PFRDA and tax change we track, with its source and date." },
-  { to: "/glossary", icon: BookOpen, title: "Jargon, explained", body: "UAN, EPS, Form 19, Form 10C, PRAN, annuity and more, in plain English." },
+  { to: "/pf/grievance", icon: FileText, title: "Complaint drafter", body: "A clear EPFiGMS grievance for delayed claims, unpaid PF or a stuck transfer." },
+];
+
+const POPULAR = [
+  { slug: "withdraw-after-resigning", label: "PF after resigning" },
+  { slug: "claim-pending-too-long", label: "Claim pending" },
+  { slug: "transfer-pf", label: "Transfer PF" },
+  { slug: "check-balance", label: "Check balance" },
+  { slug: "nps-at-60", label: "NPS at 60" },
 ];
 
 const FAQ = [
@@ -70,11 +79,12 @@ export default function Home() {
             </p>
             <h1 className="text-[34px] font-extrabold leading-[1.1] tracking-tight sm:text-5xl">Your PF and NPS, sorted without the runaround.</h1>
             <p className="mt-5 max-w-xl text-lg text-body">Know what you can withdraw, fix a rejected claim, move PF after a job change, and plan your pension and NPS exit. Every answer comes from the current EPFO and PFRDA rules, with the source shown.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink to="/pf/health-check" className="px-5 py-3 text-base">Check my PF account <ArrowRight className="size-4" /></ButtonLink>
-              <ButtonLink to="/pf/claim-rejected" variant="secondary" className="px-5 py-3 text-base">Fix a rejected claim</ButtonLink>
+            <div className="mt-8 max-w-xl"><SearchBox size="lg" /></div>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+              <span className="text-muted">People ask:</span>
+              {POPULAR.map((p) => <Link key={p.slug} to={`/answers/${p.slug}`} className="rounded-full border border-line bg-white px-3 py-1 text-[13px] font-medium text-body no-underline hover:border-brand-200 hover:text-ink">{p.label}</Link>)}
             </div>
-            <p className="mt-4 text-sm text-muted">Free. No login. We never ask for your UAN password or OTP.</p>
+            <p className="mt-6 text-sm text-muted">Free. No login. We never ask for your UAN password or OTP.</p>
           </div>
           <HeroPreview />
         </Container>
@@ -153,7 +163,7 @@ export default function Home() {
         <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <h2 className="text-2xl font-bold sm:text-[28px]">Common questions</h2>
-            <p className="mt-2 text-muted">Can't find yours? <Link to="/glossary" className="font-semibold text-brand-600">Check the glossary</Link> for the jargon.</p>
+            <p className="mt-2 text-muted">More in the <Link to="/answers" className="font-semibold text-brand-600">answers library</Link>, and the <Link to="/glossary" className="font-semibold text-brand-600">glossary</Link> explains the jargon.</p>
           </div>
           <div className="divide-y divide-line border-y border-line">
             {FAQ.map((f) => (

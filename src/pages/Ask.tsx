@@ -6,6 +6,7 @@ import { aiEnabled } from "../config";
 import { ButtonLink, Container, cx } from "../components/ui";
 import { PageHero, useTitle } from "../components/ToolPage";
 import Markdown from "../components/Markdown";
+import SearchBox from "../components/SearchBox";
 
 const STARTERS = [
   "Can I withdraw my full PF after resigning?",
@@ -41,8 +42,10 @@ export default function Ask() {
   if (!aiEnabled) {
     return (
       <>
-        <PageHero title="Ask about PF or NPS" intro="The assistant is coming soon. In the meantime, the tools cover the most common questions." />
-        <Container className="py-10"><ButtonLink to="/">Browse the tools</ButtonLink></Container>
+        <PageHero title="Ask about PF or NPS" intro="Describe your problem in your own words. We'll match it to a straight answer and the right tool.">
+          <div className="mt-6 max-w-2xl"><SearchBox size="lg" autoFocus /></div>
+        </PageHero>
+        <Container className="py-10"><ButtonLink to="/answers" variant="secondary">Browse all answers</ButtonLink></Container>
       </>
     );
   }
