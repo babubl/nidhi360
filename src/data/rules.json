@@ -1,0 +1,242 @@
+[
+  {
+    "id": "R1",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "New EPF Scheme, 2026 is in force",
+    "summary": "The Employees' Provident Fund Scheme, 2026 (under the Code on Social Security, 2020) replaced the 1952 scheme. It was notified on 29 June 2026 and applies from 1 July 2026. Your UAN and balance do not change. The withdrawal and settlement rules on this site follow the new scheme.",
+    "source": "Gazette G.S.R. 525(E), 29 Jun 2026",
+    "sourceUrl": "https://egazette.gov.in"
+  },
+  {
+    "id": "R2",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "Partial withdrawal: 3 categories, 12 months of membership",
+    "summary": "The old 13 withdrawal reasons are merged into three: Essential needs (illness, education, marriage), Housing needs, and Special circumstances. A uniform 12 months of membership is needed. Education can be claimed up to 10 times and marriage up to 5 times. Under Special circumstances you no longer have to state a reason. Most claims need no documents.",
+    "source": "EPFO CBT 238th meeting, 13 Oct 2025; EPF Scheme 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R3",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "25% of your PF must stay in the account",
+    "summary": "For partial withdrawals, a minimum balance of 25% of contributions (your share, employer share and interest) stays in the account so it keeps earning interest. In practice you can take up to about 75%, now including the employer share. The 25% is released only on full settlement (retirement, 12 months of unemployment, permanent disability, moving abroad and similar events).",
+    "source": "EPF Scheme 2026, para 46",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R4",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "Lost your job? Full PF after 12 months, EPS after 36 months",
+    "summary": "Premature final settlement of PF now needs 12 months of continuous unemployment (earlier 2 months). Withdrawal of the pension (EPS) part needs 36 months (earlier 2 months). While you wait, you can still take a partial withdrawal of up to the eligible 75%.",
+    "source": "EPFO CBT 238th meeting, 13 Oct 2025; EPF Scheme 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R5",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "When you can take 100% of your PF",
+    "summary": "Full settlement is allowed on retirement after age 55, permanent and total disability, permanent migration abroad or employment overseas, retrenchment, voluntary retirement, and after 12 continuous months without covered employment.",
+    "source": "EPF Scheme 2026, para 49",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R6",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "EPFO must settle claims within 20 days",
+    "summary": "The new scheme sets a 20-day deadline to settle a complete claim, and provides penal interest (12%) for delay without sufficient cause. Quote this when you escalate a delayed claim.",
+    "source": "EPF Scheme 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R7",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-06-01",
+    "title": "Auto-settlement up to ₹5 lakh",
+    "summary": "Advance claims up to ₹5 lakh can be settled automatically, without an officer checking them, if your KYC is complete: Aadhaar linked and verified, PAN verified, bank account seeded and verified. Clean KYC is the single biggest reason claims go through fast.",
+    "source": "EPFO / Ministry of Labour, 2025",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R8",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-01-15",
+    "title": "Transfer PF without employer approval",
+    "summary": "Since a circular of 15 Jan 2025, most online transfer claims (Form 13) skip employer attestation when your UAN is Aadhaar-verified and details match. From 25 Apr 2025 the destination PF office no longer has to process the transfer: once the source office approves, the money and your pension service move automatically.",
+    "source": "EPFO circulars, 15 Jan 2025 and 25 Apr 2025",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R9",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-01-18",
+    "title": "Fix your name, DOB and other details yourself",
+    "summary": "With an Aadhaar-verified UAN, you can self-correct common errors (name, date of birth, gender, nationality, parents' names, marital status, spouse name, dates of joining and leaving) online, without employer verification. If your UAN was issued before 1 Oct 2017 the employer may need to make the change. If Aadhaar is not linked, a physical Joint Declaration through the employer is still needed.",
+    "source": "Ministry of Labour, Jan 2025",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R10",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-09-17",
+    "title": "PF wage ceiling raised to ₹25,000",
+    "summary": "The statutory wage ceiling went from ₹15,000 to ₹25,000 a month from 17 Sep 2026, the first change since 2014. The employer's pension (EPS) share can now be up to ₹2,083 a month, which raises future EPS pensions. Existing EPF members earning up to ₹25,000 who were outside EPS are being brought into it.",
+    "source": "S.O. 5109(E), 17 Sep 2026",
+    "sourceUrl": "https://pib.gov.in"
+  },
+  {
+    "id": "R11",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-03-02",
+    "title": "EPF interest for FY 2025-26: 8.25%",
+    "summary": "The CBT recommended 8.25% for FY 2025-26, unchanged from the previous two years. Interest is credited after the government notifies the rate, so the credit date varies.",
+    "source": "PIB, CBT 239th meeting, 2 Mar 2026",
+    "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2234502"
+  },
+  {
+    "id": "R12",
+    "area": "pf",
+    "status": "announced",
+    "effective": "2026-09-15",
+    "title": "PF withdrawal by UPI or ATM: announced, not yet live",
+    "summary": "EPFO 3.0 plans withdrawals through UPI and ATM cards, and testing was reported complete in mid-2026. As of our last check there was no general public launch. Use only routes shown on the official EPFO portal or UMANG app, and ignore links or calls offering 'instant PF by UPI'.",
+    "source": "EPFO 3.0 status, checked Sep 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R13",
+    "area": "tax",
+    "status": "live",
+    "effective": "2026-04-01",
+    "title": "TDS on PF before 5 years of service",
+    "summary": "If you withdraw your PF balance before 5 years of continuous service (earlier jobs count if you transferred the balance) and the amount is more than ₹50,000, EPFO deducts TDS: 10% if PAN is linked, a much higher rate if not. Form 15G/15H can avoid TDS if your total income is below the taxable limit. After 5 years of continuous service the withdrawal is tax-free. This was Section 192A; under the Income-tax Act, 2025 it is Section 392(7) from 1 Apr 2026.",
+    "source": "Income-tax Act, 2025, s.392(7) (old s.192A)",
+    "sourceUrl": "https://www.incometax.gov.in"
+  },
+  {
+    "id": "R14",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "Your EPS pension: the 10-year line",
+    "summary": "With less than 10 years of pensionable service you can take a withdrawal benefit (Form 10C) or keep a Scheme Certificate to carry the service forward. Under 6 months of service gives nothing. At 10 years or more, there is no lump sum: you get a monthly pension from 58 (reduced pension possible from 50). Pension = pensionable salary × pensionable service ÷ 70. Pensionable salary is capped at the wage ceiling.",
+    "source": "Employees' Pension Scheme, 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R15",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "NPS: up to 80% lump sum for non-government subscribers",
+    "summary": "For All Citizen and Corporate NPS subscribers, normal exit now allows up to 80% as lump sum with at least 20% used to buy an annuity (earlier 60:40). Government sector subscribers stay at 60:40.",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R16",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "NPS exit by corpus size",
+    "summary": "Non-government normal exit: corpus up to ₹8 lakh, take 100% (or withdraw it systematically). ₹8–12 lakh: up to ₹6 lakh as lump sum, the rest by systematic unit redemption over at least 6 years or as annuity (or use the 80:20 route). Above ₹12 lakh: up to 80% lump sum, at least 20% annuity.",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R17",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "Exit after 15 years, stay invested till 85",
+    "summary": "Non-government subscribers can make a normal exit at 60 or after 15 years of subscription, whichever is earlier. Anyone can defer withdrawal or annuity purchase up to age 85 (earlier 75).",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R18",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "Leaving NPS early: 20% lump sum, 80% annuity",
+    "summary": "Premature exit: if the corpus is ₹5 lakh or less you can take it all. Above ₹5 lakh, only 20% comes as lump sum and at least 80% must buy an annuity. The 5-year minimum before premature exit has been removed for non-government subscribers; it still applies to government subscribers.",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R19",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "NPS partial withdrawal: 4 times before 60",
+    "summary": "After 3 years in NPS you can withdraw up to 25% of your own contributions (not the employer's, not the returns). Up to 4 times before 60 with a 4-year gap; after 60, once every 3 years. Purposes include children's education and marriage, buying or building a first house, medical treatment, and settling a loan taken against NPS. Skill development and starting a business were removed as purposes.",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R20",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "Loan against your NPS",
+    "summary": "A regulated lender can now mark a lien on up to 25% of your own NPS contributions and lend against it, while the corpus stays invested.",
+    "source": "PFRDA (Exits & Withdrawals) Amendment Regulations, Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R21",
+    "area": "tax",
+    "status": "live",
+    "effective": "2026-04-01",
+    "title": "NPS withdrawal tax: only 60% is tax-free",
+    "summary": "At exit, a lump sum up to 60% of the corpus is tax-free. PFRDA now allows 80%, but tax law has not been changed to match, so the extra 20% is taxed at your slab. Annuity income is taxed every year at your slab. Partial withdrawals (up to 25% of own contributions) are tax-free. Budget 2026 made no NPS tax changes.",
+    "source": "Income-tax Act (old s.10(12A), 10(12B)); Budget 2026",
+    "sourceUrl": "https://www.incometax.gov.in"
+  },
+  {
+    "id": "R22",
+    "area": "tax",
+    "status": "live",
+    "effective": "2026-04-01",
+    "title": "NPS tax deductions: old vs new regime",
+    "summary": "New regime: only the employer's NPS contribution is deductible, up to 14% of basic + DA. Old regime: employer contribution up to 10% of basic + DA (non-government), your own contribution within the ₹1.5 lakh 80C limit (capped at 10% of salary), plus an extra ₹50,000 for your own contribution. Employer contributions to EPF, NPS and superannuation together above ₹7.5 lakh a year are taxable. Section numbers changed under the Income-tax Act, 2025; the benefits are the same.",
+    "source": "Income-tax Act, 2025 (old s.80CCD)",
+    "sourceUrl": "https://www.incometax.gov.in"
+  },
+  {
+    "id": "R23",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-12-16",
+    "title": "Multiple Scheme Framework: up to 100% equity",
+    "summary": "Non-government subscribers can hold schemes under the Multiple Scheme Framework, some of which allow up to 100% equity. The standard Active Choice equity cap for the common scheme is 75%.",
+    "source": "PFRDA, MSF incorporated Dec 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R24",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-07-01",
+    "title": "EPS pension: early, deferred and the yearly life certificate",
+    "summary": "You can start a reduced EPS pension from age 50: it is cut by 4% for every year you are short of 58. You can also defer it to 60 and get 4% more for each year deferred. Members with 20 or more years of service get 2 extra years of weightage at 58. The minimum EPS pension is ₹1,000 a month. Pensioners must submit a life certificate (Jeevan Pramaan, digital) once a year to keep the pension running.",
+    "source": "Employees’ Pension Scheme provisions (EPS 2026)",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  }
+]

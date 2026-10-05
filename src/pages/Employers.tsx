@@ -1,0 +1,41 @@
+import { BarChart3, Building2, Clock, Headset, ShieldCheck, Users } from "lucide-react";
+import { ButtonLink, Container, SectionTitle } from "../components/ui";
+import { PageHero, useTitle } from "../components/ToolPage";
+import { config } from "../config";
+
+const POINTS = [
+  { icon: Headset, title: "Fewer PF tickets to HR", body: "Employees self-serve transfers, withdrawals, KYC fixes and rejected claims, with steps specific to their situation." },
+  { icon: Clock, title: "Faster onboarding and exits", body: "New joiners link their existing UAN and transfer old PF in week one. Leavers know their EPS and withdrawal options." },
+  { icon: ShieldCheck, title: "Always on current rules", body: "We track EPFO, PFRDA and tax changes so your HR team doesn't have to. Every answer cites its source." },
+  { icon: BarChart3, title: "See where employees get stuck", body: "Anonymous, aggregate insights: common rejection reasons, KYC gaps, NPS adoption. No personal data." },
+  { icon: Users, title: "NPS that employees understand", body: "Show staff what employer NPS saves them in the new regime, and drive opt-ins for flexible benefits." },
+  { icon: Building2, title: "Your brand, your benefits", body: "White-label the tools inside your HRMS or intranet, alongside your own PF trust or benefits policy." },
+];
+
+export default function Employers() {
+  useTitle("For employers and HR teams", "Give employees PF and NPS support that cuts HR tickets and keeps up with every rule change.");
+  const mail = config.contactEmail ? `mailto:${config.contactEmail}?subject=${encodeURIComponent("Nidhi360 for our employees")}` : "/about";
+  return (
+    <>
+      <PageHero title="PF and NPS support for your whole workforce" intro="PF transfers, rejected claims and NPS questions take up a large share of HR's time. Nidhi360 gives every employee clear, current answers, and gives HR the time back.">
+        <div className="mt-7 flex flex-wrap gap-3">
+          {config.contactEmail
+            ? <a href={mail} className="inline-flex items-center rounded-lg bg-brand-600 px-5 py-3 font-semibold text-white no-underline hover:bg-brand-700">Talk to us</a>
+            : <ButtonLink to="/pf/health-check">See the employee experience</ButtonLink>}
+        </div>
+      </PageHero>
+      <Container className="py-14">
+        <SectionTitle title="What your team gets" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {POINTS.map((p) => (
+            <div key={p.title}>
+              <span className="flex size-10 items-center justify-center rounded-lg bg-brand-50 text-brand-600"><p.icon className="size-5" aria-hidden /></span>
+              <h3 className="mt-4 text-[17px] font-bold">{p.title}</h3>
+              <p className="mt-1.5 text-body">{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </>
+  );
+}

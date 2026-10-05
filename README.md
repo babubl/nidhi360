@@ -1,53 +1,72 @@
-# Nidhi360: PF & NPS, sorted
+# Nidhi360
 
-Free PF and NPS help in English and Tamil, built on the latest EPFO and PFRDA rules. A single `index.html` with no backend, no tracking and no build step.
+PF and NPS, sorted, for salaried India. Nidhi360 tells people what they can withdraw, why their EPFO claim was rejected and how to fix it, how to move PF after a job change, what EPS pension they'll get, and how to exit NPS without overpaying tax. Every answer is grounded in a dated, sourced register of EPFO, PFRDA and tax rules.
 
-## What's inside
+**Live:** https://babubl.github.io/nidhi360/
 
-| Page | What it does |
-|---|---|
-| Home | Problem-first picker, trust promises, latest rule changes |
-| PF check | 11-question PF health check, a prioritised fix list, a shareable score card, print to PDF |
-| Rejection decoder | Matches an EPFO rejection message against 12 common reasons, gives the fix and the escalation path. The optional AI explanation also reads screenshots |
-| Job change | Transfer wizard covering multiple UANs, KYC, exit date, closed employer and company trust cases |
-| Withdraw PF | Eligible amount under EPF Scheme 2026 (25% floor, 12-month rules), TDS estimate, interest given up by age 58, EPS note |
-| NPS planner | Tax saved (old vs new regime) and retirement projection with exit split under the Dec 2025 PFRDA rules (80/20, ₹8L/₹12L slabs, premature exit, 60% tax-free) |
-| Ask | Gemini chat grounded only in the rules register, citing rule IDs, and blocking Aadhaar, PAN and OTP |
-| Rule watch | All 23 rules, each with status, effective date and source stamp |
+## Product
 
-## Before you publish
+| Area | Route | What it does |
+|---|---|---|
+| Life stages | `/start/:stage` | 20s / 30s / 40s / 50s: the three things to do now, and mistakes to avoid |
+| PF account check | `/pf/health-check` | 11-point readiness score with a prioritised fix list |
+| Claim rejected | `/pf/claim-rejected` | Matches the rejection reason against 12 common causes, gives fix steps and the escalation path. Optional AI reading of a screenshot |
+| Job change | `/pf/job-change` | Personalised transfer plan: two UANs, KYC, exit date, closed employer, company trust |
+| Withdrawal estimate | `/pf/withdraw` | EPF Scheme 2026 rules (25% floor, 12-month waits), TDS, interest given up |
+| EPS pension | `/pf/pension` | Pension at 50–60, ₹25,000 ceiling transition, 20-year weightage, ₹1,000 minimum |
+| NPS tax | `/nps/tax` | Old vs new regime, employer 14%/10% caps, what to ask HR |
+| NPS retirement | `/nps/retirement` | Corpus projection and the Dec 2025 exit split (80/20, ₹8L/₹12L slabs, premature exit, tax-free 60%) |
+| Rule updates | `/rules` | The full register with status, effective date and source |
+| Ask | `/ask` | AI assistant answering only from the register, with rule citations |
+| For employers | `/employers` | B2B offer for HR teams |
 
-Edit the `CONFIG` block at the top of the `<script>`:
+## Architecture
 
-```js
-GEMINI_API_KEY: "",          // from aistudio.google.com
-GEMINI_MODEL: "gemini-flash-latest",
-WHATSAPP_NUMBER: "",         // e.g. "919876543210"; empty = visitors copy their summary instead
-SITE_URL: "https://babubl.github.io/nidhi360/",
-RULES_CHECKED_ON: "2026-10-05"
+```
+src/
+  data/          Content as data: rules register (rules.json), rejection reasons, health check, glossary, life stages
+  lib/calc/      Pure, unit-tested calculators (no UI): PF withdrawal, EPS pension, NPS exit/tax/projection, health score, rejection matching
+  lib/ask.ts     Client for the AI proxy
+  components/    Design system (ui.tsx), layout, tool page shell
+  pages/         One lazy-loaded route per page
+worker/          Cloudflare Worker AI proxy: holds the Gemini key, grounds answers in rules.json, filters Aadhaar/PAN/OTP, rate-limits, restricts origins
+.github/workflows/deploy.yml   Test → build → deploy to GitHub Pages on every push to main
 ```
 
-**Protect the Gemini key.** A key in a public page is visible to anyone, so restrict it:
+- **Stack:** React 19, TypeScript, Vite, Tailwind CSS 4, React Router, Vitest.
+- **The rules register is the moat.** Every calculator and AI answer reads from `src/data/rules.json`. When a rule changes, edit it there, update the affected calculator and its tests, and bump `RULES_CHECKED_ON` in `src/data/rules.ts`.
+- **Privacy by design.** There are no accounts, and no personal data leaves the browser except AI questions, which are filtered for ID numbers before sending.
+- **Ready to grow.** Content is separate from code, so it can move to a CMS. Calculators are framework-free and can be reused in a mobile app or an employer API.
 
-1. Go to Google Cloud Console, then APIs & Services, then Credentials.
-2. Open your key and set Application restrictions to **Websites**.
-3. Add `https://babubl.github.io/*` and your own domain.
-4. Under API restrictions, allow only the **Generative Language API**.
+## Run locally
 
-The site works fully without a key. Only Ask and "Explain with AI" need it.
+```bash
+npm install
+npm run dev        # http://localhost:5173/nidhi360/
+npm test           # calculator unit tests
+npm run build
+```
 
-## Deploy on GitHub Pages
+## Deploy
 
-1. Create a repo named `nidhi360` and upload `index.html` and this README.
-2. Go to Settings, then Pages, then Deploy from branch: `main`, folder `/root`.
-3. The site goes live at `https://babubl.github.io/nidhi360/`.
+1. In **Settings → Pages**, set Source to **GitHub Actions**. Every push to `main` then tests, builds and deploys.
+2. Optional: add repository **Variables** (Settings → Secrets and variables → Actions → Variables):
+   - `VITE_ASK_URL`: URL of the deployed AI proxy. Turns on Ask and AI rejection reading.
+   - `VITE_WHATSAPP_NUMBER`: turns on "Talk to a PF expert", e.g. `919876543210`.
+   - `VITE_CONTACT_EMAIL`: shown on the For employers page.
+   - `BASE_PATH`: set to `/` if you move to a custom domain.
 
-## Keeping rules current (the moat)
+## AI proxy (worker/)
 
-All logic reads from the `RULES` array. When EPFO or PFRDA issue a change:
+```bash
+cd worker
+npx wrangler login
+npx wrangler secret put GEMINI_API_KEY
+npx wrangler deploy
+```
 
-1. Add or edit the rule. Include `status` (`live` or `announced`), the effective `date`, the source `src` and its `url`, and text in both English and Tamil.
-2. If the change affects numbers, update the calculators (`calcWithdraw`, `exitRules`, `calcTax`).
-3. Update `RULES_CHECKED_ON`.
+Set the resulting `https://nidhi360-ai.<account>.workers.dev` URL as `VITE_ASK_URL`. Allowed origins are in `worker/wrangler.toml`.
 
-Rules last verified: 5 Oct 2026.
+## Disclaimer
+
+Nidhi360 is independent and is not affiliated with EPFO, PFRDA or any government body. It provides general information, not investment, tax or legal advice.

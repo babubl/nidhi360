@@ -1,0 +1,11 @@
+name = "nidhi360-ai"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+GEMINI_MODEL = "gemini-flash-latest"
+# Only these sites may call the proxy. Add your custom domain when you have one.
+ALLOWED_ORIGINS = "https://babubl.github.io,http://localhost:5173"
+
+# Set the key as a secret (never commit it):
+#   npx wrangler secret put GEMINI_API_KEY
