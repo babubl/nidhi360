@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { track } from "../lib/track";
 import { ArrowRight, MessageSquareText, Wrench, BookOpen } from "lucide-react";
 import { ANSWERS, CATEGORY_LABELS, type AnswerCategory } from "../data/answers";
 import { search } from "../lib/search";
@@ -14,6 +16,7 @@ export default function Answers() {
   const q = params.get("q") ?? "";
   useTitle(q ? `Results for "${q}"` : "PF and NPS answers", "Straight answers to the PF, EPS and NPS questions people ask most, with the official rule behind each.");
   const results = q ? search(q, 12) : [];
+  useEffect(() => { if (q && !results.length) track("Search no results"); }, [q, results.length]);
   const cats = Object.keys(CATEGORY_LABELS) as AnswerCategory[];
 
   return (

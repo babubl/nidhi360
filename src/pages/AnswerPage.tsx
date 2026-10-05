@@ -7,6 +7,7 @@ import { AreaBadge, ButtonLink, Container, StatusBadge } from "../components/ui"
 import { useTitle } from "../components/ToolPage";
 import { fmtDate } from "../lib/format";
 import NotFound from "./NotFound";
+import { ResolvedPrompt, ShareWhatsApp } from "../components/Feedback";
 
 export function StillStuck({ topic }: { topic: string }) {
   const options = [
@@ -103,6 +104,12 @@ export default function AnswerPage() {
             </ul>
           </section>
         )}
+
+        <div className="flex flex-wrap items-center gap-3">
+          <ShareWhatsApp id={a.slug} path={`/answers/${a.slug}`} text={`${a.question}\n${a.short}`} />
+        </div>
+
+        <ResolvedPrompt id={"answer:" + a.slug} topic={a.question} />
 
         <StillStuck topic={a.question} />
       </Container>

@@ -4,6 +4,7 @@ import { draftGrievance, ISSUE_LABELS, type IssueType } from "../../lib/calc/gri
 import { containsSensitive } from "../../lib/calc/rejection";
 import { Button, Callout, Card, Field, Select } from "../../components/ui";
 import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { track } from "../../lib/track";
 
 const inputCls = "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-[15px] text-ink outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100";
 
@@ -25,7 +26,7 @@ export default function Grievance() {
   const full = `Subject: ${g.subject}\n\n${g.body}`;
 
   const copy = async () => {
-    try { await navigator.clipboard.writeText(full); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { /* clipboard blocked */ }
+    try { await navigator.clipboard.writeText(full); track("Grievance copied", { issue }); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch { /* clipboard blocked */ }
   };
 
   return (

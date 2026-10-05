@@ -159,3 +159,32 @@ describe("Grievance drafter", () => {
     expect(g.body).not.toMatch(/\d{12}/);
   });
 });
+
+import { buildReminders, toIcs } from "./reminders";
+describe("Reminder calendar", () => {
+  const today = new Date("2026-10-06T00:00:00Z");
+  it("builds job-leaver milestones from the last working day", () => {
+    const r = buildReminders({ lastWorkingDay: "2026-09-15", today });
+    const dates = Object.fromEntries(r.map((x) => [x.title, x.date]));
+    expect(dates["PF: partial withdrawal now possible"]).toBe("2026-10-15");
+    expect(dates["PF: mark your exit date"]).toBe("2026-11-15");
+    expect(dates["PF: full settlement now possible"]).toBe("2027-09-15");
+    expect(dates["EPS: withdrawal benefit now possible"]).toBe("2029-09-15");
+  });
+  it("drops past milestones but keeps recurring ones", () => {
+    const r = buildReminders({ lastWorkingDay: "2024-01-01", today });
+    expect(r.some((x) => x.title.startsWith("PF: partial"))).toBe(false);
+    expect(r.some((x) => x.recurring === "quarterly")).toBe(true);
+  });
+  it("adds NPS decision 15 days before 60", () => {
+    const r = buildReminders({ dob: "1970-03-10", hasNps: true, today });
+    expect(r.find((x) => x.title.startsWith("NPS"))?.date).toBe("2030-02-23");
+  });
+  it("produces a valid calendar file", () => {
+    const ics = toIcs(buildReminders({ pensioner: true, today }), "https://x.test/nidhi360/", today);
+    expect(ics.startsWith("BEGIN:VCALENDAR")).toBe(true);
+    expect(ics).toContain("RRULE:FREQ=YEARLY");
+    expect(ics).toContain("DTSTART;VALUE=DATE:20261101");
+    expect(ics.trim().endsWith("END:VCALENDAR")).toBe(true);
+  });
+});

@@ -3,6 +3,7 @@ import { Printer, RotateCcw } from "lucide-react";
 import { TRANSFER_QUESTIONS, transferPlan, type TransferAnswers } from "../../lib/calc/transfer";
 import { Button, Callout, Card, Cites, Segmented } from "../../components/ui";
 import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ResolvedPrompt } from "../../components/Feedback";
 
 export default function JobChange() {
   useTitle("Changed jobs? Move your PF", "Step-by-step PF transfer after a job change: merge two UANs, mark exit date, transfer without employer approval.");
@@ -48,6 +49,7 @@ export default function JobChange() {
                     </li>
                   ))}
                 </ol>
+                <div className="mt-5"><ResolvedPrompt id="tool:job-change" topic="transferring my PF" /></div>
                 <div className="no-print mt-5 flex gap-2 border-t border-line pt-4">
                   <Button variant="secondary" onClick={() => window.print()}><Printer className="size-4" />Print steps</Button>
                   <Button variant="ghost" onClick={() => setA({})}><RotateCcw className="size-4" />Start again</Button>

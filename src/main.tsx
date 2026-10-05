@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import "@fontsource-variable/plus-jakarta-sans";
 import "./styles.css";
 import App from "./App";
+import { initAnalytics } from "./lib/track";
+
+initAnalytics();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

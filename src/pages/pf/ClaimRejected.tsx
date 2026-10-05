@@ -8,6 +8,7 @@ import { aiEnabled } from "../../config";
 import { Button, Callout, Card, Cites, Field } from "../../components/ui";
 import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
 import Markdown from "../../components/Markdown";
+import { ResolvedPrompt } from "../../components/Feedback";
 
 const EXAMPLES = ["Bank account details not verified / cheque image not legible", "Date of exit not available", "Member name mismatch with Aadhaar", "Claim amount exceeds eligible amount"];
 
@@ -97,7 +98,7 @@ export default function ClaimRejected() {
                 <p className="font-semibold text-ink">What you'll get</p>
                 <p className="mt-1 text-sm text-muted">What the rejection actually means, the exact steps to fix it on the portal, and where to complain if it's still stuck.</p>
               </Card>
-            ) : matches.length ? matches.map((m) => <ReasonCard key={m.reason.id} m={m} />) : (
+            ) : matches.length ? <>{matches.map((m) => <ReasonCard key={m.reason.id} m={m} />)}<ResolvedPrompt id={"rejection:" + matches[0].reason.id} topic={"PF claim rejected: " + matches[0].reason.title} /></> : (
               <Callout tone="warn" title="We couldn't match that reason">
                 <p>Paste the exact text from Track Claim Status{aiEnabled ? ", or use Explain with AI" : ""}. The steps below still apply if the claim is stuck.</p>
               </Callout>

@@ -4,6 +4,7 @@ import { estimateWithdrawal, PURPOSE_LABELS, type Purpose } from "../../lib/calc
 import { inr, inrShort } from "../../lib/format";
 import { Callout, Card, Cites, Field, NumberInput, Row, Segmented, Select, Stat } from "../../components/ui";
 import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ResolvedPrompt } from "../../components/Feedback";
 
 export default function Withdraw() {
   useTitle("How much PF can I withdraw?", "Estimate your PF withdrawal under the EPF Scheme 2026: medical, education, marriage, housing, job loss, retirement. Includes TDS.");
@@ -88,6 +89,7 @@ export default function Withdraw() {
               <p className="mt-1">Under 10 years of service you can take a withdrawal benefit, or keep a Scheme Certificate to protect your pension. At 10 years or more you get a monthly pension from 58. <Link to="/pf/pension" className="font-semibold text-brand-600">Estimate your pension</Link> <Cites ids={["R14"]} /></p>
             </div>
             <p className="text-[13px] text-muted">Estimate only. Rules used: <Cites ids={r.rules} /></p>
+            <ResolvedPrompt id="tool:withdraw" topic="withdrawing my PF" />
             <ExpertHelp context="withdrawing my PF" />
           </Card>
         }

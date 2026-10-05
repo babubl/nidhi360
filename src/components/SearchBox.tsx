@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BookOpen, MessageSquareText, Search, Wrench } from "lucide-react";
 import { search, type SearchResult } from "../lib/search";
 import { cx } from "./ui";
+import { track } from "../lib/track";
 
 const KIND = {
   answer: { label: "Answer", icon: MessageSquareText },
@@ -31,6 +32,7 @@ export default function SearchBox({ size = "md", placeholder = "Describe your pr
 
   const go = (to: string) => { setOpen(false); setActive(-1); onSubmitted?.(); nav(to); };
   const submit = () => {
+    track("Search", { matched: results.length > 0 });
     if (active >= 0 && results[active]) go(results[active].to);
     else if (q.trim()) go(`/answers?q=${encodeURIComponent(q.trim())}`);
   };

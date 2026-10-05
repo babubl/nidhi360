@@ -5,6 +5,7 @@ import { fixList, healthBand, healthScore, type Answer } from "../../lib/calc/he
 import { useStoredState } from "../../lib/storage";
 import { Button, Callout, Card, Segmented, cx } from "../../components/ui";
 import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ShareWhatsApp } from "../../components/Feedback";
 
 const OPTS: { value: Answer; label: string }[] = [
   { value: "yes", label: "Yes" }, { value: "no", label: "No" }, { value: "unsure", label: "Not sure" },
@@ -115,6 +116,7 @@ export default function HealthCheck() {
                   <Callout tone="success" title="Nothing to fix"><p>Your account is in good shape.</p></Callout>
                 )}
                 <div className="no-print flex flex-wrap gap-2 border-t border-line pt-4">
+                  <ShareWhatsApp id="tool:health" path="/pf/health-check" text={`My PF account scored ${score}/100 on the Nidhi360 check. 1 in 5 PF claims gets rejected; check yours in 2 minutes:`} />
                   <Button variant="secondary" onClick={share}><Share2 className="size-4" />{copied ? "Link copied" : "Share"}</Button>
                   <Button variant="secondary" onClick={() => window.print()}><Printer className="size-4" />Print</Button>
                   <Button variant="ghost" onClick={() => setAnswers({})}><RotateCcw className="size-4" />Start again</Button>

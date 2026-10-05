@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, BookOpen, BookOpenCheck, CalendarClock, FileText, FileWarning, HeartPulse, Landmark, LockKeyhole, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
+import { ArrowRight, BadgeCheck, BookOpenCheck, CalendarPlus, CalendarClock, FileText, FileWarning, HeartPulse, Landmark, LockKeyhole, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
 import { AreaBadge, ButtonLink, Container, SectionTitle, StatusBadge } from "../components/ui";
 import SearchBox from "../components/SearchBox";
 import { useTitle } from "../components/ToolPage";
@@ -13,11 +13,17 @@ const TOOLS = [
   { to: "/pf/claim-rejected", icon: FileWarning, title: "Claim rejected?", body: "Paste the rejection reason. Get what it means and exactly how to fix it." },
   { to: "/pf/job-change", icon: Repeat, title: "Job change & transfer", body: "Move PF from old employers, merge a second UAN, handle a closed company." },
   { to: "/pf/withdraw", icon: Wallet, title: "Withdrawal estimate", body: "What you can take for each purpose under the 2026 rules, with TDS." },
-  { to: "/answers", icon: BookOpen, title: "Answers library", body: "Straight answers to the 30 questions people ask most, with the rule behind each." },
   { to: "/pf/pension", icon: Landmark, title: "EPS pension estimate", body: "Your monthly pension at 58, or earlier or later, and what affects it." },
   { to: "/nps/tax", icon: Scale, title: "NPS tax savings", body: "What NPS saves you in the old and new regimes, and what HR can change." },
   { to: "/nps/retirement", icon: PiggyBank, title: "NPS retirement & exit", body: "Your corpus, the lump sum you can take, the annuity, and the tax on each." },
   { to: "/pf/grievance", icon: FileText, title: "Complaint drafter", body: "A clear EPFiGMS grievance for delayed claims, unpaid PF or a stuck transfer." },
+  { to: "/reminders", icon: CalendarPlus, title: "Deadline reminders", body: "Exit date, 12-month settlement, pension at 58, NPS before 60: in your calendar." },
+];
+
+const STATS = [
+  { n: "1 in 5", t: "PF claims gets rejected", d: "About 174 lakh of 796 lakh claims in FY 2024-25, mostly for fixable KYC, bank and record errors (EPFO annual report)." },
+  { n: "7.5 crore", t: "active EPF members", d: "Contributing members, as reported by the Labour Ministry in 2026. The ₹25,000 wage ceiling brings 51 lakh more under mandatory PF." },
+  { n: "2.3 crore", t: "NPS subscribers today", d: "PFRDA expects 2–3 crore more in the next two years with UPI account opening." },
 ];
 
 const POPULAR = [
@@ -109,7 +115,21 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section className="py-14 sm:py-16">
+        <Container>
+          <div className="grid gap-8 md:grid-cols-3">
+            {STATS.map((s) => (
+              <div key={s.n}>
+                <p className="num text-4xl font-extrabold tracking-tight text-brand-600">{s.n}</p>
+                <p className="mt-2 font-semibold text-ink">{s.t}</p>
+                <p className="mt-1 text-sm text-muted">{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line py-16 sm:py-20">
         <Container>
           <SectionTitle title="Start with where you are" intro="What matters about your PF and NPS changes with every decade of your career. Pick yours for the three things to do now." />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

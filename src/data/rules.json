@@ -268,5 +268,15 @@
     "summary": "Interest is credited to your PF account up to age 58, even if no contributions come in. After 58 the account becomes inoperative and stops earning interest, so claim it. Accounts with no transactions for 3 years face extra verification before withdrawal.",
     "source": "EPFO circular, 2 Aug 2024",
     "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R28",
+    "area": "nps",
+    "status": "announced",
+    "effective": "2026-10-01",
+    "title": "Open an NPS account with UPI in three clicks (NPS Tatkal)",
+    "summary": "PFRDA has unveiled UPI-based NPS account opening that reuses your bank KYC, aimed at bringing 2–3 crore new subscribers in two years. NPS had about 2.3 crore subscribers in October 2026. Check availability in your bank or UPI app before relying on it.",
+    "source": "PFRDA announcement, 1 Oct 2026",
+    "sourceUrl": "https://www.pfrda.org.in"
   }
 ]

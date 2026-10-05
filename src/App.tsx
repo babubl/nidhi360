@@ -20,6 +20,7 @@ const Ask = lazy(() => import("./pages/Ask"));
 const Answers = lazy(() => import("./pages/Answers"));
 const AnswerPage = lazy(() => import("./pages/AnswerPage"));
 const Grievance = lazy(() => import("./pages/pf/Grievance"));
+const Reminders = lazy(() => import("./pages/Reminders"));
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="pf/withdraw" element={<Withdraw />} />
             <Route path="pf/pension" element={<Pension />} />
             <Route path="pf/grievance" element={<Grievance />} />
+            <Route path="reminders" element={<Reminders />} />
             <Route path="answers" element={<Answers />} />
             <Route path="answers/:slug" element={<AnswerPage />} />
             <Route path="nps/tax" element={<NpsTax />} />
