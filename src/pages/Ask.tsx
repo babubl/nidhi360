@@ -4,7 +4,7 @@ import { askQuestion, type ChatMessage } from "../lib/ask";
 import { containsSensitive } from "../lib/calc/rejection";
 import { aiEnabled } from "../config";
 import { ButtonLink, Container, cx } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import Markdown from "../components/Markdown";
 import SearchBox from "../components/SearchBox";
 
@@ -16,7 +16,6 @@ const STARTERS = [
 ];
 
 export default function Ask() {
-  useTitle("Ask about PF or NPS");
   const [msgs, setMsgs] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);

@@ -1,6 +1,6 @@
 import { BarChart3, Building2, Clock, Headset, ShieldCheck, Users } from "lucide-react";
 import { ButtonLink, Container, SectionTitle } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import { config } from "../config";
 
 const POINTS = [
@@ -13,7 +13,6 @@ const POINTS = [
 ];
 
 export default function Employers() {
-  useTitle("For employers and HR teams", "Give employees PF and NPS support that cuts HR tickets and keeps up with every rule change.");
   const mail = config.contactEmail ? `mailto:${config.contactEmail}?subject=${encodeURIComponent("Nidhi360 for our employees")}` : "/about";
   return (
     <>

@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Check, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 import { track } from "../lib/track";
 import { config } from "../config";
 import { cx } from "./ui";
+import { SITE_URL } from "../seo";
 
 /** "Did this solve it?" — the resolution metric. A "no" routes straight to the next best help. */
 export function ResolvedPrompt({ id, topic }: { id: string; topic: string }) {
   const key = "n360:resolved:" + id;
-  const [v, setV] = useState<"yes" | "no" | null>(() => { try { return localStorage.getItem(key) as "yes" | "no" | null; } catch { return null; } });
+  const [v, setV] = useState<"yes" | "no" | null>(null);
+  useEffect(() => { try { setV(localStorage.getItem(key) as "yes" | "no" | null); } catch { /* storage blocked */ } }, [key]);
   const answer = (x: "yes" | "no") => {
     setV(x);
     try { localStorage.setItem(key, x); } catch { /* storage blocked */ }
@@ -42,7 +44,7 @@ export function ResolvedPrompt({ id, topic }: { id: string; topic: string }) {
 
 /** WhatsApp is where Indian users share money tips; one tap, prefilled. */
 export function ShareWhatsApp({ text, path, id, className }: { text: string; path: string; id: string; className?: string }) {
-  const url = location.origin + import.meta.env.BASE_URL + path.replace(/^\//, "");
+  const url = SITE_URL + "/" + path.replace(/^\//, "");
   return (
     <a href={`https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`} target="_blank" rel="noopener noreferrer" onClick={() => track("Share WhatsApp", { page: id })}
       className={cx("inline-flex items-center gap-1.5 rounded-lg border border-line px-3.5 py-2 text-sm font-semibold text-ink no-underline hover:border-brand-200 hover:bg-brand-50", className)}>

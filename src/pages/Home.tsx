@@ -3,7 +3,6 @@ import { ArrowRight, BadgeCheck, BookOpenCheck, CalendarPlus, CalendarClock, Fil
 import { AreaBadge, ButtonLink, Container, SectionTitle, StatusBadge } from "../components/ui";
 import SearchBox from "../components/SearchBox";
 import { FOUNDER } from "../data/team";
-import { useTitle } from "../components/ToolPage";
 import { LIFE_STAGES } from "../data/lifestages";
 import { rulesByRecency, RULES_CHECKED_ON } from "../data/rules";
 import { estimateWithdrawal } from "../lib/calc/pfWithdrawal";
@@ -74,7 +73,6 @@ function HeroPreview() {
 }
 
 export default function Home() {
-  useTitle("");
   const latest = rulesByRecency().slice(0, 3);
   return (
     <>

@@ -5,10 +5,9 @@ import { rulesByRecency, RULES_CHECKED_ON } from "../data/rules";
 import type { Area } from "../data/types";
 import { fmtDate } from "../lib/format";
 import { AreaBadge, Container, Segmented, StatusBadge } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 
 export default function Rules() {
-  useTitle("PF and NPS rule updates", "Every EPFO, PFRDA and tax rule Nidhi360 uses, with its official source and effective date.");
   const [area, setArea] = useState<"all" | Area>("all");
   const list = rulesByRecency().filter((r) => area === "all" || r.area === area);
   return (

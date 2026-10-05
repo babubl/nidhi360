@@ -5,7 +5,7 @@ import { ArrowRight, MessageSquareText, Wrench, BookOpen } from "lucide-react";
 import { ANSWERS, CATEGORY_LABELS, type AnswerCategory } from "../data/answers";
 import { search } from "../lib/search";
 import { Container } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import SearchBox from "../components/SearchBox";
 import { StillStuck } from "./AnswerPage";
 
@@ -14,7 +14,6 @@ const ICON = { answer: MessageSquareText, tool: Wrench, term: BookOpen };
 export default function Answers() {
   const [params] = useSearchParams();
   const q = params.get("q") ?? "";
-  useTitle(q ? `Results for "${q}"` : "PF and NPS answers", "Straight answers to the PF, EPS and NPS questions people ask most, with the official rule behind each.");
   const results = q ? search(q, 12) : [];
   useEffect(() => { if (q && !results.length) track("Search no results"); }, [q, results.length]);
   const cats = Object.keys(CATEGORY_LABELS) as AnswerCategory[];

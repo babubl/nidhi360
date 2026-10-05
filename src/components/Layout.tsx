@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container, cx } from "./ui";
@@ -7,6 +7,7 @@ import { fmtDate } from "../lib/format";
 import { aiEnabled } from "../config";
 import { NPS_TOOLS, PF_TOOLS } from "../data/tools";
 import SearchBox from "./SearchBox";
+import Head from "./Head";
 
 export function Logo() {
   return (
@@ -65,7 +66,7 @@ function Header() {
           <NavLink to="/employers" className={navCls}>For employers</NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          {!isHome && <div className="hidden w-64 xl:block"><SearchBox size="sm" placeholder="Search your problem" /></div>}
+          {!isHome && <div className="hidden w-64 xl:block"><SearchBox size="sm" placeholder="Search your problem" label="Site search" /></div>}
           <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink xl:hidden"><Search className="size-5" /></Link>
           <Link to="/help" className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Expert help</Link>
           <button className="rounded-md p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -135,6 +136,15 @@ function Footer() {
   );
 }
 
+function PageSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Loading" className="animate-pulse">
+      <div className="border-b border-line bg-canvas"><Container className="py-12"><div className="h-9 w-2/3 rounded bg-line/70" /><div className="mt-4 h-4 w-1/2 rounded bg-line/60" /></Container></div>
+      <Container className="grid gap-6 py-8 lg:grid-cols-2"><div className="h-72 rounded-xl bg-canvas" /><div className="h-72 rounded-xl bg-canvas" /></Container>
+    </div>
+  );
+}
+
 /** ?embed=1 hides site chrome so payroll/HRMS partners can embed any page in an iframe. Persists for the session. */
 function useEmbedMode() {
   const { search } = useLocation();
@@ -146,6 +156,17 @@ function useEmbedMode() {
 export default function Layout() {
   const { pathname, hash } = useLocation();
   const embed = useEmbedMode();
+  // "/" focuses search from anywhere, like most search-first products.
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable) return;
+      const input = document.querySelector<HTMLInputElement>('main input[type="search"]') ?? document.querySelector<HTMLInputElement>('header input[type="search"]');
+      if (input) { e.preventDefault(); input.focus(); }
+    };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
+  }, []);
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(hash.slice(1));
@@ -156,8 +177,9 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">Skip to content</a>
+      <Head />
       {!embed && <Header />}
-      <main id="main" className="flex-1"><Outlet /></main>
+      <main id="main" className="flex-1"><Suspense fallback={<PageSkeleton />}><Outlet /></Suspense></main>
       {embed
         ? <p className="border-t border-line py-4 text-center text-[13px] text-muted">Powered by <a href={import.meta.env.BASE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700">Nidhi360</a> · Independent information, not affiliated with EPFO or PFRDA</p>
         : <Footer />}

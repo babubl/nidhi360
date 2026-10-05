@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { GLOSSARY } from "../data/glossary";
 import { Container } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 
 export default function Glossary() {
-  useTitle("PF and NPS glossary", "UAN, EPS, Form 19, Form 10C, PRAN, annuity and more, explained in plain English.");
   const [q, setQ] = useState("");
   const list = GLOSSARY.filter((g) => (g.term + " " + g.meaning).toLowerCase().includes(q.toLowerCase()));
   return (

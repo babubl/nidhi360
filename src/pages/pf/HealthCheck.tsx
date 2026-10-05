@@ -4,7 +4,7 @@ import { HEALTH_QUESTIONS } from "../../data/healthcheck";
 import { fixList, healthBand, healthScore, type Answer } from "../../lib/calc/health";
 import { useStoredState } from "../../lib/storage";
 import { Button, Callout, Card, Segmented, cx } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, ToolGrid } from "../../components/ToolPage";
 import { ShareWhatsApp } from "../../components/Feedback";
 
 const OPTS: { value: Answer; label: string }[] = [
@@ -28,7 +28,6 @@ function ScoreRing({ score, color }: { score: number; color: string }) {
 }
 
 export default function HealthCheck() {
-  useTitle("PF account check", "Check your EPFO account in 2 minutes: UAN, KYC, bank, name match, exit dates, nominee. Get a prioritised fix list.");
   const [answers, setAnswers] = useStoredState<Record<string, Answer>>("health", {});
   const resultRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);

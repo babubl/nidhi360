@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import { RULES, RULES_CHECKED_ON } from "../data/rules";
 import { FOUNDER, REPO_URL } from "../data/team";
 import { fmtDate } from "../lib/format";
@@ -15,7 +15,6 @@ const SECTIONS = [
 ];
 
 export default function About() {
-  useTitle("About Nidhi360");
   return (
     <>
       <PageHero title="Who's behind Nidhi360" intro="Nidhi360 exists because PF and NPS rules change often, and most people find out the hard way, when a claim is rejected." />

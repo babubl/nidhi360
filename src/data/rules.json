@@ -278,5 +278,45 @@
     "summary": "PFRDA has unveiled UPI-based NPS account opening that reuses your bank KYC, aimed at bringing 2–3 crore new subscribers in two years. NPS had about 2.3 crore subscribers in October 2026. Check availability in your bank or UPI app before relying on it.",
     "source": "PFRDA announcement, 1 Oct 2026",
     "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R29",
+    "area": "nps",
+    "status": "live",
+    "effective": "2025-04-01",
+    "title": "Unified Pension Scheme for central government employees",
+    "summary": "UPS gives central government employees an assured pension of 50% of average basic pay over the last 12 months after 25 years of service (proportionately less for shorter service), a minimum of ₹10,000 a month after 10 years, and 60% as family pension. The opt-in window closed on 30 November 2025 with about 1.22 lakh employees choosing UPS. UPS members get a one-time, one-way switch back to NPS during service.",
+    "source": "UPS notification; opt-in closed 30 Nov 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R30",
+    "area": "nps",
+    "status": "live",
+    "effective": "2026-01-08",
+    "title": "NPS Vatsalya: rules for children’s accounts",
+    "summary": "Guardians can open NPS Vatsalya for a minor. After 3 years, up to 25% of contributions can be withdrawn for education, specified illnesses or disability (twice before 18, twice more between 18 and 21). At 18 the account can continue up to 3 years, move to regular NPS, or exit with up to 80% as lump sum (100% if under ₹8 lakh). Contributions qualify for the ₹50,000 deduction under the old tax regime.",
+    "source": "PFRDA NPS Vatsalya guidelines, Jan 2026; Finance Act 2025",
+    "sourceUrl": "https://www.pfrda.org.in"
+  },
+  {
+    "id": "R31",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-08-01",
+    "title": "Face authentication to generate or activate a UAN in UMANG",
+    "summary": "Generating or activating a UAN through the UMANG app requires Aadhaar face authentication using the Aadhaar Face RD app. Employer-assisted UAN generation remains available, including for international workers.",
+    "source": "EPFO circular on UAN generation via UMANG, 2025",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R32",
+    "area": "pf",
+    "status": "live",
+    "effective": "2026-08-05",
+    "title": "EPS higher pension: almost all applications processed",
+    "summary": "Following the Supreme Court judgment of November 2022, EPFO received 15.24 lakh applications for higher pension on actual salary. As of 5 August 2026, 11,595 were still pending, mostly in a few regions. The application window closed in 2023.",
+    "source": "Labour Ministry reply, Aug 2026",
+    "sourceUrl": "https://www.epfindia.gov.in"
   }
 ]

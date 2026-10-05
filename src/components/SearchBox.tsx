@@ -12,8 +12,8 @@ const KIND = {
 };
 
 /** Problem search with live suggestions. Enter with nothing highlighted opens the full results page. */
-export default function SearchBox({ size = "md", placeholder = "Describe your problem, e.g. claim pending for 30 days", autoFocus, initial = "", onSubmitted }: {
-  size?: "lg" | "md" | "sm"; placeholder?: string; autoFocus?: boolean; initial?: string; onSubmitted?: () => void;
+export default function SearchBox({ size = "md", placeholder = "Describe your problem, e.g. claim pending for 30 days", autoFocus, initial = "", onSubmitted, label = "Search PF and NPS help" }: {
+  size?: "lg" | "md" | "sm"; placeholder?: string; autoFocus?: boolean; initial?: string; onSubmitted?: () => void; label?: string;
 }) {
   const [q, setQ] = useState(initial);
   const [open, setOpen] = useState(false);
@@ -40,8 +40,8 @@ export default function SearchBox({ size = "md", placeholder = "Describe your pr
   const big = size === "lg";
   return (
     <div ref={box} className="relative w-full">
-      <form role="search" onSubmit={(e) => { e.preventDefault(); submit(); }}>
-        <label htmlFor={id} className="sr-only">Search PF and NPS help</label>
+      <form role="search" aria-label={label} onSubmit={(e) => { e.preventDefault(); submit(); }}>
+        <label htmlFor={id} className="sr-only">{label}</label>
         <Search className={cx("pointer-events-none absolute top-1/2 -translate-y-1/2 text-muted", big ? "left-4 size-5" : "left-3 size-4")} aria-hidden />
         <input
           id={id} type="search" autoComplete="off" autoFocus={autoFocus} value={q} placeholder={placeholder}

@@ -41,6 +41,15 @@ const CHALLENGE: [string, string][] = [
   ["otp not coming epfo", "/answers/otp-not-received"],
   ["epfo website not working", "/answers/portal-not-working"],
   ["pf agent asking my otp is it safe", "/answers/pf-agent-safe"],
+  ["do i need to submit form 15g", "/answers/form-15g-15h"],
+  ["moving to canada what about my pf", "/answers/moving-abroad"],
+  ["how to activate uan face authentication", "/answers/activate-uan"],
+  ["download pf passbook pdf", "/answers/download-passbook"],
+  ["should i invest in vpf", "/answers/vpf"],
+  ["higher pension status supreme court", "/answers/higher-pension"],
+  ["why is my eps pension only 1000", "/answers/minimum-pension"],
+  ["central govt employee ups or nps", "/answers/ups-vs-nps"],
+  ["nps account for my daughter", "/answers/nps-vatsalya"],
 ];
 
 describe("Resolution challenge: real queries find the right answer", () => {

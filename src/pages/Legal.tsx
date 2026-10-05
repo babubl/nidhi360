@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Trash2 } from "lucide-react";
 import { Button, Container } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import { clearSavedData } from "../lib/storage";
 
 const SECTIONS: { id: string; h: string; items: string[] }[] = [
@@ -28,7 +28,6 @@ const SECTIONS: { id: string; h: string; items: string[] }[] = [
 ];
 
 export default function Legal() {
-  useTitle("Terms, privacy and disclaimer");
   const [cleared, setCleared] = useState(false);
   return (
     <>

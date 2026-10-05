@@ -1,0 +1,33 @@
+name: Rules freshness check
+
+on:
+  schedule:
+    - cron: "30 3 * * 1" # Mondays 09:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-freshness.mjs
+      - name: Open or update a review issue
+        if: hashFiles('freshness-report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -s freshness-report.md ]; then exit 0; fi
+          gh label create rules-review --color B54708 --description "Rules register needs re-verification" 2>/dev/null || true
+          existing=$(gh issue list --label rules-review --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file freshness-report.md
+          else
+            gh issue create --title "Rules register needs review" --label rules-review --body-file freshness-report.md
+          fi

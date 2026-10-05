@@ -6,7 +6,7 @@ import { containsSensitive, matchRejection, type RejectionMatch } from "../../li
 import { explainRejection } from "../../lib/ask";
 import { aiEnabled } from "../../config";
 import { Button, Callout, Card, Cites, Field } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, ToolGrid } from "../../components/ToolPage";
 import Markdown from "../../components/Markdown";
 import { ResolvedPrompt } from "../../components/Feedback";
 
@@ -38,7 +38,6 @@ function ReasonCard({ m }: { m: RejectionMatch }) {
 }
 
 export default function ClaimRejected() {
-  useTitle("PF claim rejected? Fix it", "Paste your EPFO rejection reason and get a plain-English explanation and exact steps to fix it.");
   const [text, setText] = useState("");
   const [matches, setMatches] = useState<RejectionMatch[] | null>(null);
   const [image, setImage] = useState<{ mimeType: string; data: string; name: string } | null>(null);

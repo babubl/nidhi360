@@ -10,4 +10,5 @@ export const PF_TOOLS = [
 export const NPS_TOOLS = [
   { to: "/nps/tax", label: "NPS tax savings", desc: "Old vs new regime, employer contribution" },
   { to: "/nps/retirement", label: "NPS retirement & exit", desc: "Corpus, lump sum, annuity, tax" },
+  { to: "/compare", label: "EPF vs VPF vs PPF vs NPS", desc: "Returns, tax and lock-in side by side" },
 ];

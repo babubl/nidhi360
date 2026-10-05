@@ -4,13 +4,6 @@ import { ChevronRight, MessageCircle } from "lucide-react";
 import { Container, Cites } from "./ui";
 import { ruleById } from "../data/rules";
 
-export function useTitle(title: string, description?: string) {
-  useEffect(() => {
-    document.title = title ? `${title} · Nidhi360` : "Nidhi360 · PF and NPS help for salaried India";
-    if (description) document.querySelector('meta[name="description"]')?.setAttribute("content", description);
-  }, [title, description]);
-}
-
 export function PageHero({ crumb, title, intro, children }: { crumb?: { to: string; label: string }; title: string; intro?: string; children?: ReactNode }) {
   return (
     <section className="border-b border-line bg-canvas">

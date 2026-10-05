@@ -1,0 +1,23 @@
+{
+  "name": "Nidhi360: PF and NPS help",
+  "short_name": "Nidhi360",
+  "description": "Fix a rejected PF claim, move PF after a job change, know what you can withdraw, plan your pension and NPS exit.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0B5D4B",
+  "lang": "en-IN",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "PF account check", "url": "./pf/health-check" },
+    { "name": "Claim rejected", "url": "./pf/claim-rejected" },
+    { "name": "Withdrawal estimate", "url": "./pf/withdraw" },
+    { "name": "Complaint drafter", "url": "./pf/grievance" }
+  ]
+}

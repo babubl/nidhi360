@@ -3,13 +3,12 @@ import { Check, Copy, ExternalLink } from "lucide-react";
 import { draftGrievance, ISSUE_LABELS, type IssueType } from "../../lib/calc/grievance";
 import { containsSensitive } from "../../lib/calc/rejection";
 import { Button, Callout, Card, Field, Select } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, ToolGrid } from "../../components/ToolPage";
 import { track } from "../../lib/track";
 
 const inputCls = "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-[15px] text-ink outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100";
 
 export default function Grievance() {
-  useTitle("Write an EPFO complaint (EPFiGMS)", "Draft a clear EPFiGMS grievance for a delayed, rejected or unpaid PF claim, a stuck transfer, or an employer not depositing PF.");
   const [issue, setIssue] = useState<IssueType>("delayed");
   const [claimId, setClaimId] = useState("");
   const [filedOn, setFiledOn] = useState("");

@@ -1,59 +1,67 @@
-import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { lazy, type ComponentType } from "react";
+import { matchPath, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 
-const LifeStage = lazy(() => import("./pages/LifeStage"));
-const HealthCheck = lazy(() => import("./pages/pf/HealthCheck"));
-const ClaimRejected = lazy(() => import("./pages/pf/ClaimRejected"));
-const JobChange = lazy(() => import("./pages/pf/JobChange"));
-const Withdraw = lazy(() => import("./pages/pf/Withdraw"));
-const Pension = lazy(() => import("./pages/pf/Pension"));
-const NpsTax = lazy(() => import("./pages/nps/NpsTax"));
-const NpsRetirement = lazy(() => import("./pages/nps/NpsRetirement"));
-const Rules = lazy(() => import("./pages/Rules"));
-const Glossary = lazy(() => import("./pages/Glossary"));
-const Employers = lazy(() => import("./pages/Employers"));
-const About = lazy(() => import("./pages/About"));
-const Ask = lazy(() => import("./pages/Ask"));
-const Answers = lazy(() => import("./pages/Answers"));
-const AnswerPage = lazy(() => import("./pages/AnswerPage"));
-const Grievance = lazy(() => import("./pages/pf/Grievance"));
-const Reminders = lazy(() => import("./pages/Reminders"));
-const Help = lazy(() => import("./pages/Help"));
-const Legal = lazy(() => import("./pages/Legal"));
+/**
+ * Code-split page that can be loaded ahead of rendering.
+ * Once preloaded, it renders synchronously: the prerenderer gets complete HTML,
+ * and the browser hydrates without flashing a loading state.
+ */
+type Loader = () => Promise<{ default: ComponentType }>;
+const loaded = new Map<Loader, ComponentType>();
+function page(loader: Loader) {
+  const Lazy = lazy(loader);
+  const Page = () => {
+    const C = loaded.get(loader);
+    return C ? <C /> : <Lazy />;
+  };
+  Page.preload = async () => { if (!loaded.has(loader)) loaded.set(loader, (await loader()).default); };
+  return Page;
+}
 
-export default function App() {
+const PAGES = {
+  "start/:slug": page(() => import("./pages/LifeStage")),
+  "pf/health-check": page(() => import("./pages/pf/HealthCheck")),
+  "pf/claim-rejected": page(() => import("./pages/pf/ClaimRejected")),
+  "pf/job-change": page(() => import("./pages/pf/JobChange")),
+  "pf/withdraw": page(() => import("./pages/pf/Withdraw")),
+  "pf/pension": page(() => import("./pages/pf/Pension")),
+  "pf/grievance": page(() => import("./pages/pf/Grievance")),
+  "nps/tax": page(() => import("./pages/nps/NpsTax")),
+  "nps/retirement": page(() => import("./pages/nps/NpsRetirement")),
+  "compare": page(() => import("./pages/Compare")),
+  "reminders": page(() => import("./pages/Reminders")),
+  "help": page(() => import("./pages/Help")),
+  "legal": page(() => import("./pages/Legal")),
+  "answers": page(() => import("./pages/Answers")),
+  "answers/:slug": page(() => import("./pages/AnswerPage")),
+  "rules": page(() => import("./pages/Rules")),
+  "glossary": page(() => import("./pages/Glossary")),
+  "employers": page(() => import("./pages/Employers")),
+  "about": page(() => import("./pages/About")),
+  "ask": page(() => import("./pages/Ask")),
+};
+
+/** Load every page module (used by the prerenderer). */
+export const preloadAll = () => Promise.all(Object.values(PAGES).map((p) => p.preload()));
+
+/** Load the page module for one URL path (used before hydrating a prerendered page). */
+export async function preloadFor(pathname: string) {
+  const entry = Object.entries(PAGES).find(([path]) => matchPath("/" + path, pathname));
+  if (entry) await entry[1].preload();
+}
+
+/** Route table shared by the browser app and the build-time prerenderer. */
+export default function AppRoutes() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-      <Suspense fallback={<div className="min-h-[60vh]" />}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="start/:slug" element={<LifeStage />} />
-            <Route path="pf/health-check" element={<HealthCheck />} />
-            <Route path="pf/claim-rejected" element={<ClaimRejected />} />
-            <Route path="pf/job-change" element={<JobChange />} />
-            <Route path="pf/withdraw" element={<Withdraw />} />
-            <Route path="pf/pension" element={<Pension />} />
-            <Route path="pf/grievance" element={<Grievance />} />
-            <Route path="reminders" element={<Reminders />} />
-            <Route path="help" element={<Help />} />
-            <Route path="legal" element={<Legal />} />
-            <Route path="answers" element={<Answers />} />
-            <Route path="answers/:slug" element={<AnswerPage />} />
-            <Route path="nps/tax" element={<NpsTax />} />
-            <Route path="nps/retirement" element={<NpsRetirement />} />
-            <Route path="rules" element={<Rules />} />
-            <Route path="glossary" element={<Glossary />} />
-            <Route path="employers" element={<Employers />} />
-            <Route path="about" element={<About />} />
-            <Route path="ask" element={<Ask />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Home />} />
+        {Object.entries(PAGES).map(([path, P]) => <Route key={path} path={path} element={<P />} />)}
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }

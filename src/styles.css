@@ -29,6 +29,8 @@
   h1, h2, h3, h4 { @apply text-ink; letter-spacing: -0.015em; }
   :focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; border-radius: 6px; }
   ::selection { background: var(--color-brand-100); }
+  /* Links inside running text are underlined so they never rely on colour alone. */
+  :where(p, li, dd, td) a:not(.no-underline) { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
   input[type="number"]::-webkit-inner-spin-button { opacity: .4; }
 }
 

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { monthlyAnnuity, projectCorpus, type Sector } from "../../lib/calc/nps";
 import { inr, inrShort } from "../../lib/format";
 import { Callout, Card, Cites, Field, NumberInput, Row, Segmented, Stat } from "../../components/ui";
-import { PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../../components/ToolPage";
+import { PageHero, RulesUsed, SavedNote, ToolGrid } from "../../components/ToolPage";
 import { useMe } from "../../lib/storage";
 
-const COLORS = { taxFree: "#0B5D4B", taxable: "#D9A441", annuity: "#5E7CE2", systematic: "#8FB9AA" };
+// All segments meet 4.5:1 contrast with white labels.
+const COLORS = { taxFree: "#0B5D4B", taxable: "#B54708", annuity: "#3E5BB8", systematic: "#3F7F6D" };
 
 export default function NpsRetirement() {
-  useTitle("NPS retirement and exit planner", "Project your NPS corpus and see what you can take as lump sum, what must buy an annuity, and the tax, under PFRDA's December 2025 exit rules.");
   const [sector, setSector] = useState<Sector>("private");
   const [age, setAge] = useMe("age", 35);
   const [yearsIn, setYearsIn] = useMe("npsYears", 5);

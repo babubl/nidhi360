@@ -6,7 +6,7 @@ import { FOUNDER } from "../data/team";
 import { containsSensitive } from "../lib/calc/rejection";
 import { track } from "../lib/track";
 import { Callout, Card, Container, Field, Select, SectionTitle, cx } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 
 /** Edit prices and scope here. */
 export const PLANS = [
@@ -28,7 +28,6 @@ const CASE_TYPES = [
 ];
 
 export default function Help() {
-  useTitle("Expert help with your PF or NPS case", "Stuck PF claim, death claim, employer default or pension problem? Get an expert to guide you. Pay only after we confirm we can help.");
   const [params] = useSearchParams();
   const [plan, setPlan] = useState("review");
   const [type, setType] = useState(CASE_TYPES[0]);

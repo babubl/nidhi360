@@ -5,13 +5,12 @@ import { buildReminders, toIcs } from "../lib/calc/reminders";
 import { track } from "../lib/track";
 import { fmtDate } from "../lib/format";
 import { Button, Card, Field, Segmented } from "../components/ui";
-import { PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../components/ToolPage";
+import { PageHero, RulesUsed, SavedNote, ToolGrid } from "../components/ToolPage";
 import { useMe } from "../lib/storage";
 
 const inputCls = "w-full rounded-lg border border-line bg-white px-3 py-2.5 text-[15px] text-ink outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100";
 
 export default function Reminders() {
-  useTitle("PF and NPS reminder calendar", "Never miss a PF or NPS deadline: exit date, 12-month settlement, EPS at 58, NPS decision before 60, yearly life certificate. Add them to your calendar.");
   const [left, setLeft] = useState<"yes" | "no">("no");
   const [lwd, setLwd] = useMe("lastWorkingDay", "");
   const [dob, setDob] = useMe("dob", "");

@@ -2,10 +2,9 @@ import { useState } from "react";
 import { npsTaxSaving } from "../../lib/calc/nps";
 import { inr } from "../../lib/format";
 import { Callout, Card, Cites, Field, NumberInput, Row, Segmented, Stat } from "../../components/ui";
-import { PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { PageHero, RulesUsed, ToolGrid } from "../../components/ToolPage";
 
 export default function NpsTax() {
-  useTitle("NPS tax savings calculator", "How much tax NPS saves you in the old and new regimes, including the employer contribution deduction up to 14%.");
   const [regime, setRegime] = useState<"new" | "old">("new");
   const [basic, setBasic] = useState(900000);
   const [employerPct, setEmployerPct] = useState(10);

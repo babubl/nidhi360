@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Printer, RotateCcw } from "lucide-react";
 import { TRANSFER_QUESTIONS, transferPlan, type TransferAnswers } from "../../lib/calc/transfer";
 import { Button, Callout, Card, Cites, Segmented } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, ToolGrid } from "../../components/ToolPage";
 import { ResolvedPrompt } from "../../components/Feedback";
 
 export default function JobChange() {
-  useTitle("Changed jobs? Move your PF", "Step-by-step PF transfer after a job change: merge two UANs, mark exit date, transfer without employer approval.");
   const [a, setA] = useState<TransferAnswers>({});
   const done = TRANSFER_QUESTIONS.every((q) => a[q.id]);
   const plan = done ? transferPlan(a) : [];

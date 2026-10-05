@@ -106,6 +106,30 @@ export const ANSWERS: Answer[] = [
     keywords: ["settled", "not credited", "not received in bank", "money not in bank", "bank", "bounced", "returned", "credited but", "where is my money"],
     related: ["claim-pending-too-long", "claim-rejected"],
   },
+  {
+    slug: "form-15g-15h", category: "withdraw",
+    question: "When should I submit Form 15G or 15H with my PF claim?",
+    short: "Only when TDS would otherwise apply, meaning a full withdrawal of more than ₹50,000 before 5 years of continuous service, and only if your total income for the year, including this withdrawal's taxable part, is below the taxable limit. Use 15G if you're under 60 and 15H if you're 60 or above. Your PAN must be linked.",
+    steps: [
+      "Check whether TDS applies at all: under 5 years of continuous service, and a withdrawal over ₹50,000.",
+      "Fill Form 15G (under 60) or 15H (60+) and upload it with your online claim.",
+      "Don't submit it if your income is above the limit. A false declaration attracts penalties, and you'd owe the tax anyway.",
+    ],
+    tool: { to: "/pf/withdraw", label: "Check if TDS applies" },
+    rules: ["R13"],
+    keywords: ["15g", "15h", "form 15g", "form 15h", "avoid tds", "no tds", "tds deducted", "declaration"],
+    related: ["withdraw-tax", "withdraw-after-resigning"],
+  },
+  {
+    slug: "moving-abroad", category: "withdraw",
+    question: "I'm moving abroad. What happens to my PF?",
+    short: "If you're leaving India permanently or taking up employment overseas, you can withdraw your full PF balance as a final settlement, with proof such as a visa or overseas job letter. If you're going only for a short stint and may return, leaving it in the account keeps it earning interest until 58.",
+    tool: { to: "/pf/withdraw", label: "Estimate my settlement" },
+    rules: ["R5", "R27", "R13"],
+    keywords: ["abroad", "nri", "moving abroad", "migrate", "migration", "foreign", "overseas", "leaving india", "settle abroad", "visa"],
+    related: ["withdraw-tax", "old-account"],
+  },
+
   // ---- Withdrawing PF
   {
     slug: "withdraw-after-resigning", category: "withdraw",
@@ -236,6 +260,42 @@ export const ANSWERS: Answer[] = [
     related: ["forgot-uan", "check-balance"],
   },
   {
+    slug: "activate-uan", category: "account",
+    question: "How do I generate or activate my UAN?",
+    short: "Most people get a UAN from their employer at joining. To generate or activate one yourself through the UMANG app, EPFO now requires Aadhaar face authentication: you install the Aadhaar Face RD app, complete a live face scan, and receive your UAN by SMS with your KYC prefilled.",
+    steps: [
+      "Install UMANG and the Aadhaar Face RD app on your phone.",
+      "In UMANG, open EPFO and choose UAN allotment and activation, then enter your Aadhaar number and the Aadhaar-linked mobile number.",
+      "Complete the live face scan, then the SMS OTP. Your UAN arrives by SMS.",
+      "If you already have a UAN from an earlier job, give that to your new employer instead of creating a new one.",
+    ],
+    rules: ["R31"],
+    keywords: ["activate uan", "uan activation", "generate uan", "new uan", "face authentication", "face scan", "umang", "uan allotment"],
+    related: ["forgot-uan", "two-uans"],
+  },
+  {
+    slug: "download-passbook", category: "account",
+    question: "How do I download my PF passbook?",
+    short: "Log in at passbook.epfindia.gov.in with your UAN, password and an OTP, pick the member ID for each employer, and download the passbook as a PDF. You can also view it in the UMANG app or DigiLocker. It shows every monthly contribution, interest credit and withdrawal.",
+    rules: [],
+    keywords: ["passbook", "download passbook", "statement", "pdf", "contribution history", "member passbook", "digilocker"],
+    related: ["check-balance", "employer-not-depositing"],
+  },
+  {
+    slug: "vpf", category: "account",
+    question: "What is VPF, and should I contribute more to PF?",
+    short: "Voluntary Provident Fund lets you put more than the compulsory 12% of basic + DA into PF through payroll. It earns the same rate as EPF (8.25% for FY 2025-26) and follows the same withdrawal rules. Your employer doesn't match it, and interest on your total contributions above ₹2.5 lakh a year is taxable.",
+    steps: [
+      "Ask HR or the payroll team to start VPF. Usually you can change it at the start of the financial year.",
+      "Keep your own PF plus VPF under ₹2.5 lakh a year if you want all the interest tax-free.",
+      "Compare it with PPF and NPS before committing a large amount.",
+    ],
+    tool: { to: "/compare", label: "Compare EPF, VPF, PPF and NPS" },
+    rules: ["R11", "R25"],
+    keywords: ["vpf", "voluntary provident fund", "extra pf", "increase pf", "more pf contribution", "top up pf"],
+    related: ["interest-tax", "interest-rate"],
+  },
+  {
     slug: "two-uans", category: "account",
     question: "I have two UANs. What should I do?",
     short: "Keep the UAN linked to Aadhaar, transfer the other UAN's accounts into it, and ask EPFO to deactivate the extra one. Two UANs split your service, which can make withdrawals taxable and affect your pension.",
@@ -329,6 +389,30 @@ export const ANSWERS: Answer[] = [
     related: ["add-nominee"],
   },
 
+  {
+    slug: "higher-pension", category: "pension",
+    question: "What is the status of the EPS higher pension?",
+    short: "After the Supreme Court's November 2022 judgment, eligible members applied for pension on actual salary; the application window closed in 2023. EPFO had received 15.24 lakh applications, and as of August 2026 only 11,595 were still pending. If yours is among them, follow up with your EPFO regional office.",
+    steps: [
+      "Check your application status on the EPFO member portal or with the acknowledgement number you received.",
+      "If EPFO sent you a demand letter for the extra contribution, pay within the time given, or your application can lapse.",
+      "If it's been pending for months, raise an EPFiGMS grievance with your acknowledgement number, or visit the regional office.",
+    ],
+    tool: { to: "/pf/grievance", label: "Draft a complaint" },
+    rules: ["R32", "R14"],
+    keywords: ["higher pension", "higher eps", "actual salary", "supreme court", "joint option", "demand letter", "eps 95"],
+    related: ["eps-how-much", "life-certificate"],
+  },
+  {
+    slug: "minimum-pension", category: "pension",
+    question: "Why is my EPS pension so low? What's the minimum?",
+    short: "EPS pension is calculated on pensionable salary capped at the wage ceiling (₹15,000 until September 2026), so for most people it's modest. The minimum is ₹1,000 a month. The ceiling rose to ₹25,000 from 17 September 2026, which raises future pensions for service after that date.",
+    tool: { to: "/pf/pension", label: "Calculate my pension" },
+    rules: ["R24", "R14", "R10"],
+    keywords: ["minimum pension", "low pension", "1000", "pension too low", "pension increase", "pension hike"],
+    related: ["eps-how-much", "higher-pension"],
+  },
+
   // ---- NPS
   {
     slug: "nps-at-60", category: "nps",
@@ -387,6 +471,28 @@ export const ANSWERS: Answer[] = [
     rules: ["R22"],
     keywords: ["tier 2", "tier ii", "tier 1", "tier i", "voluntary nps", "flexible"],
     related: ["nps-before-60"],
+  },
+
+  {
+    slug: "ups-vs-nps", category: "nps",
+    question: "I'm a central government employee. Should I be in UPS or NPS?",
+    short: "The Unified Pension Scheme, from 1 April 2025, gives an assured pension of 50% of your average basic pay over the last 12 months after 25 years of service (less for shorter service), at least ₹10,000 a month after 10 years, and 60% to your spouse as family pension. The window to opt in closed on 30 November 2025, when about 1.22 lakh employees had chosen UPS. If you're in UPS, you can make a one-time switch back to NPS during service.",
+    steps: [
+      "Check what you chose with your DDO or in your NPS/CRA account.",
+      "UPS suits people who value a predictable pension; NPS suits those who want market growth and a larger lump sum.",
+      "The switch back from UPS to NPS is one-way and once only, so get advice before using it.",
+    ],
+    rules: ["R29"],
+    keywords: ["ups", "unified pension scheme", "central government", "government employee", "assured pension", "old pension", "ops", "switch to nps"],
+    related: ["nps-at-60", "nps-new-regime"],
+  },
+  {
+    slug: "nps-vatsalya", category: "nps",
+    question: "What is NPS Vatsalya for children?",
+    short: "NPS Vatsalya is an NPS account a parent or guardian opens for a minor. After 3 years you can take up to 25% of contributions for education, specified illnesses or disability, twice before 18. At 18 the child can continue for up to 3 more years, move to a regular NPS account, or exit with up to 80% as lump sum (all of it if the corpus is below ₹8 lakh). Under the old tax regime, contributions qualify for the extra ₹50,000 deduction.",
+    rules: ["R30"],
+    keywords: ["vatsalya", "nps for child", "children", "minor", "kids", "son", "daughter", "nps vatsalya"],
+    related: ["nps-before-60", "nps-tier-2"],
   },
 
   // ---- Tax

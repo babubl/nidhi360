@@ -2,13 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowRight, CircleAlert } from "lucide-react";
 import { LIFE_STAGES } from "../data/lifestages";
 import { Cites, Container, cx } from "../components/ui";
-import { PageHero, useTitle } from "../components/ToolPage";
+import { PageHero } from "../components/ToolPage";
 import NotFound from "./NotFound";
 
 export default function LifeStagePage() {
   const { slug } = useParams();
   const stage = LIFE_STAGES.find((s) => s.slug === slug);
-  useTitle(stage ? `In your ${stage.age}: ${stage.title}` : "Not found");
   if (!stage) return <NotFound />;
   return (
     <>

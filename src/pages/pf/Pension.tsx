@@ -2,11 +2,10 @@ import { useState } from "react";
 import { estimateEpsPension } from "../../lib/calc/epsPension";
 import { inr } from "../../lib/format";
 import { Callout, Card, Field, NumberInput, Row, Stat, cx } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, SavedNote, ToolGrid } from "../../components/ToolPage";
 import { useMe } from "../../lib/storage";
 
 export default function Pension() {
-  useTitle("EPS pension estimate", "Estimate your EPS monthly pension at 58, early from 50 or deferred to 60, including the ₹25,000 wage ceiling from September 2026.");
   const [salary, setSalary] = useMe("salary", 40000);
   const [service, setService] = useMe("epsYears", 18);
   const [age, setAge] = useMe("age", 48);

@@ -5,7 +5,6 @@ import { ruleById, RULES_CHECKED_ON } from "../data/rules";
 import { FOUNDER, reportErrorUrl } from "../data/team";
 import { aiEnabled } from "../config";
 import { AreaBadge, ButtonLink, Container, StatusBadge } from "../components/ui";
-import { useTitle } from "../components/ToolPage";
 import { fmtDate } from "../lib/format";
 import NotFound from "./NotFound";
 import { ResolvedPrompt, ShareWhatsApp } from "../components/Feedback";
@@ -44,7 +43,6 @@ export function ReviewedLine({ date, where, title }: { date: string; where: stri
 export default function AnswerPage() {
   const { slug = "" } = useParams();
   const a = answerBySlug(slug);
-  useTitle(a?.question ?? "Not found", a?.short);
   if (!a) return <NotFound />;
   const rules = a.rules.map(ruleById).filter(Boolean);
 

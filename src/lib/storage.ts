@@ -1,18 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PREFIX = "n360:";
 
-/** useState persisted to localStorage, tolerant of private mode and blocked storage. */
+/**
+ * useState persisted to localStorage, tolerant of private mode and blocked storage.
+ * Reads after mount so prerendered HTML and the first client render match.
+ */
 export function useStoredState<T>(key: string, initial: T) {
-  const [v, setV] = useState<T>(() => {
+  const [v, setV] = useState<T>(initial);
+  const loaded = useRef(false);
+  useEffect(() => {
     try {
       const s = localStorage.getItem(PREFIX + key);
-      return s ? (JSON.parse(s) as T) : initial;
-    } catch {
-      return initial;
-    }
-  });
+      if (s) setV(JSON.parse(s) as T);
+    } catch { /* storage unavailable */ }
+    loaded.current = true;
+  }, [key]);
   useEffect(() => {
+    if (!loaded.current) return;
     try { localStorage.setItem(PREFIX + key, JSON.stringify(v)); } catch { /* storage unavailable */ }
   }, [key, v]);
   return [v, setV] as const;

@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import { estimateWithdrawal, PURPOSE_LABELS, type Purpose } from "../../lib/calc/pfWithdrawal";
 import { inr, inrShort } from "../../lib/format";
 import { Callout, Card, Cites, Field, NumberInput, Row, Segmented, Select, Stat } from "../../components/ui";
-import { ExpertHelp, PageHero, RulesUsed, SavedNote, ToolGrid, useTitle } from "../../components/ToolPage";
+import { ExpertHelp, PageHero, RulesUsed, SavedNote, ToolGrid } from "../../components/ToolPage";
 import { useMe } from "../../lib/storage";
 import { ResolvedPrompt } from "../../components/Feedback";
 
 export default function Withdraw() {
-  useTitle("How much PF can I withdraw?", "Estimate your PF withdrawal under the EPF Scheme 2026: medical, education, marriage, housing, job loss, retirement. Includes TDS.");
   const [purpose, setPurpose] = useState<Purpose>("illness");
   const [balance, setBalance] = useMe("pfBalance", 400000);
   const [years, setYears] = useMe("pfYears", 4);
