@@ -12,20 +12,20 @@ import Head from "./Head";
 export function LogoMark({ className = "size-9" }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
-      <rect width="32" height="32" rx="8" fill="#0B5D4B" />
-      <circle cx="16" cy="16" r="10" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeDasharray="53 9.8" transform="rotate(-35 16 16)" />
-      <rect x="11.6" y="16.5" width="2.6" height="4.5" rx="1" fill="#fff" />
-      <rect x="14.7" y="13.5" width="2.6" height="7.5" rx="1" fill="#fff" />
-      <rect x="17.8" y="10" width="2.6" height="11" rx="1" fill="#F5A524" />
+      <defs><linearGradient id="n360g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2461E8" /><stop offset="1" stopColor="#0A1F4D" /></linearGradient></defs>
+      <rect width="32" height="32" rx="9" fill="url(#n360g)" />
+      <circle cx="16" cy="16" r="9.5" fill="none" stroke="#fff" strokeOpacity=".28" strokeWidth="2" />
+      <path d="M16 6.5A9.5 9.5 0 1 1 6.5 16" fill="none" stroke="#FFA726" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M11 21V11h2.4l5.2 6.4V11H21v10h-2.4l-5.2-6.4V21z" fill="#fff" />
     </svg>
   );
 }
 
-export function Logo() {
+export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <Link to="/" className="group flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg text-ink no-underline" aria-label="Nidhi360 home" title="Nidhi360 home">
+    <Link to="/" className={`group flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg no-underline ${dark ? "text-white" : "text-ink"}`} aria-label="Nidhi360 home" title="Nidhi360 home">
       <LogoMark className="size-9 transition-transform group-hover:scale-105" />
-      <span className="text-[20px] font-extrabold tracking-tight">Nidhi<span className="text-brand-600">360</span></span>
+      <span className="text-[21px] font-extrabold tracking-tight">Nidhi<span className={dark ? "text-amber-400" : "text-brand-600"}>360</span></span>
     </Link>
   );
 }
@@ -65,10 +65,20 @@ function Header() {
   const loc = useLocation();
   useEffect(() => setOpen(false), [loc.pathname]);
   const isHome = loc.pathname === "/";
-  const navCls = ({ isActive }: { isActive: boolean }) => cx("whitespace-nowrap rounded-md px-3 py-2 text-[15px] font-semibold no-underline", isActive ? "text-ink" : "text-body hover:text-ink");
+  const navCls = ({ isActive }: { isActive: boolean }) => cx("whitespace-nowrap rounded-md px-3 py-2 text-[15px] font-semibold no-underline", isActive ? "bg-brand-50 text-brand-700" : "text-body hover:bg-canvas hover:text-ink");
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <Container className="flex h-16 items-center gap-6">
+    <header className="sticky top-0 z-40 bg-white shadow-[0_1px_0_0_var(--color-line),0_6px_16px_-12px_rgba(10,31,77,0.25)]">
+      <div className="hidden bg-brand-900 text-[12.5px] text-brand-100 sm:block">
+        <Container className="flex h-8 items-center justify-between">
+          <span className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-emerald-400" aria-hidden />Independent PF and NPS guidance · Rules verified {fmtDate(RULES_CHECKED_ON)}</span>
+          <span className="flex items-center gap-5">
+            <Link to="/glossary" className="text-brand-100 no-underline hover:text-white">Glossary</Link>
+            <Link to="/site-map" className="text-brand-100 no-underline hover:text-white">Site map</Link>
+            <a href="https://unifiedportal-mem.epfindia.gov.in" target="_blank" rel="noopener noreferrer" className="text-brand-100 no-underline hover:text-white">EPFO portal ↗</a>
+          </span>
+        </Container>
+      </div>
+      <Container className="flex h-[68px] items-center gap-6">
         <Logo />
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           <Dropdown label="PF" items={PF_TOOLS} active={loc.pathname.startsWith("/pf")} />
@@ -81,7 +91,7 @@ function Header() {
         <div className="ml-auto flex items-center gap-2">
           {!isHome && <div className="hidden w-64 2xl:block"><SearchBox size="sm" placeholder="Search your problem" label="Site search" /></div>}
           <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink 2xl:hidden"><Search className="size-5" /></Link>
-          <Link to="/help" className="hidden whitespace-nowrap rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Expert help</Link>
+          <Link to="/help" className="hidden whitespace-nowrap rounded-lg bg-amber-400 px-4 py-2.5 text-sm font-bold text-brand-900 no-underline shadow-sm hover:bg-amber-300 sm:inline-flex">Expert help</Link>
           <button className="rounded-md p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -106,43 +116,35 @@ function Header() {
   );
 }
 
-function Footer() {
+function FooterLinks({ title, items }: { title: string; items: { to: string; label: string }[] }) {
   return (
-    <footer className="mt-24 border-t border-line bg-canvas">
-      <Container className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-        <div className="max-w-sm">
-          <Logo />
-          <p className="mt-3 text-sm text-muted">Clear, current answers on PF and NPS for salaried India. Rules last verified on {fmtDate(RULES_CHECKED_ON)}.</p>
+    <div>
+      <p className="text-sm font-bold text-white">{title}</p>
+      <ul className="mt-4 space-y-2.5 text-sm">{items.map((i) => <li key={i.to}><Link className="text-brand-100/80 no-underline hover:text-white" to={i.to}>{i.label}</Link></li>)}</ul>
+    </div>
+  );
+}
+
+function Footer() {
+  const portals = [["https://unifiedportal-mem.epfindia.gov.in", "EPFO member portal"], ["https://epfigms.gov.in", "EPFiGMS grievances"], ["https://www.npstrust.org.in", "NPS Trust"], ["https://www.pfrda.org.in", "PFRDA"], ["https://www.incometax.gov.in", "Income Tax"]];
+  return (
+    <footer className="mt-24 bg-brand-900 text-brand-100">
+      <Container className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
+        <div className="max-w-xs">
+          <Logo dark />
+          <p className="mt-4 text-sm leading-relaxed text-brand-100/80">Clear, current answers on PF and NPS for salaried India. Every rule has its source. Verified on {fmtDate(RULES_CHECKED_ON)}.</p>
+          <Link to="/help" className="mt-5 inline-flex rounded-lg bg-amber-400 px-4 py-2.5 text-sm font-bold text-brand-900 no-underline hover:bg-amber-300">Talk to an expert</Link>
         </div>
+        <FooterLinks title="PF" items={PF_TOOLS} />
+        <FooterLinks title="NPS and planning" items={[...NPS_TOOLS, { to: "/monthly", label: "Monthly check-up" }]} />
+        <FooterLinks title="Company" items={[{ to: "/about", label: "About us" }, { to: "/answers", label: "Answers" }, { to: "/rules", label: "Rule updates" }, { to: "/glossary", label: "Glossary" }, { to: "/help", label: "Expert help" }, { to: "/employers", label: "For employers" }, { to: "/site-map", label: "Site map" }, { to: "/legal", label: "Terms & privacy" }]} />
         <div>
-          <p className="text-sm font-semibold text-ink">PF</p>
-          <ul className="mt-3 space-y-2 text-sm">{PF_TOOLS.map((i) => <li key={i.to}><Link className="text-muted no-underline hover:text-ink" to={i.to}>{i.label}</Link></li>)}</ul>
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-ink">NPS</p>
-          <ul className="mt-3 space-y-2 text-sm">{NPS_TOOLS.map((i) => <li key={i.to}><Link className="text-muted no-underline hover:text-ink" to={i.to}>{i.label}</Link></li>)}</ul>
-          <p className="mt-6 text-sm font-semibold text-ink">Company</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li><Link className="text-muted no-underline hover:text-ink" to="/answers">Answers</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/glossary">Glossary</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/help">Expert help</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/about">About us</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/legal">Terms & privacy</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/site-map">Site map</Link></li>
-            <li><Link className="text-muted no-underline hover:text-ink" to="/employers">For employers</Link></li>
-          </ul>
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-ink">Official portals</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            {[["https://unifiedportal-mem.epfindia.gov.in", "EPFO member portal"], ["https://epfigms.gov.in", "EPFiGMS grievances"], ["https://www.npstrust.org.in", "NPS Trust"], ["https://www.pfrda.org.in", "PFRDA"], ["https://www.incometax.gov.in", "Income Tax"]].map(([h, l]) => (
-              <li key={h}><a className="text-muted no-underline hover:text-ink" href={h} target="_blank" rel="noopener noreferrer">{l}</a></li>
-            ))}
-          </ul>
+          <p className="text-sm font-bold text-white">Official portals</p>
+          <ul className="mt-4 space-y-2.5 text-sm">{portals.map(([h, l]) => <li key={h}><a className="text-brand-100/80 no-underline hover:text-white" href={h} target="_blank" rel="noopener noreferrer">{l} ↗</a></li>)}</ul>
         </div>
       </Container>
-      <div className="border-t border-line">
-        <Container className="py-6 text-[13px] leading-relaxed text-muted">
+      <div className="border-t border-white/10">
+        <Container className="py-6 text-[12.5px] leading-relaxed text-brand-100/70">
           Nidhi360 is an independent information service. It is not affiliated with EPFO, PFRDA, the Income Tax Department or any government body, and it does not provide investment, tax or legal advice. Always confirm on the official portal before filing. We never ask for your UAN password, OTP, PRAN login or bank details. © {new Date().getFullYear()} Nidhi360.
         </Container>
       </div>

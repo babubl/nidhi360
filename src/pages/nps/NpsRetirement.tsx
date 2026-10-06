@@ -6,7 +6,7 @@ import { PageHero, RulesUsed, SavedNote, ToolGrid } from "../../components/ToolP
 import { useMe } from "../../lib/storage";
 
 // All segments meet 4.5:1 contrast with white labels.
-const COLORS = { taxFree: "#0B5D4B", taxable: "#B54708", annuity: "#3E5BB8", systematic: "#3F7F6D" };
+const COLORS = { taxFree: "#1A4FC4", taxable: "#B54708", annuity: "#7A5AF8", systematic: "#0E9F8E" };
 
 export default function NpsRetirement() {
   const [sector, setSector] = useState<Sector>("private");

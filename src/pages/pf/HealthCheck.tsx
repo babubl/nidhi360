@@ -11,7 +11,7 @@ const OPTS: { value: Answer; label: string }[] = [
   { value: "yes", label: "Yes" }, { value: "no", label: "No" }, { value: "unsure", label: "Not sure" },
 ];
 const BAND = {
-  good: { label: "Claim-ready", cls: "bg-emerald-50 text-emerald-700", ring: "#12795F", msg: "Your account should settle claims smoothly. Re-check once a year and after every job change." },
+  good: { label: "Claim-ready", cls: "bg-emerald-50 text-emerald-700", ring: "#0E9F6E", msg: "Your account should settle claims smoothly. Re-check once a year and after every job change." },
   fair: { label: "Needs a few fixes", cls: "bg-amber-50 text-amber-800", ring: "#B54708", msg: "Fix the items below before you file a claim. Most take 10 minutes online." },
   poor: { label: "High risk of rejection", cls: "bg-red-50 text-red-700", ring: "#B42318", msg: "A claim filed today is likely to be rejected. Work through the list below in order." },
 };

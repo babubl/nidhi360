@@ -12,7 +12,7 @@ export function Container({ className, children }: { className?: string; childre
 
 type Variant = "primary" | "secondary" | "ghost";
 const btn: Record<Variant, string> = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700 shadow-sm",
+  primary: "bg-brand-600 text-white hover:bg-brand-700 shadow-[0_6px_14px_-6px_rgba(26,79,196,0.6)]",
   secondary: "bg-white text-ink border border-line hover:border-brand-200 hover:bg-brand-50",
   ghost: "text-brand-600 hover:bg-brand-50",
 };
@@ -26,7 +26,7 @@ export function ButtonLink({ variant = "primary", className, ...p }: ComponentPr
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cx("rounded-xl border border-line bg-white p-5 sm:p-6", className)}>{children}</div>;
+  return <div className={cx("rounded-2xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(10,31,77,0.04),0_8px_24px_-16px_rgba(10,31,77,0.18)] sm:p-6", className)}>{children}</div>;
 }
 
 export function Field({ label, hint, htmlFor, children }: { label: string; hint?: string; htmlFor?: string; children: ReactNode }) {

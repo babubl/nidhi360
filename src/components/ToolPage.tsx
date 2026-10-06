@@ -6,7 +6,7 @@ import { ruleById } from "../data/rules";
 
 export function PageHero({ crumb, title, intro, children }: { crumb?: { to: string; label: string }; title: string; intro?: string; children?: ReactNode }) {
   return (
-    <section className="border-b border-line bg-canvas">
+    <section className="border-b border-line bg-gradient-to-b from-brand-50 to-white">
       <Container className="py-10 sm:py-12">
         {crumb && (
           <nav aria-label="Breadcrumb" className="mb-3 flex items-center gap-1 text-sm text-muted">

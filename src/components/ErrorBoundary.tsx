@@ -26,7 +26,7 @@ export default class ErrorBoundary extends Component<{ children: ReactNode }, { 
       <div style={{ maxWidth: 560, margin: "15vh auto", padding: 24, fontFamily: "system-ui, sans-serif", textAlign: "center" }}>
         <h1 style={{ fontSize: 24, margin: 0 }}>Something went wrong loading this page</h1>
         <p style={{ color: "#667085" }}>This usually fixes itself with a refresh. Your saved details are safe on this device.</p>
-        <button onClick={() => location.reload()} style={{ marginTop: 16, padding: "10px 18px", borderRadius: 8, border: 0, background: "#0B5D4B", color: "#fff", fontWeight: 600, cursor: "pointer" }}>Refresh the page</button>
+        <button onClick={() => location.reload()} style={{ marginTop: 16, padding: "10px 18px", borderRadius: 8, border: 0, background: "#1A4FC4", color: "#fff", fontWeight: 600, cursor: "pointer" }}>Refresh the page</button>
       </div>
     );
   }
