@@ -4,7 +4,7 @@
  * When the AI proxy is configured, the widget uses it for open-ended questions and still shows these links.
  */
 import { answerBySlug } from "../data/answers";
-import { search } from "./search";
+import { search, topicsIn } from "./search";
 import { containsSensitive } from "./calc/rejection";
 
 export interface ChatLink { label: string; to: string }
@@ -37,6 +37,18 @@ export function localReply(question: string): BotReply {
     return {
       text: "I couldn't find a match for that. Try describing the problem in a few words, such as \"claim pending 30 days\" or \"NPS lump sum\". Or browse the library.",
       links: [{ label: "Browse all answers", to: "/answers" }, { label: "Get expert help", to: "/help" }],
+      matched: false,
+    };
+  }
+  // Confidence: a weak match, or a question that never mentions PF, EPS or NPS and only loosely
+  // matches, gets "did you mean" options instead of a confident (and possibly wrong) answer.
+  const onTopic = topicsIn(" " + q.toLowerCase() + " ").length > 0;
+  if (top.score < 10 || (!onTopic && top.score < 18)) {
+    return {
+      text: onTopic
+        ? "I'm not sure I've understood. Is it one of these?"
+        : "I cover PF, EPS pension and NPS. If your question is about one of these, is it one of the following? Otherwise, try rephrasing with PF or NPS in it.",
+      links: results.slice(0, 3).map((r) => ({ label: r.title, to: r.to })),
       matched: false,
     };
   }

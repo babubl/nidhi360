@@ -16,6 +16,7 @@ const SYNONYMS: Record<string, string[]> = {
   dead: ["death", "died"], died: ["death"], expired: ["death"], passed: ["death"],
   pension: ["eps"], eps: ["pension"], retire: ["retirement", "60", "58"], retirement: ["retire"],
   hospital: ["medical"], treatment: ["medical"], fees: ["education"], wedding: ["marriage"], home: ["house"], flat: ["house"],
+  invest: ["contribute", "contribution"], investing: ["invest"], contribute: ["contribution", "invest"], returns: ["return"],
   dob: ["birth"], birthday: ["birth"], spelling: ["name"], uan: ["uan"], tds: ["tax"], taxable: ["tax"],
 };
 
@@ -72,6 +73,18 @@ function expand(tokens: string[]): string[] {
 
 interface Doc { kind: ResultKind; title: string; snippet: string; to: string; keywords: string[]; body: string; boost: number }
 
+/**
+ * Topic words. If a question names a topic (say NPS), a result that never mentions it is almost
+ * certainly wrong, however many generic words it shares ("how much", "withdraw").
+ */
+const TOPICS: Record<string, string[]> = {
+  nps: ["nps", "pran", "annuity", "pfrda", "tier", "vatsalya", "ups"],
+  pf: ["pf", "epf", "epfo", "uan", "vpf", "passbook", "provident", "kyc", "claim", "epfigms", "nominee", "edli", "settlement"],
+  eps: ["eps", "pension"],
+};
+const word = (hay: string, w: string) => new RegExp(`(^|[^a-z0-9])${w}($|[^a-z0-9])`).test(hay);
+export const topicsIn = (text: string) => Object.keys(TOPICS).filter((k) => TOPICS[k].some((w) => word(text, w)));
+
 const DOCS: Doc[] = [
   ...ANSWERS.map((a) => ({ kind: "answer" as const, title: a.question, snippet: a.short, to: `/answers/${a.slug}`, keywords: a.keywords, body: a.short, boost: 1 })),
   ...[...PF_TOOLS, ...NPS_TOOLS].map((t) => ({ kind: "tool" as const, title: t.label, snippet: t.desc, to: t.to, keywords: [], body: t.desc, boost: 0.9 })),
@@ -84,14 +97,23 @@ export function search(query: string, limit = 8): SearchResult[] {
   const tokens = expand(tokenize(query));
   const q = " " + tokens.join(" ") + " " + query.toLowerCase().trim();
   if (!tokens.length) return [];
+  const qTopics = topicsIn(q);
   const scored = DOCS.map((d) => {
     let s = 0;
     const title = d.title.toLowerCase(), body = d.body.toLowerCase();
-    for (const k of d.keywords) if (k.length > 2 && q.includes(k)) s += 4 + k.split(" ").length * 2;
+    // A keyword phrase only counts if it carries meaning beyond stop words ("how much" alone does not).
+    for (const k of d.keywords) if (k.length > 2 && tokenize(k).length && q.includes(k)) s += 4 + tokenize(k).length * 2;
+    // Reward results whose question covers what was asked, not just one shared word.
+    const qt = tokens.filter((t) => t.length > 1);
+    if (qt.length) s += Math.round((8 * qt.filter((t) => has(title, t)).length) / qt.length);
     for (const t of tokens) {
       if (has(title, t)) s += 3;
       if (d.keywords.some((k) => has(k, t))) s += 2;
       if (has(body, t)) s += 1;
+    }
+    if (qTopics.length) {
+      const dTopics = topicsIn(`${title} ${d.keywords.join(" ")} ${body}`);
+      if (!qTopics.some((t) => dTopics.includes(t))) s *= 0.3;
     }
     return { kind: d.kind, title: d.title, snippet: d.snippet, to: d.to, score: s * d.boost };
   }).filter((r) => r.score >= 3);
