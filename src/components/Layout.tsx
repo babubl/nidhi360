@@ -8,6 +8,7 @@ import { aiEnabled } from "../config";
 import { NPS_TOOLS, PF_TOOLS } from "../data/tools";
 import SearchBox from "./SearchBox";
 import Head from "./Head";
+import ChatWidget from "./ChatWidget";
 
 export function LogoMark({ className = "size-9" }: { className?: string }) {
   return (
@@ -196,6 +197,7 @@ export default function Layout() {
       <Head />
       {!embed && <Header />}
       <main id="main" className="flex-1"><Suspense fallback={<PageSkeleton />}><Outlet /></Suspense></main>
+      {!embed && <ChatWidget />}
       {embed
         ? <p className="border-t border-line py-4 text-center text-[13px] text-muted">Powered by <a href={import.meta.env.BASE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700">Nidhi360</a> · Independent information, not affiliated with EPFO or PFRDA</p>
         : <Footer />}

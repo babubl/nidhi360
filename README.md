@@ -99,3 +99,7 @@ GitHub Pages serves this site from a sub-path (`/nidhi360/`), and Google only re
 
 1. In Google Search Console add a **URL-prefix** property for `https://babubl.github.io/nidhi360/` and submit `https://babubl.github.io/nidhi360/sitemap.xml`.
 2. Better: buy a domain, point it at Pages (Settings → Pages → Custom domain), set repository variables `BASE_PATH=/` and `VITE_SITE_URL=https://yourdomain`, then add the domain as a Search Console property. Every page is prerendered, so crawlers see full content, and `/site-map` links to all of it.
+
+## Chat assistant
+
+A floating "Ask Nidhi" assistant is on every page (hidden in `?embed=1`). With no backend it answers from the answers library, tools and glossary, with steps and links. Set `VITE_ASK_URL` (the Cloudflare Worker with the Gemini key) and it also handles open-ended questions with AI, always showing a direct library match first. It blocks Aadhaar, PAN and OTP-like input.

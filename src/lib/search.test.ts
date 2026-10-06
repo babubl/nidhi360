@@ -82,3 +82,20 @@ describe("Content integrity", () => {
     expect(new Set(ANSWERS.map((a) => a.slug)).size).toBe(ANSWERS.length);
   });
 });
+
+import { localReply } from "./assistant";
+describe("chat assistant (offline)", () => {
+  it("answers a real question with steps-ready content and links", () => {
+    const r = localReply("can i take full pf after resigning");
+    expect(r.matched).toBe(true);
+    expect(r.links.some((l) => l.to.startsWith("/answers/"))).toBe(true);
+  });
+  it("refuses to echo sensitive numbers", () => {
+    expect(localReply("my aadhaar is 123456789012").matched).toBe(false);
+  });
+  it("says so when nothing matches and offers help", () => {
+    const r = localReply("zzqx blorp");
+    expect(r.matched).toBe(false);
+    expect(r.links.length).toBeGreaterThan(0);
+  });
+});
