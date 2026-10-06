@@ -11,9 +11,9 @@ import Head from "./Head";
 import ChatWidget from "./ChatWidget";
 
 const DIAL = "M16.00 4.10L16.00 2.00M18.22 3.39L18.43 2.21M20.38 3.97L20.79 2.84M22.40 4.91L23.00 3.88M24.23 6.19L25.00 5.28M25.81 7.77L26.72 7.00M27.09 9.60L28.12 9.00M28.03 11.62L29.16 11.21M28.61 13.78L29.79 13.57M27.90 16.00L30.00 16.00M28.61 18.22L29.79 18.43M28.03 20.38L29.16 20.79M27.09 22.40L28.12 23.00M25.81 24.23L26.72 25.00M24.23 25.81L25.00 26.72M22.40 27.09L23.00 28.12M20.38 28.03L20.79 29.16M18.22 28.61L18.43 29.79M16.00 27.90L16.00 30.00M13.78 28.61L13.57 29.79M11.62 28.03L11.21 29.16M9.60 27.09L9.00 28.12M7.77 25.81L7.00 26.72M6.19 24.23L5.28 25.00M4.91 22.40L3.88 23.00M3.97 20.38L2.84 20.79M3.39 18.22L2.21 18.43M4.10 16.00L2.00 16.00M3.39 13.78L2.21 13.57M3.97 11.62L2.84 11.21M4.91 9.60L3.88 9.00M6.19 7.77L5.28 7.00M7.77 6.19L7.00 5.28M9.60 4.91L9.00 3.88M11.62 3.97L11.21 2.84M13.78 3.39L13.57 2.21";
-const N_PATH = "M10.3 10.2h3.2l7.1 10.05V11h-1.4v-.8h3.9v.8h-1.4v10.8h-1.6L11.4 12.4V21h1.4v.8H8.9V21h1.4V11H8.9v-.8z";
+const N_PATH = "M10.6 10h2.1l6.7 8.9V10h2v12h-2.1l-6.7-8.9V22h-2z";
 
-/** The Nidhi360 mark: a gold serif N inside a 360-tick bezel, like a watch dial or a coin. */
+/** The Nidhi360 mark: a gold N inside a 360-tick bezel, like a watch dial or a coin. */
 export function LogoMark({ className = "size-9", simple = false }: { className?: string; simple?: boolean }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden>
@@ -29,9 +29,9 @@ export function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <Link to="/" className={`group flex shrink-0 cursor-pointer items-center gap-3 rounded-lg no-underline ${dark ? "text-ivory" : "text-ink"}`} aria-label="Nidhi360 home" title="Nidhi360 home">
       <LogoMark className={`size-10 transition-transform duration-500 group-hover:rotate-[30deg] ${dark ? "ring-1 ring-gold/30 rounded-[9px]" : ""}`} />
-      <span className="flex items-baseline gap-1">
-        <span className="font-display text-[23px] font-semibold tracking-tight">Nidhi</span>
-        <span className="text-[13px] font-semibold tracking-[0.18em] text-gold">360</span>
+      <span className="flex items-baseline">
+        <span className="text-[21px] font-semibold tracking-[-0.03em]">Nidhi</span>
+        <span className="text-[21px] font-semibold tracking-[-0.03em] text-gold">360</span>
       </span>
     </Link>
   );
@@ -79,6 +79,7 @@ function Header() {
         <Container className="flex h-8 items-center justify-between">
           <span className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-gold" aria-hidden />Independent PF and NPS guidance · Rules verified {fmtDate(RULES_CHECKED_ON)}</span>
           <span className="flex items-center gap-5">
+            <Link to="/rules" className="text-ivory/55 no-underline hover:text-ivory">Rule updates</Link>
             <Link to="/glossary" className="text-ivory/55 no-underline hover:text-ivory">Glossary</Link>
             <Link to="/site-map" className="text-ivory/55 no-underline hover:text-ivory">Site map</Link>
             <a href="https://unifiedportal-mem.epfindia.gov.in" target="_blank" rel="noopener noreferrer" className="text-ivory/55 no-underline hover:text-ivory">EPFO portal ↗</a>
@@ -92,7 +93,6 @@ function Header() {
           <Dropdown label="NPS" items={NPS_TOOLS} active={loc.pathname.startsWith("/nps")} />
           <NavLink to="/monthly" className={navCls}>Monthly check-up</NavLink>
           <NavLink to="/answers" className={navCls}>Answers</NavLink>
-          <NavLink to="/rules" className={navCls}>Rule updates</NavLink>
           <NavLink to="/about" className={navCls}>About</NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
@@ -107,9 +107,9 @@ function Header() {
       {open && (
         <nav className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-white/10 bg-night lg:hidden" aria-label="Mobile">
           <Container className="py-4">
-            <p className="px-1 pb-1 text-xs font-semibold uppercase tracking-widest text-gold">PF tools</p>
+            <p className="px-1 pb-1 text-[13px] font-semibold text-gold">PF tools</p>
             {PF_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-medium text-ivory no-underline">{i.label}</Link>)}
-            <p className="mt-3 px-1 pb-1 text-xs font-semibold uppercase tracking-widest text-gold">NPS tools</p>
+            <p className="mt-3 px-1 pb-1 text-[13px] font-semibold text-gold">NPS tools</p>
             {NPS_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-medium text-ivory no-underline">{i.label}</Link>)}
             <div className="mt-3 border-t border-white/10 pt-3">
               {[["/monthly", "Monthly check-up"], ["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/about", "About"], ["/employers", "For employers"], ["/site-map", "Site map"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
@@ -126,7 +126,7 @@ function Header() {
 function FooterLinks({ title, items }: { title: string; items: { to: string; label: string }[] }) {
   return (
     <div>
-      <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold">{title}</p>
+      <p className="text-[13px] font-semibold text-ivory">{title}</p>
       <ul className="mt-5 space-y-3 text-[14px]">{items.map((i) => <li key={i.to}><Link className="text-ivory/65 no-underline transition-colors hover:text-ivory" to={i.to}>{i.label}</Link></li>)}</ul>
     </div>
   );
@@ -140,7 +140,7 @@ function Footer() {
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
             <Logo dark />
-            <p className="mt-6 max-w-xl font-display text-[30px] leading-tight text-ivory sm:text-[38px]">Your provident fund and pension, <em className="text-gold">handled with care.</em></p>
+            <p className="mt-6 max-w-xl text-[30px] font-semibold leading-tight tracking-[-0.035em] text-ivory sm:text-[40px]">Your PF and NPS. <span className="text-gold">Finally clear.</span></p>
           </div>
           <Link to="/help" className="inline-flex shrink-0 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-night no-underline transition-colors hover:bg-gold-light">Talk to an expert</Link>
         </div>
@@ -150,7 +150,7 @@ function Footer() {
         <FooterLinks title="NPS and planning" items={[...NPS_TOOLS, { to: "/monthly", label: "Monthly check-up" }]} />
         <FooterLinks title="Company" items={[{ to: "/about", label: "About us" }, { to: "/answers", label: "Answers" }, { to: "/rules", label: "Rule updates" }, { to: "/glossary", label: "Glossary" }, { to: "/help", label: "Expert help" }, { to: "/employers", label: "For employers" }, { to: "/site-map", label: "Site map" }, { to: "/legal", label: "Terms & privacy" }]} />
         <div>
-          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-gold">Official portals</p>
+          <p className="text-[13px] font-semibold text-ivory">Official portals</p>
           <ul className="mt-5 space-y-3 text-[14px]">{portals.map(([h, l]) => <li key={h}><a className="text-ivory/65 no-underline transition-colors hover:text-ivory" href={h} target="_blank" rel="noopener noreferrer">{l} ↗</a></li>)}</ul>
           <p className="mt-8 text-[13px] text-ivory/50">Rules verified {fmtDate(RULES_CHECKED_ON)}</p>
         </div>

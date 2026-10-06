@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Premium palette: near-black and gold chrome, warm ivory paper for content. */
   --color-night: #0D0D0F;
@@ -36,10 +36,12 @@
     @apply bg-paper text-body font-sans antialiased;
     font-size: 16px;
     line-height: 1.6;
-    font-feature-settings: "cv11", "ss03";
+    font-feature-settings: "cv11", "ss03", "cv05";
   }
   h1, h2, h3, h4 { @apply text-ink; letter-spacing: -0.02em; }
-  h1, h2 { font-family: var(--font-display); font-weight: 600; font-variation-settings: "opsz" 96, "SOFT" 30; letter-spacing: -0.015em; }
+  /* One typeface. Headlines get their presence from size and tight tracking, not a second font. */
+  h1, h2 { font-weight: 600; letter-spacing: -0.035em; text-wrap: balance; }
+  p { text-wrap: pretty; }
   :focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; border-radius: 6px; }
   ::selection { background: var(--color-brand-100); }
   /* Links inside running text are underlined so they never rely on colour alone. */

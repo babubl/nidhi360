@@ -10,13 +10,13 @@ export function PageHero({ crumb, title, intro, children }: { crumb?: { to: stri
       <div className="pointer-events-none absolute -right-32 -top-40 size-[460px] rounded-full bg-gold/10 blur-3xl" aria-hidden />
       <Container className="relative py-12 sm:py-16">
         {crumb && (
-          <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1 text-[13px] uppercase tracking-[0.14em] text-ivory/50">
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1 text-[13px] text-ivory/50">
             <Link to="/" className="text-ivory/50 no-underline hover:text-ivory">Home</Link>
             <ChevronRight className="size-3.5" aria-hidden />
             <Link to={crumb.to} className="text-ivory/50 no-underline hover:text-ivory">{crumb.label}</Link>
           </nav>
         )}
-        <h1 className="max-w-3xl text-[34px] leading-[1.1] !text-ivory sm:text-[50px]">{title}</h1>
+        <h1 className="max-w-3xl text-[34px] leading-[1.08] !text-ivory sm:text-[52px]">{title}</h1>
         {intro && <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ivory/70">{intro}</p>}
         {children}
       </Container>

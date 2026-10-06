@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, MessageSquareText, Search, Wrench } from "lucide-react";
+import { BookOpen, MessageSquareText, Search, Wrench, ArrowRight } from "lucide-react";
 import { search, type SearchResult } from "../lib/search";
 import { cx } from "./ui";
 import { track } from "../lib/track";
@@ -56,10 +56,10 @@ export default function SearchBox({ size = "md", placeholder = "Ask about PF, EP
           }}
           className={cx(
             "w-full rounded-full border border-line bg-white text-ink outline-none transition placeholder:text-muted focus:border-brand-500 focus:ring-4 focus:ring-brand-100",
-            big ? "py-4 pl-12 pr-32 text-[17px] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.5)]" : size === "sm" ? "py-2 pl-9 pr-3 text-sm" : "py-3 pl-10 pr-3 text-[15px]",
+            big ? "py-4 pl-12 pr-16 text-[16px] sm:pr-32 sm:text-[17px] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.5)]" : size === "sm" ? "py-2 pl-9 pr-3 text-sm" : "py-3 pl-10 pr-3 text-[15px]",
           )}
         />
-        {big && <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-night px-5 py-2.5 text-[15px] font-semibold text-ivory hover:bg-slate">Search</button>}
+        {big && <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center rounded-full bg-night p-2.5 text-[15px] font-semibold text-ivory hover:bg-slate sm:px-5" aria-label="Search"><ArrowRight className="size-5 sm:hidden" aria-hidden /><span className="hidden sm:inline">Search</span></button>}
       </form>
       {open && results.length > 0 && (
         <ul id={id + "-list"} role="listbox" className="absolute inset-x-0 top-full z-50 mt-2 max-h-[60vh] overflow-y-auto rounded-xl border border-line bg-white p-1.5 shadow-xl">

@@ -72,7 +72,7 @@ export default function ChatWidget() {
           <header className="flex items-center gap-3 bg-night px-4 py-3 text-ivory">
             <LogoMark className="size-9" />
             <div className="min-w-0 flex-1">
-              <p className="font-display text-[17px] font-semibold leading-tight">Nidhi assistant</p>
+              <p className="text-[16px] font-semibold leading-tight tracking-tight">Nidhi assistant</p>
               <p className="text-[12px] text-ivory/55">Answers from our sourced rules register</p>
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close chat" className="rounded-md p-2 text-ivory/60 hover:bg-white/10 hover:text-ivory"><X className="size-5" /></button>

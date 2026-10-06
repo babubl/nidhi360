@@ -51,16 +51,16 @@ export default function AnswerPage() {
       <section className="relative overflow-hidden bg-night text-ivory">
         <div className="pointer-events-none absolute -right-32 -top-40 size-[460px] rounded-full bg-gold/10 blur-3xl" aria-hidden />
         <Container className="relative max-w-3xl py-12 sm:py-14">
-          <nav aria-label="Breadcrumb" className="mb-4 text-[13px] uppercase tracking-[0.14em] text-ivory/50">
+          <nav aria-label="Breadcrumb" className="mb-4 text-[13px] text-ivory/50">
             <Link to="/answers" className="text-ivory/50 no-underline hover:text-ivory">Answers</Link> <span aria-hidden>›</span> {CATEGORY_LABELS[a.category]}
           </nav>
-          <h1 className="text-[32px] leading-[1.12] !text-ivory sm:text-[44px]">{a.question}</h1>
+          <h1 className="text-[32px] leading-[1.1] !text-ivory sm:text-[46px]">{a.question}</h1>
           <ReviewedLine date={a.reviewed ?? RULES_CHECKED_ON} where={`/answers/${a.slug}`} title={a.question} />
         </Container>
       </section>
       <Container className="max-w-3xl space-y-8 py-10">
         <div className="rounded-2xl border border-brand-200 border-l-4 border-l-gold bg-white p-6 shadow-[0_10px_28px_-18px_rgba(13,13,15,0.25)]">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-brand-600">Short answer</p>
+          <p className="text-[13px] font-semibold text-brand-600">Short answer</p>
           <p className="mt-1.5 text-[17px] leading-relaxed text-ink">{a.short}</p>
         </div>
 
