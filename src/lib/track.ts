@@ -23,7 +23,7 @@ export function initAnalytics() {
 
 export type EventName =
   | "Resolved" | "Not resolved" | "Search" | "Search no results"
-  | "Share WhatsApp" | "Grievance copied" | "Calendar downloaded" | "Expert contact";
+  | "Share WhatsApp" | "Grievance copied" | "Calendar downloaded" | "Expert contact" | "Monthly logged";
 
 export function track(event: EventName, props?: Props) {
   try { window.plausible?.(event, props ? { props } : undefined); } catch { /* analytics must never break the app */ }

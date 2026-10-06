@@ -9,11 +9,23 @@ import { NPS_TOOLS, PF_TOOLS } from "../data/tools";
 import SearchBox from "./SearchBox";
 import Head from "./Head";
 
+export function LogoMark({ className = "size-9" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      <rect width="32" height="32" rx="8" fill="#0B5D4B" />
+      <circle cx="16" cy="16" r="10" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeDasharray="53 9.8" transform="rotate(-35 16 16)" />
+      <rect x="11.6" y="16.5" width="2.6" height="4.5" rx="1" fill="#fff" />
+      <rect x="14.7" y="13.5" width="2.6" height="7.5" rx="1" fill="#fff" />
+      <rect x="17.8" y="10" width="2.6" height="11" rx="1" fill="#F5A524" />
+    </svg>
+  );
+}
+
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2.5 text-ink no-underline" aria-label="Nidhi360 home">
-      <svg viewBox="0 0 32 32" className="size-8" aria-hidden><rect width="32" height="32" rx="8" fill="#0B5D4B" /><path d="M9 23V9h3l8 9.5V9h3v14h-3l-8-9.5V23z" fill="#fff" /></svg>
-      <span className="text-[19px] font-extrabold tracking-tight">Nidhi<span className="text-brand-600">360</span></span>
+    <Link to="/" className="group flex shrink-0 cursor-pointer items-center gap-2.5 rounded-lg text-ink no-underline" aria-label="Nidhi360 home" title="Nidhi360 home">
+      <LogoMark className="size-9 transition-transform group-hover:scale-105" />
+      <span className="text-[20px] font-extrabold tracking-tight">Nidhi<span className="text-brand-600">360</span></span>
     </Link>
   );
 }
@@ -31,7 +43,7 @@ function Dropdown({ label, items, active }: { label: string; items: { to: string
   return (
     <div ref={ref} className="relative" onKeyDown={(e) => e.key === "Escape" && setOpen(false)}>
       <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)}
-        className={cx("flex items-center gap-1 rounded-md px-3 py-2 text-[15px] font-semibold", active ? "text-ink" : "text-body hover:text-ink")}>
+        className={cx("flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-[15px] font-semibold", active ? "text-ink" : "text-body hover:text-ink")}>
         {label}<ChevronDown className={cx("size-4 transition-transform", open && "rotate-180")} aria-hidden />
       </button>
       {open && (
@@ -53,7 +65,7 @@ function Header() {
   const loc = useLocation();
   useEffect(() => setOpen(false), [loc.pathname]);
   const isHome = loc.pathname === "/";
-  const navCls = ({ isActive }: { isActive: boolean }) => cx("rounded-md px-3 py-2 text-[15px] font-semibold no-underline", isActive ? "text-ink" : "text-body hover:text-ink");
+  const navCls = ({ isActive }: { isActive: boolean }) => cx("whitespace-nowrap rounded-md px-3 py-2 text-[15px] font-semibold no-underline", isActive ? "text-ink" : "text-body hover:text-ink");
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
       <Container className="flex h-16 items-center gap-6">
@@ -61,14 +73,15 @@ function Header() {
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           <Dropdown label="PF" items={PF_TOOLS} active={loc.pathname.startsWith("/pf")} />
           <Dropdown label="NPS" items={NPS_TOOLS} active={loc.pathname.startsWith("/nps")} />
+          <NavLink to="/monthly" className={navCls}>Monthly check-up</NavLink>
           <NavLink to="/answers" className={navCls}>Answers</NavLink>
           <NavLink to="/rules" className={navCls}>Rule updates</NavLink>
-          <NavLink to="/employers" className={navCls}>For employers</NavLink>
+          <NavLink to="/about" className={navCls}>About</NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          {!isHome && <div className="hidden w-64 xl:block"><SearchBox size="sm" placeholder="Search your problem" label="Site search" /></div>}
-          <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink xl:hidden"><Search className="size-5" /></Link>
-          <Link to="/help" className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Expert help</Link>
+          {!isHome && <div className="hidden w-64 2xl:block"><SearchBox size="sm" placeholder="Search your problem" label="Site search" /></div>}
+          <Link to="/answers" aria-label="Search" className="rounded-md p-2 text-ink 2xl:hidden"><Search className="size-5" /></Link>
+          <Link to="/help" className="hidden whitespace-nowrap rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-brand-700 sm:inline-flex">Expert help</Link>
           <button className="rounded-md p-2 text-ink lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
@@ -82,7 +95,7 @@ function Header() {
             <p className="mt-3 px-1 pb-1 text-xs font-semibold text-muted">NPS tools</p>
             {NPS_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{i.label}</Link>)}
             <div className="mt-3 border-t border-line pt-3">
-              {[["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/employers", "For employers"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
+              {[["/monthly", "Monthly check-up"], ["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/about", "About"], ["/employers", "For employers"], ["/site-map", "Site map"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
                 <Link key={to} to={to} className="block rounded-lg px-1 py-2.5 text-[16px] font-semibold text-ink no-underline">{l}</Link>
               ))}
             </div>
@@ -115,6 +128,7 @@ function Footer() {
             <li><Link className="text-muted no-underline hover:text-ink" to="/help">Expert help</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/about">About us</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/legal">Terms & privacy</Link></li>
+            <li><Link className="text-muted no-underline hover:text-ink" to="/site-map">Site map</Link></li>
             <li><Link className="text-muted no-underline hover:text-ink" to="/employers">For employers</Link></li>
           </ul>
         </div>

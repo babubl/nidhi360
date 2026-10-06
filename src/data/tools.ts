@@ -5,6 +5,7 @@ export const PF_TOOLS = [
   { to: "/pf/withdraw", label: "Withdrawal estimate", desc: "How much you can take, and the tax" },
   { to: "/pf/pension", label: "EPS pension estimate", desc: "Your monthly pension and when to start" },
   { to: "/pf/calculator", label: "EPF balance at retirement", desc: "Project your PF with the new ₹25,000 ceiling" },
+  { to: "/monthly", label: "Monthly PF check-up", desc: "Log your passbook, catch missed deposits" },
   { to: "/pf/grievance", label: "Complaint drafter", desc: "Write an EPFiGMS grievance in a minute" },
   { to: "/reminders", label: "Deadline reminders", desc: "PF and NPS dates in your calendar" },
 ];

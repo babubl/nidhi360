@@ -35,3 +35,25 @@ export function clearSavedData() {
     Object.keys(localStorage).filter((k) => k.startsWith(PREFIX)).forEach((k) => localStorage.removeItem(k));
   } catch { /* storage unavailable */ }
 }
+
+/**
+ * Date of the person's previous visit (before this browser session), stored on this device only.
+ * Powers "what changed since you were last here". Idempotent within a session.
+ */
+export function usePreviousVisit(): string | undefined {
+  const [prev, setPrev] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      if (!sessionStorage.getItem("n360:visited")) {
+        const last = localStorage.getItem(PREFIX + "visit.last");
+        if (last) localStorage.setItem(PREFIX + "visit.prev", last);
+        localStorage.setItem(PREFIX + "visit.last", today);
+        sessionStorage.setItem("n360:visited", "1");
+      }
+      const p = localStorage.getItem(PREFIX + "visit.prev");
+      if (p) setPrev(p);
+    } catch { /* storage unavailable */ }
+  }, []);
+  return prev;
+}

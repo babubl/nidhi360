@@ -30,6 +30,8 @@ const STATIC: Record<string, { title: string; description: string }> = {
   "/nps/tax": { title: "NPS tax savings calculator: old vs new regime", description: "How much tax NPS saves you in the old and new regimes, including the employer contribution deduction up to 14% of basic + DA." },
   "/nps/retirement": { title: "NPS retirement and exit planner (2025 rules)", description: "Project your NPS corpus and see what you can take as lump sum, what must buy an annuity, and the tax, under PFRDA's December 2025 exit rules." },
   "/compare": { title: "EPF vs VPF vs PPF vs NPS: compare returns, tax and lock-in", description: "Side-by-side comparison of EPF, VPF, PPF and NPS: current returns, tax treatment, lock-in, withdrawal rules and who each one suits." },
+  "/monthly": { title: "Monthly PF check-up: catch a missed deposit in 2 minutes", description: "Log your PF passbook balance once a month, see if your employer's deposit arrived, and see what changed in EPFO and NPS rules since your last visit." },
+  "/site-map": { title: "Site map", description: "Every Nidhi360 tool, guide and answer on PF, EPS and NPS in one place." },
   "/reminders": { title: "PF and NPS deadline reminders for your calendar", description: "Never miss a PF or NPS deadline: exit date, 12-month settlement, EPS at 58, NPS decision before 60, yearly life certificate. Add them to your calendar." },
   "/answers": { title: "PF, EPS and NPS answers", description: "Straight answers to the PF, EPS and NPS questions people ask most, with the steps to take and the official rule behind each." },
   "/rules": { title: "PF and NPS rule updates with official sources", description: "Every EPFO, PFRDA and tax rule Nidhi360 uses, with its official source, effective date and status." },

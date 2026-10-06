@@ -95,6 +95,17 @@ export default function Home() {
         </Container>
       </section>
 
+      <section className="border-b border-line bg-brand-900 text-white">
+        <Container className="flex flex-col items-start gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold text-amber-300">Come back once a month</p>
+            <h2 className="mt-1 text-2xl font-extrabold tracking-tight !text-white">Your monthly PF check-up takes two minutes.</h2>
+            <p className="mt-1 text-[15px] text-brand-100">Log your passbook balance, catch a missed employer deposit early, and see which rules changed since your last visit.</p>
+          </div>
+          <ButtonLink to="/monthly" variant="secondary" className="shrink-0">Start this month's check-up</ButtonLink>
+        </Container>
+      </section>
+
       <section className="border-b border-line">
         <Container className="grid grid-cols-2 gap-6 py-7 text-sm md:grid-cols-4">
           {[

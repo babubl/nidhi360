@@ -15,7 +15,7 @@ export interface ReminderInput {
   today?: Date;
 }
 
-export interface Reminder { date: string; title: string; detail: string; path: string; recurring?: "quarterly" | "yearly" }
+export interface Reminder { date: string; title: string; detail: string; path: string; recurring?: "monthly" | "quarterly" | "yearly" }
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 function addMonths(isoDate: string, m: number) { const d = new Date(isoDate + "T00:00:00Z"); d.setUTCMonth(d.getUTCMonth() + m); return iso(d); }
@@ -69,11 +69,20 @@ export function toIcs(reminders: Reminder[], siteUrl: string, now = new Date()):
       `DTEND;VALUE=DATE:${end}`,
       `SUMMARY:${esc(r.title)}`,
       `DESCRIPTION:${esc(r.detail + "\n" + siteUrl.replace(/\/$/, "") + r.path)}`,
-      ...(r.recurring === "quarterly" ? ["RRULE:FREQ=MONTHLY;INTERVAL=3"] : r.recurring === "yearly" ? ["RRULE:FREQ=YEARLY"] : []),
+      ...(r.recurring === "monthly" ? ["RRULE:FREQ=MONTHLY"] : r.recurring === "quarterly" ? ["RRULE:FREQ=MONTHLY;INTERVAL=3"] : r.recurring === "yearly" ? ["RRULE:FREQ=YEARLY"] : []),
       "BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${esc(r.title)}`, "TRIGGER:PT9H", "END:VALARM",
       "END:VEVENT",
     );
   });
   lines.push("END:VCALENDAR");
   return lines.join("\r\n");
+}
+
+/** A repeating monthly "check your PF passbook" event on the chosen day (1–28), starting next occurrence. */
+export function monthlyCheckReminder(day: number, today = new Date()): Reminder {
+  const d = Math.min(28, Math.max(1, Math.round(day)));
+  const y = today.getFullYear(), m = today.getMonth();
+  const thisMonth = new Date(Date.UTC(y, m, d));
+  const start = thisMonth.getTime() > Date.UTC(y, m, today.getDate()) ? thisMonth : new Date(Date.UTC(y, m + 1, d));
+  return { date: start.toISOString().slice(0, 10), recurring: "monthly", title: "Nidhi360: monthly PF check-up", detail: "Two minutes: confirm last month's PF deposit reached your passbook and log your balance.", path: "/monthly" };
 }

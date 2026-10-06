@@ -215,3 +215,41 @@ describe("EPF corpus projection", () => {
     expect(r.balanceAtRetirement).toBeCloseTo(120000 * 1.0825, 0);
   });
 });
+
+import { analyse, changesSince, expectedMonthlyCredit, monthTasks, streak } from "./monthly";
+import { monthlyCheckReminder } from "./reminders";
+
+describe("monthly check-up", () => {
+  it("expected credit = employee 12% + employer EPF share", () => {
+    // basic 40,000 on full: employee 4,800 + employer (4,800 - 25,000*8.33%=2,082.5) = 2,717.5
+    expect(expectedMonthlyCredit(40000, 0, true)).toBe(7518);
+  });
+  it("flags a missed deposit and a falling balance", () => {
+    const r = analyse([{ month: "2026-07", balance: 100000 }, { month: "2026-08", balance: 107500 }, { month: "2026-09", balance: 108000 }, { month: "2026-10", balance: 90000 }], 7500);
+    expect(r.map((x) => x.verdict)).toEqual(["baseline", "ok", "low", "fell"]);
+  });
+  it("scales expected credit over skipped months", () => {
+    const r = analyse([{ month: "2026-07", balance: 100000 }, { month: "2026-09", balance: 115000 }], 7500);
+    expect(r[1].verdict).toBe("ok");
+  });
+  it("counts streak through last month", () => {
+    const e = [{ month: "2026-08", balance: 1 }, { month: "2026-09", balance: 2 }];
+    expect(streak(e, new Date("2026-10-06"))).toBe(2);
+    expect(streak(e, new Date("2026-12-06"))).toBe(0);
+  });
+  it("lists rules changed after last visit", () => {
+    const rules = [{ id: "a", effective: "2026-09-01" }, { id: "b", effective: "2026-07-01" }] as never[];
+    expect(changesSince("2026-08-01", rules).map((r: { id: string }) => r.id)).toEqual(["a"]);
+    expect(changesSince(undefined, rules)).toEqual([]);
+  });
+  it("always has the passbook task; March mentions tax", () => {
+    expect(monthTasks(5)).toHaveLength(1);
+    expect(monthTasks(3).length).toBe(2);
+  });
+  it("monthly reminder repeats monthly and is in the future", () => {
+    const r = monthlyCheckReminder(20, new Date("2026-10-06T10:00:00"));
+    expect(r.date).toBe("2026-10-20");
+    expect(toIcs([r], "https://x.y/")).toContain("RRULE:FREQ=MONTHLY");
+    expect(monthlyCheckReminder(5, new Date("2026-10-06T10:00:00")).date).toBe("2026-11-05");
+  });
+});

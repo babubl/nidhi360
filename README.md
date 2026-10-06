@@ -92,3 +92,10 @@ Set the resulting `https://nidhi360-ai.<account>.workers.dev` URL as `VITE_ASK_U
 ## Disclaimer
 
 Nidhi360 is independent and is not affiliated with EPFO, PFRDA or any government body. It provides general information, not investment, tax or legal advice.
+
+## Getting found on Google
+
+GitHub Pages serves this site from a sub-path (`/nidhi360/`), and Google only reads `robots.txt` at the root of a domain. So:
+
+1. In Google Search Console add a **URL-prefix** property for `https://babubl.github.io/nidhi360/` and submit `https://babubl.github.io/nidhi360/sitemap.xml`.
+2. Better: buy a domain, point it at Pages (Settings → Pages → Custom domain), set repository variables `BASE_PATH=/` and `VITE_SITE_URL=https://yourdomain`, then add the domain as a Search Console property. Every page is prerendered, so crawlers see full content, and `/site-map` links to all of it.
