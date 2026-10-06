@@ -50,6 +50,14 @@ const CHALLENGE: [string, string][] = [
   ["why is my eps pension only 1000", "/answers/minimum-pension"],
   ["central govt employee ups or nps", "/answers/ups-vs-nps"],
   ["nps account for my daughter", "/answers/nps-vatsalya"],
+  // Typos people actually make
+  ["pf widrawal after resine", "/answers/withdraw-after-resigning"],
+  ["pention stoped", "/answers/life-certificate"],
+  ["how to add nomine in pf", "/answers/add-nominee"],
+  ["pf transfar to new company", "/answers/transfer-pf"],
+  ["claim rejectd bank", "/answers/claim-rejected"],
+  ["epf balence check", "/answers/check-balance"],
+  ["epf calculator at retirement", "/pf/calculator"],
 ];
 
 describe("Resolution challenge: real queries find the right answer", () => {

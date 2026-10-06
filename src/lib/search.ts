@@ -23,7 +23,48 @@ export function tokenize(s: string): string[] {
   return s.toLowerCase().replace(/[^a-z0-9₹%.\s]/g, " ").split(/\s+/).filter((t) => t && !STOP.has(t));
 }
 
+/** Common misspellings seen in Indian PF/NPS searches. */
+const SPELLING: Record<string, string> = {
+  widraw: "withdraw", withdrew: "withdraw", withdrawl: "withdrawal", widrawal: "withdrawal", withdrawel: "withdrawal",
+  pention: "pension", pensn: "pension", nomine: "nominee", nomini: "nominee", transfar: "transfer", tranfer: "transfer",
+  rejectd: "rejected", rejeted: "rejected", balence: "balance", ballance: "balance", pasbook: "passbook", setteled: "settled",
+  setlement: "settlement", employeer: "employer", aadhar: "aadhaar", adhar: "aadhaar", resine: "resign", resined: "resigned",
+};
+
+function editDistance(a: string, b: string, max: number): number {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  const prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    let diag = prev[0], rowMin = (prev[0] = i);
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = prev[j];
+      prev[j] = Math.min(prev[j] + 1, prev[j - 1] + 1, diag + (a[i - 1] === b[j - 1] ? 0 : 1));
+      diag = tmp;
+      rowMin = Math.min(rowMin, prev[j]);
+    }
+    if (rowMin > max) return max + 1;
+  }
+  return prev[b.length];
+}
+
+let VOCAB: Set<string> | null = null;
+/** Correct a token to the nearest word in our content when it isn't a known word. */
+function correct(t: string): string {
+  if (SPELLING[t]) return SPELLING[t];
+  if (t.length < 5 || /\d/.test(t)) return t;
+  VOCAB ??= new Set(DOCS.flatMap((d) => tokenize(`${d.title} ${d.keywords.join(" ")} ${d.body}`)));
+  if (VOCAB.has(t)) return t;
+  const max = t.length >= 8 ? 2 : 1;
+  let best = t, bestD = max + 1;
+  for (const w of VOCAB) {
+    const d = editDistance(t, w, max);
+    if (d < bestD) { best = w; bestD = d; if (d === 1 && max === 1) break; }
+  }
+  return best;
+}
+
 function expand(tokens: string[]): string[] {
+  tokens = tokens.map(correct);
   const out = new Set(tokens);
   for (const t of tokens) for (const s of SYNONYMS[t] ?? []) out.add(s);
   return [...out];
@@ -40,8 +81,8 @@ const DOCS: Doc[] = [
 const has = (hay: string, t: string) => new RegExp(`(^|[^a-z0-9])${t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`).test(hay);
 
 export function search(query: string, limit = 8): SearchResult[] {
-  const q = query.toLowerCase().trim();
-  const tokens = expand(tokenize(q));
+  const tokens = expand(tokenize(query));
+  const q = " " + tokens.join(" ") + " " + query.toLowerCase().trim();
   if (!tokens.length) return [];
   const scored = DOCS.map((d) => {
     let s = 0;

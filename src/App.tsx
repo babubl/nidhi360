@@ -28,6 +28,7 @@ const PAGES = {
   "pf/job-change": page(() => import("./pages/pf/JobChange")),
   "pf/withdraw": page(() => import("./pages/pf/Withdraw")),
   "pf/pension": page(() => import("./pages/pf/Pension")),
+  "pf/calculator": page(() => import("./pages/pf/EpfCalculator")),
   "pf/grievance": page(() => import("./pages/pf/Grievance")),
   "nps/tax": page(() => import("./pages/nps/NpsTax")),
   "nps/retirement": page(() => import("./pages/nps/NpsRetirement")),

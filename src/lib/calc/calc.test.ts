@@ -188,3 +188,30 @@ describe("Reminder calendar", () => {
     expect(ics.trim().endsWith("END:VCALENDAR")).toBe(true);
   });
 });
+
+import { monthlySplit, projectEpf } from "./epfCorpus";
+describe("EPF corpus projection", () => {
+  it("splits employer share between EPF and EPS at the ₹25,000 ceiling", () => {
+    const s = monthlySplit(50000, 0, true);
+    expect(s.employee).toBe(6000);
+    expect(s.eps).toBeCloseTo(2082.5, 1);
+    expect(s.employerEpf).toBeCloseTo(6000 - 2082.5, 1);
+  });
+  it("restricted employer contributes only on ₹25,000", () => {
+    const s = monthlySplit(50000, 0, false);
+    expect(s.employerEpf).toBeCloseTo(3000 - 2082.5, 1);
+  });
+  it("salary below ceiling: EPS on actual salary", () => {
+    const s = monthlySplit(20000, 0, true);
+    expect(s.eps).toBeCloseTo(1666, 0);
+    expect(s.employerEpf).toBeCloseTo(2400 - 1666, 0);
+  });
+  it("one year at 0% interest equals contributions", () => {
+    const r = projectEpf({ basicMonthly: 20000, currentBalance: 100000, age: 30, retireAge: 31, salaryGrowthPct: 0, ratePct: 0, vpfPct: 0, employerOnFullBasic: true });
+    expect(r.balanceAtRetirement).toBeCloseTo(100000 + 12 * (2400 + 2400 - 1666), 0);
+  });
+  it("interest accrues on the monthly running balance", () => {
+    const r = projectEpf({ basicMonthly: 0, currentBalance: 120000, age: 30, retireAge: 31, salaryGrowthPct: 0, ratePct: 8.25, vpfPct: 0, employerOnFullBasic: true });
+    expect(r.balanceAtRetirement).toBeCloseTo(120000 * 1.0825, 0);
+  });
+});
