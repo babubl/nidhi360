@@ -10,11 +10,12 @@ export function Container({ className, children }: { className?: string; childre
   return <div className={cx("mx-auto w-full max-w-6xl px-4 sm:px-6", className)}>{children}</div>;
 }
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "gold";
 const btn: Record<Variant, string> = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700 shadow-[0_6px_14px_-6px_rgba(26,79,196,0.6)]",
+  primary: "bg-night text-ivory hover:bg-slate shadow-[0_8px_18px_-10px_rgba(13,13,15,0.7)]",
   secondary: "bg-white text-ink border border-line hover:border-brand-200 hover:bg-brand-50",
   ghost: "text-brand-600 hover:bg-brand-50",
+  gold: "bg-gold text-night hover:bg-gold-light shadow-[0_8px_20px_-10px_rgba(201,168,106,0.9)]",
 };
 const btnBase = "inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-[15px] font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
 
@@ -26,7 +27,7 @@ export function ButtonLink({ variant = "primary", className, ...p }: ComponentPr
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cx("rounded-2xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(10,31,77,0.04),0_8px_24px_-16px_rgba(10,31,77,0.18)] sm:p-6", className)}>{children}</div>;
+  return <div className={cx("rounded-2xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(13,13,15,0.04),0_10px_28px_-18px_rgba(13,13,15,0.25)] sm:p-6", className)}>{children}</div>;
 }
 
 export function Field({ label, hint, htmlFor, children }: { label: string; hint?: string; htmlFor?: string; children: ReactNode }) {
@@ -79,7 +80,7 @@ export function Segmented<T extends string | number>({ value, onChange, options,
         return (
           <button key={String(o.value)} type="button" role="radio" aria-checked={on} onClick={() => onChange(o.value)}
             className={cx("rounded-md font-semibold transition-colors", size === "sm" ? "px-3 py-1.5 text-[13px]" : "px-3.5 py-2 text-sm",
-              on ? "bg-white text-ink shadow-sm ring-1 ring-line" : "text-muted hover:text-ink")}>
+              on ? "bg-night text-ivory shadow-sm" : "text-muted hover:text-ink")}>
             {o.label}
           </button>
         );
@@ -159,7 +160,7 @@ export function SectionTitle({ title, intro, action }: { title: string; intro?: 
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div className="max-w-2xl">
-        <h2 className="text-2xl font-bold sm:text-[28px]">{title}</h2>
+        <h2 className="text-[28px] leading-tight sm:text-[36px]">{title}</h2>
         {intro && <p className="mt-1.5 text-muted">{intro}</p>}
       </div>
       {action}

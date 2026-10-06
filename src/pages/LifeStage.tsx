@@ -15,7 +15,7 @@ export default function LifeStagePage() {
         <div className="mt-6 flex flex-wrap gap-2" role="navigation" aria-label="Other life stages">
           {LIFE_STAGES.map((s) => (
             <Link key={s.slug} to={`/start/${s.slug}`} aria-current={s.slug === stage.slug ? "page" : undefined}
-              className={cx("rounded-full border px-3.5 py-1.5 text-sm font-semibold no-underline", s.slug === stage.slug ? "border-brand-600 bg-brand-600 text-white" : "border-line bg-white text-body hover:border-brand-200")}>
+              className={cx("rounded-full border px-3.5 py-1.5 text-sm font-semibold no-underline", s.slug === stage.slug ? "border-gold bg-gold text-night" : "border-white/15 bg-white/5 text-ivory/80 hover:border-gold/60 hover:text-ivory")}>
               {s.age} · {s.title}
             </Link>
           ))}

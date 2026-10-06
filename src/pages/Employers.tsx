@@ -19,8 +19,8 @@ export default function Employers() {
       <PageHero title="PF and NPS support for your whole workforce" intro="PF transfers, rejected claims and NPS questions take up a large share of HR's time. Nidhi360 gives every employee clear, current answers, and gives HR the time back.">
         <div className="mt-7 flex flex-wrap gap-3">
           {config.contactEmail
-            ? <a href={mail} className="inline-flex items-center rounded-lg bg-brand-600 px-5 py-3 font-semibold text-white no-underline hover:bg-brand-700">Talk to us</a>
-            : <ButtonLink to="/pf/health-check">See the employee experience</ButtonLink>}
+            ? <a href={mail} className="inline-flex items-center rounded-full bg-gold px-6 py-3 font-semibold text-night no-underline hover:bg-gold-light">Talk to us</a>
+            : <ButtonLink to="/pf/health-check" variant="gold">See the employee experience</ButtonLink>}
         </div>
       </PageHero>
       <Container className="py-14">

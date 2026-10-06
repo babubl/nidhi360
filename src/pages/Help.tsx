@@ -46,7 +46,7 @@ export default function Help() {
   return (
     <>
       <PageHero title="Get an expert on your PF or NPS case" intro="When the tools aren't enough, such as a claim stuck for months, a family member's death claim, an employer who won't cooperate or a pension that stopped, a person who knows the rules works through it with you.">
-        <p className="mt-4 flex items-center gap-2 text-sm text-body"><ShieldCheck className="size-4 text-brand-600" aria-hidden />You stay in control: we tell you exactly what to file and say. We never ask for your password or OTP.</p>
+        <p className="mt-5 flex items-center gap-2 text-sm text-ivory/70"><ShieldCheck className="size-4 text-gold" aria-hidden />You stay in control: we tell you exactly what to file and say. We never ask for your password or OTP.</p>
       </PageHero>
       <Container className="py-12">
         <div className="grid gap-4 lg:grid-cols-3">

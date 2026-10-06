@@ -32,10 +32,10 @@ export function StillStuck({ topic }: { topic: string }) {
 
 export function ReviewedLine({ date, where, title }: { date: string; where: string; title: string }) {
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
-      <span className="inline-flex items-center gap-1.5"><ShieldCheck className="size-4 text-brand-600" aria-hidden />Checked against official rules on {fmtDate(date)}</span>
-      <Link to="/about" className="text-muted no-underline hover:text-ink">Reviewed by {FOUNDER.name}, {FOUNDER.credentials[0]}</Link>
-      <a href={reportErrorUrl(where, title)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-muted no-underline hover:text-ink"><Flag className="size-3.5" aria-hidden />Report an error</a>
+    <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-ivory/60">
+      <span className="inline-flex items-center gap-1.5"><ShieldCheck className="size-4 text-gold" aria-hidden />Checked against official rules on {fmtDate(date)}</span>
+      <Link to="/about" className="text-ivory/60 no-underline hover:text-ivory">Reviewed by {FOUNDER.name}, {FOUNDER.credentials[0]}</Link>
+      <a href={reportErrorUrl(where, title)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-ivory/60 no-underline hover:text-ivory"><Flag className="size-3.5" aria-hidden />Report an error</a>
     </div>
   );
 }
@@ -48,18 +48,19 @@ export default function AnswerPage() {
 
   return (
     <>
-      <section className="border-b border-line bg-canvas">
-        <Container className="max-w-3xl py-10">
-          <nav aria-label="Breadcrumb" className="mb-3 text-sm text-muted">
-            <Link to="/answers" className="text-muted no-underline hover:text-ink">Answers</Link> <span aria-hidden>›</span> {CATEGORY_LABELS[a.category]}
+      <section className="relative overflow-hidden bg-night text-ivory">
+        <div className="pointer-events-none absolute -right-32 -top-40 size-[460px] rounded-full bg-gold/10 blur-3xl" aria-hidden />
+        <Container className="relative max-w-3xl py-12 sm:py-14">
+          <nav aria-label="Breadcrumb" className="mb-4 text-[13px] uppercase tracking-[0.14em] text-ivory/50">
+            <Link to="/answers" className="text-ivory/50 no-underline hover:text-ivory">Answers</Link> <span aria-hidden>›</span> {CATEGORY_LABELS[a.category]}
           </nav>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-[36px] sm:leading-tight">{a.question}</h1>
+          <h1 className="text-[32px] leading-[1.12] !text-ivory sm:text-[44px]">{a.question}</h1>
           <ReviewedLine date={a.reviewed ?? RULES_CHECKED_ON} where={`/answers/${a.slug}`} title={a.question} />
         </Container>
       </section>
       <Container className="max-w-3xl space-y-8 py-10">
-        <div className="rounded-xl border-l-4 border-brand-600 bg-brand-50 p-5">
-          <p className="text-sm font-semibold text-brand-700">Short answer</p>
+        <div className="rounded-2xl border border-brand-200 border-l-4 border-l-gold bg-white p-6 shadow-[0_10px_28px_-18px_rgba(13,13,15,0.25)]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-brand-600">Short answer</p>
           <p className="mt-1.5 text-[17px] leading-relaxed text-ink">{a.short}</p>
         </div>
 

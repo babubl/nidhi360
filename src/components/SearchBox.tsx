@@ -12,7 +12,7 @@ const KIND = {
 };
 
 /** Problem search with live suggestions. Enter with nothing highlighted opens the full results page. */
-export default function SearchBox({ size = "md", placeholder = "Describe your problem, e.g. claim pending for 30 days", autoFocus, initial = "", onSubmitted, label = "Search PF and NPS help" }: {
+export default function SearchBox({ size = "md", placeholder = "Ask about PF, EPS or NPS", autoFocus, initial = "", onSubmitted, label = "Search PF and NPS help" }: {
   size?: "lg" | "md" | "sm"; placeholder?: string; autoFocus?: boolean; initial?: string; onSubmitted?: () => void; label?: string;
 }) {
   const [q, setQ] = useState(initial);
@@ -55,11 +55,11 @@ export default function SearchBox({ size = "md", placeholder = "Describe your pr
             if (e.key === "Escape") setOpen(false);
           }}
           className={cx(
-            "w-full rounded-xl border border-line bg-white text-ink outline-none transition placeholder:text-muted focus:border-brand-500 focus:ring-4 focus:ring-brand-100",
-            big ? "py-4 pl-12 pr-28 text-[17px] shadow-[0_8px_24px_-12px_rgba(16,24,40,0.18)]" : size === "sm" ? "py-2 pl-9 pr-3 text-sm" : "py-3 pl-10 pr-3 text-[15px]",
+            "w-full rounded-full border border-line bg-white text-ink outline-none transition placeholder:text-muted focus:border-brand-500 focus:ring-4 focus:ring-brand-100",
+            big ? "py-4 pl-12 pr-32 text-[17px] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.5)]" : size === "sm" ? "py-2 pl-9 pr-3 text-sm" : "py-3 pl-10 pr-3 text-[15px]",
           )}
         />
-        {big && <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-brand-600 px-4 py-2.5 text-[15px] font-semibold text-white hover:bg-brand-700">Search</button>}
+        {big && <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-night px-5 py-2.5 text-[15px] font-semibold text-ivory hover:bg-slate">Search</button>}
       </form>
       {open && results.length > 0 && (
         <ul id={id + "-list"} role="listbox" className="absolute inset-x-0 top-full z-50 mt-2 max-h-[60vh] overflow-y-auto rounded-xl border border-line bg-white p-1.5 shadow-xl">

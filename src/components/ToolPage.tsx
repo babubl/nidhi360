@@ -6,17 +6,18 @@ import { ruleById } from "../data/rules";
 
 export function PageHero({ crumb, title, intro, children }: { crumb?: { to: string; label: string }; title: string; intro?: string; children?: ReactNode }) {
   return (
-    <section className="border-b border-line bg-gradient-to-b from-brand-50 to-white">
-      <Container className="py-10 sm:py-12">
+    <section className="relative overflow-hidden bg-night text-ivory">
+      <div className="pointer-events-none absolute -right-32 -top-40 size-[460px] rounded-full bg-gold/10 blur-3xl" aria-hidden />
+      <Container className="relative py-12 sm:py-16">
         {crumb && (
-          <nav aria-label="Breadcrumb" className="mb-3 flex items-center gap-1 text-sm text-muted">
-            <Link to="/" className="text-muted no-underline hover:text-ink">Home</Link>
+          <nav aria-label="Breadcrumb" className="mb-4 flex items-center gap-1 text-[13px] uppercase tracking-[0.14em] text-ivory/50">
+            <Link to="/" className="text-ivory/50 no-underline hover:text-ivory">Home</Link>
             <ChevronRight className="size-3.5" aria-hidden />
-            <Link to={crumb.to} className="text-muted no-underline hover:text-ink">{crumb.label}</Link>
+            <Link to={crumb.to} className="text-ivory/50 no-underline hover:text-ivory">{crumb.label}</Link>
           </nav>
         )}
-        <h1 className="max-w-3xl text-3xl font-extrabold tracking-tight sm:text-[40px] sm:leading-[1.15]">{title}</h1>
-        {intro && <p className="mt-3 max-w-2xl text-[17px] text-body">{intro}</p>}
+        <h1 className="max-w-3xl text-[34px] leading-[1.1] !text-ivory sm:text-[50px]">{title}</h1>
+        {intro && <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-ivory/70">{intro}</p>}
         {children}
       </Container>
     </section>

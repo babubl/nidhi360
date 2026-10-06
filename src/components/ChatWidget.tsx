@@ -62,26 +62,26 @@ export default function ChatWidget() {
     <div className="no-print">
       {!open && (
         <button type="button" onClick={() => { setOpen(true); track("Chat opened"); }} aria-label="Open chat assistant"
-          className={cx("fixed right-4 z-40 flex items-center gap-2 rounded-full bg-brand-600 py-3 pl-4 pr-5 text-[15px] font-bold text-white shadow-[0_12px_28px_-8px_rgba(26,79,196,0.7)] transition hover:bg-brand-700 sm:right-6", onToolPage ? "bottom-24 lg:bottom-6" : "bottom-5 sm:bottom-6")}>
-          <MessageCircle className="size-5" aria-hidden />Ask Nidhi
+          className={cx("fixed right-4 z-40 flex items-center gap-2 rounded-full border border-gold/40 bg-night p-3.5 text-[15px] sm:py-3 sm:pl-4 sm:pr-5 font-semibold text-ivory shadow-[0_16px_32px_-10px_rgba(0,0,0,0.6)] transition hover:border-gold sm:right-6", onToolPage ? "bottom-24 lg:bottom-6" : "bottom-5 sm:bottom-6")}>
+          <MessageCircle className="size-5 text-gold" aria-hidden /><span className="hidden sm:inline">Ask Nidhi</span>
         </button>
       )}
       {open && (
         <section role="dialog" aria-label="Nidhi360 assistant"
           className="fixed inset-x-0 bottom-0 z-50 flex h-[85dvh] flex-col overflow-hidden rounded-t-2xl border border-line bg-white shadow-[0_24px_60px_-12px_rgba(10,31,77,0.45)] sm:inset-x-auto sm:bottom-6 sm:right-6 sm:h-[600px] sm:max-h-[calc(100dvh-3rem)] sm:w-[400px] sm:rounded-2xl">
-          <header className="flex items-center gap-3 bg-brand-900 px-4 py-3 text-white">
+          <header className="flex items-center gap-3 bg-night px-4 py-3 text-ivory">
             <LogoMark className="size-9" />
             <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-bold leading-tight">Nidhi assistant</p>
-              <p className="text-[12px] text-brand-100">Answers from our sourced rules register</p>
+              <p className="font-display text-[17px] font-semibold leading-tight">Nidhi assistant</p>
+              <p className="text-[12px] text-ivory/55">Answers from our sourced rules register</p>
             </div>
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close chat" className="rounded-md p-2 text-brand-100 hover:bg-white/10 hover:text-white"><X className="size-5" /></button>
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close chat" className="rounded-md p-2 text-ivory/60 hover:bg-white/10 hover:text-ivory"><X className="size-5" /></button>
           </header>
 
           <div className="flex-1 space-y-3 overflow-y-auto bg-canvas px-4 py-4" aria-live="polite">
             {msgs.map((m, i) => (
               <div key={i} className={cx("flex", m.role === "user" && "justify-end")}>
-                <div className={cx("max-w-[90%] rounded-2xl px-3.5 py-2.5 text-[14.5px] leading-relaxed", m.role === "user" ? "rounded-br-sm bg-brand-600 text-white" : "rounded-bl-sm border border-line bg-white text-body")}>
+                <div className={cx("max-w-[90%] rounded-2xl px-3.5 py-2.5 text-[14.5px] leading-relaxed", m.role === "user" ? "rounded-br-sm bg-night text-ivory" : "rounded-bl-sm border border-line bg-white text-body")}>
                   {m.role === "user" ? m.text : <Markdown text={m.text} />}
                   {m.steps && m.steps.length > 0 && (
                     <ol className="mt-2 list-decimal space-y-1 pl-5 text-[14px]">{m.steps.map((s) => <li key={s}>{s}</li>)}</ol>
@@ -108,7 +108,7 @@ export default function ChatWidget() {
               <label htmlFor="chat-q" className="sr-only">Your question</label>
               <input id="chat-q" ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} placeholder="Describe your PF or NPS problem" autoComplete="off"
                 className="min-w-0 flex-1 rounded-xl border border-line bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-100" />
-              <button type="submit" disabled={busy || !input.trim()} aria-label="Send" className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white disabled:opacity-40"><ArrowUp className="size-5" /></button>
+              <button type="submit" disabled={busy || !input.trim()} aria-label="Send" className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-night text-gold disabled:opacity-40"><ArrowUp className="size-5" /></button>
             </form>
             <p className="mt-2 flex items-start gap-1.5 text-[11.5px] leading-snug text-muted"><ShieldAlert className="mt-px size-3.5 shrink-0" aria-hidden />Never share your UAN, Aadhaar, PAN, bank details or OTP. General information, not legal or tax advice.</p>
           </div>
