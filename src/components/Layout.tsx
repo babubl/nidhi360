@@ -90,7 +90,8 @@ function Header() {
         <Logo dark />
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           <Dropdown label="PF" items={PF_TOOLS} active={loc.pathname.startsWith("/pf")} />
-          <Dropdown label="NPS" items={NPS_TOOLS} active={loc.pathname.startsWith("/nps")} />
+          <Dropdown label="NPS & planning" items={NPS_TOOLS} active={loc.pathname.startsWith("/nps") || loc.pathname === "/retirement" || loc.pathname === "/ppf"} />
+          <NavLink to="/me" className={navCls}>My plan</NavLink>
           <NavLink to="/monthly" className={navCls}>Monthly check-up</NavLink>
           <NavLink to="/answers" className={navCls}>Answers</NavLink>
           <NavLink to="/about" className={navCls}>About</NavLink>
@@ -109,10 +110,10 @@ function Header() {
           <Container className="py-4">
             <p className="px-1 pb-1 text-[13px] font-semibold text-gold">PF tools</p>
             {PF_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-medium text-ivory no-underline">{i.label}</Link>)}
-            <p className="mt-3 px-1 pb-1 text-[13px] font-semibold text-gold">NPS tools</p>
+            <p className="mt-3 px-1 pb-1 text-[13px] font-semibold text-gold">NPS and planning</p>
             {NPS_TOOLS.map((i) => <Link key={i.to} to={i.to} className="block rounded-lg px-1 py-2.5 text-[16px] font-medium text-ivory no-underline">{i.label}</Link>)}
             <div className="mt-3 border-t border-white/10 pt-3">
-              {[["/monthly", "Monthly check-up"], ["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/about", "About"], ["/employers", "For employers"], ["/site-map", "Site map"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
+              {[["/me", "My plan"], ["/monthly", "Monthly check-up"], ["/help", "Expert help"], ["/answers", "Answers"], ["/rules", "Rule updates"], ["/glossary", "Glossary"], ["/about", "About"], ["/employers", "For employers"], ["/site-map", "Site map"], ...(aiEnabled ? [["/ask", "Ask a question"]] : [])].map(([to, l]) => (
                 <Link key={to} to={to} className="block rounded-lg px-1 py-2.5 text-[16px] font-medium text-ivory no-underline">{l}</Link>
               ))}
             </div>
@@ -147,7 +148,7 @@ function Footer() {
       </Container>
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <FooterLinks title="Provident fund" items={PF_TOOLS} />
-        <FooterLinks title="NPS and planning" items={[...NPS_TOOLS, { to: "/monthly", label: "Monthly check-up" }]} />
+        <FooterLinks title="NPS and planning" items={[...NPS_TOOLS, { to: "/me", label: "My plan" }, { to: "/monthly", label: "Monthly check-up" }]} />
         <FooterLinks title="Company" items={[{ to: "/about", label: "About us" }, { to: "/answers", label: "Answers" }, { to: "/rules", label: "Rule updates" }, { to: "/glossary", label: "Glossary" }, { to: "/help", label: "Expert help" }, { to: "/employers", label: "For employers" }, { to: "/site-map", label: "Site map" }, { to: "/legal", label: "Terms & privacy" }]} />
         <div>
           <p className="text-[13px] font-semibold text-ivory">Official portals</p>

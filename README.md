@@ -21,6 +21,10 @@ PF and NPS, sorted, for salaried India. Nidhi360 tells people what they can with
 | EPS pension | `/pf/pension` | Pension at 50–60, ₹25,000 ceiling transition, 20-year weightage, ₹1,000 minimum |
 | NPS tax | `/nps/tax` | Old vs new regime, employer 14%/10% caps, what to ask HR |
 | NPS retirement | `/nps/retirement` | Corpus projection and the Dec 2025 exit split (80/20, ₹8L/₹12L slabs, premature exit, tax-free 60%) |
+| My plan | `/me` | Personal dashboard from details saved on the device: PF at 58, EPS pension, NPS at 60, a "do next" list, upcoming dates, and backup/restore to move data between devices |
+| Retirement income check | `/retirement` | EPF + EPS + NPS + other savings against inflation-adjusted spending: the age the money lasts to, readiness %, and the extra monthly saving that closes the gap |
+| Family claim kit | `/pf/family-claim` | After a member's death: which of Form 20 / 5IF / 10D (or 10C) apply, EDLI estimate (₹50,000–₹7 lakh, 2025 amendments), family pension minimums, documents and filing order, copy/print checklist |
+| PPF planner | `/ppf` | Maturity at the current rate, loan (years 3–6) and withdrawal (from year 7) limits for each year, 5-year extensions |
 | Rule updates | `/rules` | The full register with status, effective date and source |
 | Ask | `/ask` | AI assistant answering only from the register, with rule citations |
 | For employers | `/employers` | B2B offer for HR teams |

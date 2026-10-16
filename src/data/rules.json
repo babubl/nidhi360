@@ -318,5 +318,25 @@
     "summary": "Following the Supreme Court judgment of November 2022, EPFO received 15.24 lakh applications for higher pension on actual salary. As of 5 August 2026, 11,595 were still pending, mostly in a few regions. The application window closed in 2023.",
     "source": "Labour Ministry reply, Aug 2026",
     "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R33",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-07-18",
+    "title": "EDLI: ₹50,000 minimum, cover between jobs and after the last contribution",
+    "summary": "Families of members who die without 12 months of continuous service now get at least ₹50,000 of EDLI cover. Gaps of up to 60 days between two jobs no longer break continuous service for the ₹2.5 lakh minimum. A member who dies within 6 months of the last PF contribution is covered if still on the employer's rolls.",
+    "source": "EDLI (Amendment) Scheme, gazette notification of 18 Jul 2025",
+    "sourceUrl": "https://www.epfindia.gov.in"
+  },
+  {
+    "id": "R34",
+    "area": "ppf",
+    "status": "live",
+    "effective": "2026-10-01",
+    "title": "PPF interest for Oct–Dec 2026: 7.1%",
+    "summary": "The government kept small savings rates unchanged for October–December 2026: PPF 7.1%, Sukanya Samriddhi 8.2%, NSC 7.7%, SCSS 8.2%. PPF rates are reset every quarter; interest is calculated monthly on the lowest balance between the 5th and the month end and credited on 31 March. Deposits, interest and maturity are tax-free; deposits get the 80C deduction only in the old regime.",
+    "source": "Ministry of Finance (DEA), 30 Sep 2026",
+    "sourceUrl": "https://dea.gov.in"
   }
 ]

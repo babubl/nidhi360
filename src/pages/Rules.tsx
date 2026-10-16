@@ -14,7 +14,7 @@ export default function Rules() {
     <>
       <PageHero title="Rule updates" intro={`Every rule our tools use, with its official source and the date it applies from. Last verified on ${fmtDate(RULES_CHECKED_ON)}.`}>
         <div className="mt-6">
-          <Segmented label="Filter by area" value={area} onChange={setArea} options={[{ value: "all", label: "All" }, { value: "pf", label: "PF" }, { value: "nps", label: "NPS" }, { value: "tax", label: "Tax" }]} />
+          <Segmented label="Filter by area" value={area} onChange={setArea} options={[{ value: "all", label: "All" }, { value: "pf", label: "PF" }, { value: "nps", label: "NPS" }, { value: "ppf", label: "PPF" }, { value: "tax", label: "Tax" }]} />
         </div>
       </PageHero>
       <Container className="py-10">

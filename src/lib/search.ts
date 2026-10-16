@@ -81,13 +81,14 @@ const TOPICS: Record<string, string[]> = {
   nps: ["nps", "pran", "annuity", "pfrda", "tier", "vatsalya", "ups"],
   pf: ["pf", "epf", "epfo", "uan", "vpf", "passbook", "provident", "kyc", "claim", "epfigms", "nominee", "edli", "settlement"],
   eps: ["eps", "pension"],
+  ppf: ["ppf"],
 };
 const word = (hay: string, w: string) => new RegExp(`(^|[^a-z0-9])${w}($|[^a-z0-9])`).test(hay);
 export const topicsIn = (text: string) => Object.keys(TOPICS).filter((k) => TOPICS[k].some((w) => word(text, w)));
 
 const DOCS: Doc[] = [
   ...ANSWERS.map((a) => ({ kind: "answer" as const, title: a.question, snippet: a.short, to: `/answers/${a.slug}`, keywords: a.keywords, body: a.short, boost: 1 })),
-  ...[...PF_TOOLS, ...NPS_TOOLS].map((t) => ({ kind: "tool" as const, title: t.label, snippet: t.desc, to: t.to, keywords: [], body: t.desc, boost: 0.9 })),
+  ...[...PF_TOOLS, ...NPS_TOOLS].map((t) => ({ kind: "tool" as const, title: t.label, snippet: t.desc, to: t.to, keywords: t.keywords ?? [], body: t.desc, boost: 0.9 })),
   ...GLOSSARY.map((g) => ({ kind: "term" as const, title: g.term, snippet: g.meaning, to: "/glossary", keywords: [g.term.toLowerCase()], body: g.meaning, boost: 0.6 })),
 ];
 

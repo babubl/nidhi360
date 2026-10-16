@@ -1,4 +1,4 @@
-export type Area = "pf" | "nps" | "tax";
+export type Area = "pf" | "nps" | "ppf" | "tax";
 export type RuleStatus = "live" | "announced";
 
 export interface Rule {

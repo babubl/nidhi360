@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CalendarPlus, FileText, FileWarning, HeartPulse, Landmark, PiggyBank, Repeat, Scale, Wallet } from "lucide-react";
+import { ArrowRight, CalendarPlus, FileText, FileWarning, Gauge, HeartHandshake, HeartPulse, Landmark, PiggyBank, Repeat, Scale, Sprout, Wallet } from "lucide-react";
 import { ButtonLink, Container } from "../components/ui";
 import SearchBox from "../components/SearchBox";
 import { FOUNDER } from "../data/team";
@@ -16,6 +16,9 @@ const TOOLS = [
   { to: "/pf/pension", icon: Landmark, title: "EPS pension estimate", body: "Your monthly pension at 58, or earlier or later, and what affects it." },
   { to: "/nps/tax", icon: Scale, title: "NPS tax savings", body: "What NPS saves you in the old and new regimes, and what HR can change." },
   { to: "/nps/retirement", icon: PiggyBank, title: "NPS retirement & exit", body: "Your corpus, the lump sum you can take, the annuity, and the tax on each." },
+  { to: "/retirement", icon: Gauge, title: "Retirement income check", body: "EPF, EPS, NPS and savings together: how long your money lasts, and the gap." },
+  { to: "/pf/family-claim", icon: HeartHandshake, title: "Family claim kit", body: "After a death: PF, up to ₹7 lakh EDLI insurance and family pension, with every form." },
+  { to: "/ppf", icon: Sprout, title: "PPF planner", body: "Maturity value, loan and withdrawal limits each year, and 5-year extensions." },
   { to: "/pf/grievance", icon: FileText, title: "Complaint drafter", body: "A clear EPFiGMS grievance for delayed claims, unpaid PF or a stuck transfer." },
   { to: "/reminders", icon: CalendarPlus, title: "Deadline reminders", body: "Exit date, 12-month settlement, pension at 58, NPS before 60: in your calendar." },
 ];

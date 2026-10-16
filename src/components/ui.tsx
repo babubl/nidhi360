@@ -89,8 +89,8 @@ export function Segmented<T extends string | number>({ value, onChange, options,
   );
 }
 
-const areaLabel: Record<Area, string> = { pf: "PF", nps: "NPS", tax: "Tax" };
-const areaCls: Record<Area, string> = { pf: "bg-brand-50 text-brand-700", nps: "bg-sky-50 text-sky-800", tax: "bg-amber-50 text-amber-800" };
+const areaLabel: Record<Area, string> = { pf: "PF", nps: "NPS", ppf: "PPF", tax: "Tax" };
+const areaCls: Record<Area, string> = { pf: "bg-brand-50 text-brand-700", nps: "bg-sky-50 text-sky-800", ppf: "bg-emerald-50 text-emerald-800", tax: "bg-amber-50 text-amber-800" };
 export function AreaBadge({ area }: { area: Area }) {
   return <span className={cx("inline-flex rounded-md px-2 py-0.5 text-xs font-bold", areaCls[area])}>{areaLabel[area]}</span>;
 }

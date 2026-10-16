@@ -36,6 +36,34 @@ export function clearSavedData() {
   } catch { /* storage unavailable */ }
 }
 
+/** Everything Nidhi360 saved on this device, as a JSON backup (amounts and dates only). */
+export function exportSavedData(): string {
+  const data: Record<string, unknown> = {};
+  try {
+    for (const k of Object.keys(localStorage)) {
+      if (!k.startsWith(PREFIX) || k.startsWith(PREFIX + "visit.")) continue;
+      try { data[k.slice(PREFIX.length)] = JSON.parse(localStorage.getItem(k) ?? "null"); } catch { /* skip unreadable */ }
+    }
+  } catch { /* storage unavailable */ }
+  return JSON.stringify({ app: "nidhi360", version: 1, exported: new Date().toISOString(), data }, null, 2);
+}
+
+/** Restore a backup made by exportSavedData. Returns how many items were restored. */
+export function importSavedData(text: string): number {
+  let parsed: unknown;
+  try { parsed = JSON.parse(text); } catch { throw new Error("That isn't a Nidhi360 backup file."); }
+  const p = parsed as { app?: string; data?: Record<string, unknown> };
+  if (p?.app !== "nidhi360" || !p.data || typeof p.data !== "object") throw new Error("That isn't a Nidhi360 backup file.");
+  let n = 0;
+  for (const [k, v] of Object.entries(p.data)) {
+    if (!/^[\w.-]{1,64}$/.test(k)) continue;
+    const s = JSON.stringify(v);
+    if (s.length > 200_000) continue;
+    try { localStorage.setItem(PREFIX + k, s); n++; } catch { throw new Error("This browser won't let us save data. Is it in private mode?"); }
+  }
+  return n;
+}
+
 /**
  * Date of the person's previous visit (before this browser session), stored on this device only.
  * Powers "what changed since you were last here". Idempotent within a session.
