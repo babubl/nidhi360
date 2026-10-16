@@ -61,7 +61,7 @@ export default function ChatWidget() {
   return (
     <div className="no-print">
       {!open && (
-        <button type="button" onClick={() => { setOpen(true); track("Chat opened"); }} aria-label="Open chat assistant"
+        <button type="button" onClick={() => { setOpen(true); track("Chat opened"); }} aria-label="Ask Nidhi, the chat assistant"
           className={cx("fixed right-4 z-40 flex items-center gap-2 rounded-full border border-gold/40 bg-night p-3.5 text-[15px] sm:py-3 sm:pl-4 sm:pr-5 font-semibold text-ivory shadow-[0_16px_32px_-10px_rgba(0,0,0,0.6)] transition hover:border-gold sm:right-6", onToolPage ? "bottom-24 lg:bottom-6" : "bottom-5 sm:bottom-6")}>
           <MessageCircle className="size-5 text-gold" aria-hidden /><span className="hidden sm:inline">Ask Nidhi</span>
         </button>

@@ -109,7 +109,7 @@ export default function Ppf() {
             )}
 
             {r.years.length > 0 && (
-              <div className="max-h-80 overflow-y-auto rounded-xl border border-line">
+              <div className="max-h-80 overflow-y-auto rounded-xl border border-line focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-100" tabIndex={0} role="region" aria-label="PPF balance year by year">
                 <table className="w-full text-left text-[13.5px]">
                   <caption className="sr-only">PPF balance year by year</caption>
                   <thead className="sticky top-0 bg-canvas text-muted">

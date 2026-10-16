@@ -9,6 +9,13 @@ import { initAnalytics } from "./lib/track";
 
 initAnalytics();
 
+// Installable, offline-capable app in production builds.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register(import.meta.env.BASE_URL + "sw.js", { scope: import.meta.env.BASE_URL }).catch(() => { /* offline support is optional */ });
+  });
+}
+
 const app = (
   <StrictMode>
     <ErrorBoundary>

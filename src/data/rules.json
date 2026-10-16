@@ -338,5 +338,15 @@
     "summary": "The government kept small savings rates unchanged for October–December 2026: PPF 7.1%, Sukanya Samriddhi 8.2%, NSC 7.7%, SCSS 8.2%. PPF rates are reset every quarter; interest is calculated monthly on the lowest balance between the 5th and the month end and credited on 31 March. Deposits, interest and maturity are tax-free; deposits get the 80C deduction only in the old regime.",
     "source": "Ministry of Finance (DEA), 30 Sep 2026",
     "sourceUrl": "https://dea.gov.in"
+  },
+  {
+    "id": "R35",
+    "area": "pf",
+    "status": "live",
+    "effective": "2025-11-21",
+    "title": "Labour codes: wages must be at least half of your pay",
+    "summary": "Under the labour codes in force from 21 November 2025, 'wages' means basic pay, DA and retaining allowance, but if excluded allowances add up to more than 50% of your total pay, the excess is counted as wages. Contributions that depend on wages, such as PF, can therefore be higher for people whose basic pay is a small part of their salary. Employers may still restrict PF to the wage ceiling.",
+    "source": "Code on Wages, 2019, s.2(y); Code on Social Security, 2020, s.2(88); in force 21 Nov 2025",
+    "sourceUrl": "https://labour.gov.in"
   }
 ]

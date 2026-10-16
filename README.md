@@ -21,6 +21,9 @@ PF and NPS, sorted, for salaried India. Nidhi360 tells people what they can with
 | EPS pension | `/pf/pension` | Pension at 50–60, ₹25,000 ceiling transition, 20-year weightage, ₹1,000 minimum |
 | NPS tax | `/nps/tax` | Old vs new regime, employer 14%/10% caps, what to ask HR |
 | NPS retirement | `/nps/retirement` | Corpus projection and the Dec 2025 exit split (80/20, ₹8L/₹12L slabs, premature exit, tax-free 60%) |
+| Passbook doctor | `/pf/passbook` | Drop the EPFO passbook PDF (read in the browser with pdf.js, never uploaded) or paste its text: every month checked for missing, late (after the 15th) or short deposits, wrong employer/EPS split, withdrawals; health score, month grid, prefilled complaint |
+| Claim tracker | `/pf/claims` | Claims saved on the device with a countdown to EPFO's 20-day deadline, stage-by-stage advice, a day-21 calendar reminder, and a prefilled grievance when late or settled-but-not-credited |
+| Payslip PF check | `/pf/payslip` | 12% check, labour codes' 50% wage rule, ceiling restriction, VPF, employer EPF/EPS split, charges never to be deducted |
 | My plan | `/me` | Personal dashboard from details saved on the device: PF at 58, EPS pension, NPS at 60, a "do next" list, upcoming dates, and backup/restore to move data between devices |
 | Retirement income check | `/retirement` | EPF + EPS + NPS + other savings against inflation-adjusted spending: the age the money lasts to, readiness %, and the extra monthly saving that closes the gap |
 | Family claim kit | `/pf/family-claim` | After a member's death: which of Form 20 / 5IF / 10D (or 10C) apply, EDLI estimate (₹50,000–₹7 lakh, 2025 amendments), family pension minimums, documents and filing order, copy/print checklist |
@@ -50,6 +53,14 @@ worker/          Cloudflare Worker AI proxy: holds the Gemini key, grounds answe
 ## Investor memo
 
 See [docs/PITCH.md](docs/PITCH.md) for the problem, market, competition, business model, metrics and the investor-panel feedback behind recent changes.
+
+## Offline and installable
+
+`public/sw.js` makes the site an installable app that works offline: pages are network-first (fresh rules when online, cached copy offline), hashed assets are cache-first. It is registered only in production builds. Calculators, the passbook doctor and saved data all work without a connection.
+
+## Quality checks
+
+Every page is checked with axe-core (WCAG), for console errors and for horizontal scroll at 390px before release. Calculators, the passbook parser and the claim tracker have unit tests; the search benchmark has 60 real questions.
 
 ## Embedding (payroll / HRMS partners)
 

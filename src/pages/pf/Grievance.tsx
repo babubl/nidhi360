@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Check, Copy, ExternalLink } from "lucide-react";
 import { draftGrievance, ISSUE_LABELS, type IssueType } from "../../lib/calc/grievance";
 import { containsSensitive } from "../../lib/calc/rejection";
@@ -17,6 +18,17 @@ export default function Grievance() {
   const [reason, setReason] = useState("");
   const [pending, setPending] = useState("");
   const [copied, setCopied] = useState(false);
+  const [params] = useSearchParams();
+
+  // Prefill from other tools (claim tracker, passbook doctor). Applied after mount so prerendered HTML matches.
+  useEffect(() => {
+    const i = params.get("issue");
+    if (i && i in ISSUE_LABELS) setIssue(i as IssueType);
+    const c = params.get("claim"); if (c) setClaimId(c.slice(0, 40));
+    const f = params.get("filed"); if (f && /^\d{4}-\d{2}-\d{2}$/.test(f)) setFiledOn(f);
+    const m = params.get("months"); if (m) setMonths(m.slice(0, 200));
+    const e = params.get("employer"); if (e) setEmployer(e.slice(0, 100));
+  }, [params]);
 
   const g = draftGrievance({ issue, claimId, filedOn: filedOn || undefined, employer, missingMonths: months, rejectionReason: reason, pendingItem: pending });
   const needsClaim = ["delayed", "settledNotCredited", "rejectedWrongly", "transferStuck"].includes(issue);

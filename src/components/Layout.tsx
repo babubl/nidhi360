@@ -157,7 +157,7 @@ function Footer() {
         </div>
       </Container>
       <div className="border-t border-white/10">
-        <Container className="py-6 text-[12px] leading-relaxed text-ivory/45">
+        <Container className="py-6 text-[12px] leading-relaxed text-ivory/60">
           Nidhi360 is an independent information service. It is not affiliated with EPFO, PFRDA, the Income Tax Department or any government body, and it does not provide investment, tax or legal advice. Always confirm on the official portal before filing. We never ask for your UAN password, OTP, PRAN login or bank details. © {new Date().getFullYear()} Nidhi360.
         </Container>
       </div>
@@ -180,6 +180,20 @@ function useEmbedMode() {
   const inUrl = new URLSearchParams(search).get("embed") === "1";
   try { if (inUrl) sessionStorage.setItem("n360:embed", "1"); return inUrl || sessionStorage.getItem("n360:embed") === "1"; }
   catch { return inUrl; }
+}
+
+/** A quiet banner while offline: the calculators keep working, only AI and live links need a connection. */
+function OfflineNotice() {
+  const [offline, setOffline] = useState(false);
+  useEffect(() => {
+    const set = () => setOffline(!navigator.onLine);
+    set();
+    window.addEventListener("online", set);
+    window.addEventListener("offline", set);
+    return () => { window.removeEventListener("online", set); window.removeEventListener("offline", set); };
+  }, []);
+  if (!offline) return null;
+  return <div role="status" className="no-print bg-amber-100 px-4 py-2 text-center text-[13.5px] text-amber-900">You're offline. Calculators and saved data still work; pages you haven't opened before need a connection.</div>;
 }
 
 export default function Layout() {
@@ -208,6 +222,7 @@ export default function Layout() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">Skip to content</a>
       <Head />
       {!embed && <Header />}
+      <OfflineNotice />
       <main id="main" className="flex-1"><Suspense fallback={<PageSkeleton />}><Outlet /></Suspense></main>
       {!embed && <ChatWidget />}
       {embed

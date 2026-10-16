@@ -1,6 +1,9 @@
 export interface ToolLink { to: string; label: string; desc: string; keywords?: string[] }
 
 export const PF_TOOLS: ToolLink[] = [
+  { to: "/pf/passbook", label: "Passbook doctor", desc: "Drop your passbook: find missing, late or short deposits", keywords: ["passbook", "missing months", "employer not depositing", "check passbook", "pf deposit", "contribution missing", "passbook pdf", "late deposit"] },
+  { to: "/pf/claims", label: "Claim tracker", desc: "Countdown to EPFO's 20-day deadline, and what to do", keywords: ["track claim", "claim status", "claim pending", "20 days", "how long claim", "claim deadline"] },
+  { to: "/pf/payslip", label: "Payslip PF check", desc: "Is the 12% right? The new 50% wage rule, employer share", keywords: ["payslip", "salary slip", "pf deduction", "12 percent", "50% rule", "basic pay", "ctc", "employer share", "wage code", "labour code"] },
   { to: "/pf/health-check", label: "PF account check", desc: "Find what will block your next claim" },
   { to: "/pf/claim-rejected", label: "Claim rejected", desc: "Understand the reason and fix it" },
   { to: "/pf/job-change", label: "Job change & transfer", desc: "Move old PF, merge UANs" },

@@ -1,4 +1,4 @@
-export type AnswerCategory = "claims" | "withdraw" | "account" | "pension" | "nps" | "tax";
+export type AnswerCategory = "claims" | "withdraw" | "account" | "pension" | "nps" | "tax" | "savings";
 
 export const CATEGORY_LABELS: Record<AnswerCategory, string> = {
   claims: "Claims and complaints",
@@ -7,6 +7,7 @@ export const CATEGORY_LABELS: Record<AnswerCategory, string> = {
   pension: "EPS pension and family claims",
   nps: "NPS",
   tax: "Tax",
+  savings: "PPF and savings",
 };
 
 export interface Answer {
@@ -37,7 +38,7 @@ export const ANSWERS: Answer[] = [
       "Check that Aadhaar, PAN and bank all show Verified under Manage › KYC.",
       "Past 20 days, file a grievance on epfigms.gov.in. Our grievance drafter writes it for you.",
     ],
-    tool: { to: "/pf/grievance", label: "Draft my grievance" },
+    tool: { to: "/pf/claims", label: "Track my claim's deadline" },
     rules: ["R6", "R7"],
     keywords: ["pending", "delay", "delayed", "not received", "stuck", "waiting", "processing", "under process", "no money", "status", "pending for days", "not settled", "claim not settled", "still not settled", "slow", "late"],
     related: ["claim-rejected", "employer-not-approving"],
@@ -56,12 +57,12 @@ export const ANSWERS: Answer[] = [
     question: "My employer deducts PF from salary but isn't depositing it.",
     short: "This is a serious violation and EPFO takes it up. Collect proof (payslips showing the deduction and your passbook showing missing months), ask HR in writing, and if it isn't fixed, file a grievance against the employer on EPFiGMS.",
     steps: [
-      "Download your passbook and list the months with no employer deposit.",
+      "Download your passbook and drop it into our passbook doctor: it lists every missing, late or short month.",
       "Match them with payslips that show PF deducted.",
       "Email HR the list and ask for a date by which it will be deposited.",
       "If there's no fix, file on EPFiGMS against the establishment. Our grievance drafter writes it.",
     ],
-    tool: { to: "/pf/grievance", label: "Draft my grievance" },
+    tool: { to: "/pf/passbook", label: "Find the missing months" },
     rules: ["R6"],
     keywords: ["employer", "company", "not deposited", "not paying", "deducted", "missing months", "passbook empty", "contribution missing", "fraud", "default"],
     related: ["employer-closed", "check-balance"],
@@ -575,6 +576,73 @@ export const ANSWERS: Answer[] = [
     rules: ["R25"],
     keywords: ["interest tax", "vpf interest tax", "vpf tax", "2.5 lakh", "250000", "high contribution", "taxable interest"],
     related: ["withdraw-tax", "interest-rate"],
+  },
+  {
+    slug: "check-passbook-problems", category: "account",
+    question: "How do I know if my PF passbook is correct?",
+    short: "Every month should show a deposit made by the 15th of the next month, your share at 12% of PF wages, and your employer's EPF plus pension adding up to another 12%. Drop your passbook PDF into our passbook doctor and it checks every month for you, on your device.",
+    steps: [
+      "Download the passbook from passbook.epfindia.gov.in for each member ID and year.",
+      "Look for gaps: a month with no row means no deposit for it.",
+      "Check the date: credits after the 15th of the following month are late.",
+      "Compare your share with the PF deducted on the payslip for the same month.",
+    ],
+    tool: { to: "/pf/passbook", label: "Check my passbook" },
+    rules: ["R1", "R10"],
+    keywords: ["passbook correct", "check passbook", "passbook wrong", "missing month", "late deposit", "verify pf", "passbook mistake", "is my pf correct", "passbook pdf"],
+    related: ["employer-not-depositing", "download-passbook"],
+  },
+  {
+    slug: "fifty-percent-wage-rule", category: "account",
+    question: "My basic pay is low. Does the new 50% wage rule change my PF?",
+    short: "It can. Under the labour codes in force from 21 November 2025, if your allowances are more than half your total pay, the excess counts as wages, so PF may have to be calculated on a higher figure. Employers can still restrict PF to the ₹25,000 ceiling, so people on higher salaries may see no change.",
+    steps: [
+      "Add up basic, DA and retaining allowance, and compare it with your total monthly pay.",
+      "If it's under half, ask HR whether PF now uses the new wage definition.",
+      "Remember the trade-off: higher PF means more tax-free savings but slightly lower take-home pay.",
+    ],
+    tool: { to: "/pf/payslip", label: "Check my payslip" },
+    rules: ["R35", "R10"],
+    keywords: ["50%", "50 percent", "half", "basic pay", "wage code", "labour code", "new labour code", "allowances", "take home", "ctc", "salary structure", "payslip"],
+    related: ["wage-ceiling-25000", "vpf"],
+  },
+  {
+    slug: "edli-between-jobs", category: "pension",
+    question: "Is my family covered by EDLI insurance between jobs?",
+    short: "Partly. Since July 2025, a gap of up to 60 days between two jobs doesn't break continuous service for the ₹2.5 lakh minimum, and a member who dies within 6 months of the last PF contribution is covered if still on the employer's rolls. A member without 12 months' continuous service gets at least ₹50,000.",
+    tool: { to: "/pf/family-claim", label: "See what a family can claim" },
+    rules: ["R33", "R26"],
+    keywords: ["edli between jobs", "insurance between jobs", "gap between jobs", "notice period death", "edli minimum", "50000", "life cover pf", "edli eligibility"],
+    related: ["family-member-died", "add-nominee"],
+  },
+  {
+    slug: "enough-to-retire", category: "pension",
+    question: "Will my PF and pension be enough to retire on?",
+    short: "For most salaried people, not on their own. EPS pays a fixed amount that doesn't rise with prices, and EPF is a lump sum that has to last 25–30 years. Add your EPF, EPS, NPS and other savings in our retirement check to see the age your money lasts to and how much more to save each month.",
+    tool: { to: "/retirement", label: "Check my retirement" },
+    rules: ["R11", "R14", "R15"],
+    keywords: ["enough to retire", "retirement corpus", "how much to retire", "retirement planning", "will my money last", "retire early", "fire", "retirement enough", "pension enough"],
+    related: ["eps-how-much", "pf-at-retirement", "pf-vs-nps"],
+  },
+
+  // ---- PPF
+  {
+    slug: "ppf-maturity", category: "savings",
+    question: "What happens when my PPF matures after 15 years?",
+    short: "You have three choices: close it and take the full tax-free balance; extend it for 5 years with deposits (submit Form 4 within a year of maturity); or do nothing, and it continues without deposits, still earning interest, with one withdrawal of any amount allowed each year. You can extend in 5-year blocks as many times as you like.",
+    tool: { to: "/ppf", label: "Plan my PPF" },
+    rules: ["R34"],
+    keywords: ["ppf maturity", "ppf 15 years", "ppf extend", "ppf extension", "form 4", "ppf matured", "close ppf", "ppf after 15 years"],
+    related: ["ppf-loan-withdrawal"],
+  },
+  {
+    slug: "ppf-loan-withdrawal", category: "savings",
+    question: "Can I take a loan or withdraw money from my PPF?",
+    short: "Loans are allowed from the 3rd to the 6th financial year, up to 25% of the balance two years earlier, at 1% above the PPF rate. From the 7th year you can withdraw once a year, up to half of the lower of the balance four years earlier or last year. Withdrawals are tax-free.",
+    tool: { to: "/ppf", label: "See my limits by year" },
+    rules: ["R34"],
+    keywords: ["ppf loan", "ppf withdrawal", "withdraw ppf", "ppf partial", "ppf 7th year", "ppf premature", "ppf money out", "ppf emergency"],
+    related: ["ppf-maturity"],
   },
 ];
 

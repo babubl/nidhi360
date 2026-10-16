@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CalendarPlus, FileText, FileWarning, Gauge, HeartHandshake, HeartPulse, Landmark, PiggyBank, Repeat, Scale, Sprout, Wallet } from "lucide-react";
+import { ArrowRight, CalendarPlus, FileSearch, FileText, FileWarning, Gauge, HeartHandshake, HeartPulse, Landmark, PiggyBank, ReceiptText, Repeat, Scale, ShieldCheck, Sprout, Timer, Wallet } from "lucide-react";
+import { analysePassbook, parsePassbook, SAMPLE_PASSBOOK } from "../lib/calc/passbook";
 import { ButtonLink, Container } from "../components/ui";
 import SearchBox from "../components/SearchBox";
 import { FOUNDER } from "../data/team";
@@ -9,6 +10,9 @@ import { estimateWithdrawal } from "../lib/calc/pfWithdrawal";
 import { fmtDate, inr } from "../lib/format";
 
 const TOOLS = [
+  { to: "/pf/passbook", icon: FileSearch, title: "Passbook doctor", body: "Drop your passbook PDF. Every missing, late or short deposit, found in seconds." },
+  { to: "/pf/claims", icon: Timer, title: "Claim tracker", body: "Countdown to EPFO's 20-day deadline, and a ready complaint the day it's late." },
+  { to: "/pf/payslip", icon: ReceiptText, title: "Payslip PF check", body: "Is the 12% right? The new 50% wage rule, employer share and pension." },
   { to: "/pf/health-check", icon: HeartPulse, title: "PF account check", body: "11 quick questions that catch the problems behind most rejected claims." },
   { to: "/pf/claim-rejected", icon: FileWarning, title: "Claim rejected?", body: "Paste the rejection reason. Get what it means and exactly how to fix it." },
   { to: "/pf/job-change", icon: Repeat, title: "Job change & transfer", body: "Move PF from old employers, merge a second UAN, handle a closed company." },
@@ -65,8 +69,50 @@ function HeroPreview() {
   );
 }
 
+/** The passbook doctor's month grid, rendered from the real analyser on the sample passbook. */
+const SAMPLE_REPORT = analysePassbook(parsePassbook(SAMPLE_PASSBOOK), new Date("2026-04-20T00:00:00"));
+const CELL: Record<string, string> = { ok: "bg-emerald-500", arrear: "bg-emerald-300", late: "bg-amber-400", short: "bg-orange-500", missing: "bg-red-500" };
+
+function PassbookShowcase() {
+  const m = SAMPLE_REPORT.months;
+  return (
+    <section className="relative overflow-hidden bg-night text-ivory">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(201,168,106,0.14),transparent_55%)]" aria-hidden />
+      <Container className="relative grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-gold">New · Passbook doctor</p>
+          <h2 className="mt-4 text-[38px] leading-[1.02] !text-ivory sm:text-[58px]">Is all your PF<br />really there?</h2>
+          <p className="mt-6 max-w-lg text-[18px] leading-relaxed text-ivory/65">Drop your EPF passbook PDF. In seconds, every month is checked: deposited, on time, at the full 12%, with the right pension share. Missing months come with a complaint ready to file.</p>
+          <p className="mt-6 flex items-center gap-2 text-[14px] text-ivory/60"><ShieldCheck className="size-4 text-gold" aria-hidden />Read on your device. Never uploaded. No UAN or login.</p>
+          <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <ButtonLink to="/pf/passbook" variant="gold" className="!rounded-full px-7 py-3.5 text-base">Check my passbook</ButtonLink>
+            <Link to="/pf/claims" className="text-[16px] font-medium text-ivory/80 no-underline hover:text-ivory">Track a claim instead ›</Link>
+          </div>
+        </div>
+        <div className="rounded-[28px] border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-7 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] sm:p-9" aria-label="Example passbook check">
+          <div className="flex items-center justify-between text-[13px]">
+            <p className="font-medium text-ivory/60">Sample passbook · Apr 2025 – Mar 2026</p>
+            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] text-ivory/60">Example</span>
+          </div>
+          <div className="mt-7 grid grid-cols-6 gap-2 sm:grid-cols-12" role="img" aria-label={`12 months checked: ${SAMPLE_REPORT.missing.length} missing, ${SAMPLE_REPORT.late.length} late, ${SAMPLE_REPORT.short.length} short`}>
+            {m.map((c) => <span key={c.month} className={`aspect-square rounded-md ${CELL[c.state]}`} />)}
+          </div>
+          <div className="mt-2 grid grid-cols-6 gap-2 text-center text-[10px] text-ivory/40 sm:grid-cols-12" aria-hidden>
+            {m.map((c) => <span key={c.month}>{new Date(c.month + "-01T00:00:00").toLocaleString("en-IN", { month: "short" }).slice(0, 3)}</span>)}
+          </div>
+          <ul className="mt-8 space-y-3 text-[15px]">
+            <li className="flex items-center gap-3"><span className="size-2.5 rounded-full bg-red-500" aria-hidden /><span className="text-ivory/85">September: no deposit</span><span className="ml-auto text-[13px] font-medium text-gold">Complaint ready</span></li>
+            <li className="flex items-center gap-3"><span className="size-2.5 rounded-full bg-amber-400" aria-hidden /><span className="text-ivory/85">July: deposited 11 days late</span></li>
+            <li className="flex items-center gap-3"><span className="size-2.5 rounded-full bg-orange-500" aria-hidden /><span className="text-ivory/85">December: your share ₹440 short</span></li>
+          </ul>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 const QUICK = [
-  { to: "/pf/health-check", icon: HeartPulse, title: "Check my PF account" },
+  { to: "/pf/passbook", icon: FileSearch, title: "Is all my PF there?" },
   { to: "/pf/claim-rejected", icon: FileWarning, title: "My claim was rejected" },
   { to: "/pf/withdraw", icon: Wallet, title: "How much can I withdraw?" },
   { to: "/pf/job-change", icon: Repeat, title: "I changed jobs" },
@@ -113,6 +159,8 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      <PassbookShowcase />
 
       <section id="tools" className="scroll-mt-24 bg-canvas py-24 sm:py-32">
         <Container>
